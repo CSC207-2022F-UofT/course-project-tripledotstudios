@@ -1,11 +1,9 @@
 # Team Responsibilities for Classes
 
-- Taha : ItemData, ItemManager
-- Chris : Event & CombatEvent & EnemyData & QuestionsData (data classes), CombatInteractor, (maybe EventManager)
-- Natasha : PlayerData, PlayerInteractor
-- Alaina : LoadInteractor, <LoadInterface>, SaveInteractor, <SaveInterface>
-- Josh : StorylineInteractor, <StorylineInterface>
-- Ludan : ViewController, View
-- Gwen : SoundInteractor
-
-(LoginInteractor to be determined)
+- **Taha** : `ItemData`, `ItemManager` *(end of Oct 29)*
+- **Chris** : `Event` & `CombatEvent` & `EnemyData` & `QuestionsData`, `CombatInteractor`, `EventManager` *(end of Oct 29)*
+- **Natasha** : `PlayerData`, `PlayerInteractor` *(end of Oct 29)*
+- **Alaina** : `LoadInteractor`, `<LoadInterface>`, `SaveInteractor`, `<SaveInterface>`
+- **Josh** : `StorylineInteractor`, `<StorylineInterface>`
+- **Ludan** : `ViewController`, `View`
+- **Gwen** : `SoundInteractor`, `LoginInteractor`
