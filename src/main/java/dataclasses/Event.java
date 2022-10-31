@@ -51,13 +51,23 @@ public class Event {
         return soundFile;
     }
 
+    protected final boolean doesAutoSave;  // Whether the game auto-saves upon this Event or not
+    /**
+     * Returns whether the game auto-saves upon this Event or not.
+     * @return whether the game auto-saves (as a boolean)
+     */
+    public boolean getDoesAutoSave() {
+        return doesAutoSave;
+    }
+
     public Event(int UUID, String narration, List<String> choicesNarrations,
-                 List<Integer> choicesNextUUIDs, String soundFile) {
+                 List<Integer> choicesNextUUIDs, String soundFile, boolean doesAutoSave) {
         this.UUID = UUID;
         this.narration = narration;
         this.choicesNarrations = choicesNarrations;
         this.choicesNextUUIDs = choicesNextUUIDs;
         this.soundFile = soundFile;
+        this.doesAutoSave = doesAutoSave;
     }
 
 }
