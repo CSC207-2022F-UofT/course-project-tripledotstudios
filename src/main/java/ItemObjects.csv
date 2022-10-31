@@ -1,0 +1,3 @@
+ItemName, ItemEffectAttribute, ItemEffectValue
+"Health Potion", "health", 100
+"Attack Potion", "attack", 50
