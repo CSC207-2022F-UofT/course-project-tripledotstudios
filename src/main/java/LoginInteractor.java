@@ -6,14 +6,16 @@ public class LoginInteractor {
      * @param password
      * @return
      */
-    public void validateLogin(String username, String password) { // should be boolean
-
+    public boolean validateLogin(String username, String password) {
+        // return false if no match
+        return true;
     }
 
     /**
      *
      */
-    public void createAccount() {
-
+    public void createAccount(String username, String password) {
+        // write new user to file
+        // call on validateLogin to log in as new user
     }
 }
