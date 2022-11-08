@@ -9,7 +9,7 @@ import java.util.HashMap;
  */
 public class PlayerData implements Serializable {
     /** Stores the health of the PlayerData object */
-    private int health;
+    public static final int MAXHEALTH = 500;
 
     /** Stores the attack power of the PlayerData object */
     private int attackPower;
@@ -27,30 +27,12 @@ public class PlayerData implements Serializable {
      * Constructor
      * @param username The username of the Player
      * @param eventID The current event
-     * @param health The Player's health
      */
-    public PlayerData(String username, int eventID, int health, int ap) {
+    public PlayerData(String username, int eventID, int ap) {
         inventory = new HashMap<String, ArrayList<ItemData>>();
         this.eventID = eventID;
-        this.health = health;
         this.username = username;
         this.attackPower = ap;
-    }
-
-    /**
-     * Returns the health status of the PlayerData object.
-     * @return health
-     */
-    public int getHealth() {
-        return health;
-    }
-
-    /**
-     * Updates the value of the PlayerData's health.
-     * @param health the new value for health
-     */
-    public void setHealth(int health) {
-        this.health = health;
     }
 
     /**
