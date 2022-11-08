@@ -3,28 +3,28 @@
  */
 public class ItemData {
 
-    private final String itemname; // Name of the item
+    private final String name; // Name of the item
 
-    private final String itemattrib; // The Attribute the item affects
+    private final String attribute; // The Attribute the item affects
 
-    private final int itemvalue; // The value of the item's effect
+    private final int value; // The value of the item's effect
 
-    public ItemData(String itemname, String itemattrib, int itemvalue){
-        this.itemname = itemname;
-        this.itemattrib = itemattrib;
-        this.itemvalue = itemvalue;
+    public ItemData(String name, String attribute, int value){
+        this.name = name;
+        this.attribute = attribute;
+        this.value = value;
     }
 
-    public String getItemname(){
-        return this.itemname;
+    public String getName(){
+        return this.name;
     }
 
-    public String getItemattrib(){
-        return this.itemattrib;
+    public String getAttribute(){
+        return this.attribute;
     }
 
-    public int getItemvalue(){
-        return this.itemvalue;
+    public int getValue(){
+        return this.value;
     }
 
 }

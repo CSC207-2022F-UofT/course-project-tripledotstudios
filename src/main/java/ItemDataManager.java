@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,14 +9,13 @@ import java.util.List;
 public class ItemDataManager{
     public List<ItemData> lst = new ArrayList<>(); // List of ItemData Objects;
 
-    public ItemDataManager(){
+    public ItemDataManager(String fileName){
         String line = "";
         String splitBy = ",";
 
         try{
             //parsing a CSV file into BufferedReader class constructor
-            BufferedReader br = new BufferedReader(new FileReader("CSVDemo.csv"));
-
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
             while ((line = br.readLine()) != null)   //returns a Boolean value
             {
                 String[] e = line.split(splitBy);    // use comma as separator
@@ -26,7 +23,7 @@ public class ItemDataManager{
                 lst.add(item);
             }
         }
-        catch (IOException e){
+        catch (Exception e){
             e.printStackTrace();
         }
     }
