@@ -1,10 +1,13 @@
+/**
+ * ItemData class that has information of what one Item object has as attributes and methods.
+ */
 public class ItemData {
 
-    private String itemname; // Name of the item
+    private final String itemname; // Name of the item
 
-    private String itemattrib; // The Attribute the item affects
+    private final String itemattrib; // The Attribute the item affects
 
-    private int itemvalue; // The value of the item's effect
+    private final int itemvalue; // The value of the item's effect
 
     public ItemData(String itemname, String itemattrib, int itemvalue){
         this.itemname = itemname;

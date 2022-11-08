@@ -2,9 +2,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * ItemDataManager class that reads through the ItemData csv and stores objects of type ItemData
+ * in a list.
+ */
 public class ItemDataManager{
-    public ArrayList<ItemData> lst = new ArrayList<>(); // List of ItemData Objects;
+    public List<ItemData> lst = new ArrayList<>(); // List of ItemData Objects;
 
     public ItemDataManager(){
         String line = "";
@@ -26,7 +31,11 @@ public class ItemDataManager{
         }
     }
 
-    public ArrayList<ItemData> getItemData(){
+    /**
+     * method that returns the list of ItemData objects made from ItemManager
+     * @return list
+     */
+    public List<ItemData> getItemData(){
         return this.lst;
     }
 }
