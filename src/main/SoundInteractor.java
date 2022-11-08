@@ -3,8 +3,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class SoundInteractor {
-    private static Media sound;
-    private static MediaPlayer mediaPlayer;
+    private Media sound;
+    private MediaPlayer mediaPlayer;
 
     /**
      * Constructor.
@@ -22,11 +22,9 @@ public class SoundInteractor {
      */
     public static void playSound(String filepath) {
         try {
-            if (this.sound != null){
-                this.stopSound()
-            }
+            this.stopSound()
             this.sound = new Media(filepath);
-            this.mediaPlayer = new MediaPlayer(sound);
+            this.mediaPlayer = new MediaPlayer(this.sound);
             this.mediaPlayer.play();
         }
         catch(Exception e) {
@@ -35,7 +33,7 @@ public class SoundInteractor {
     }
 
     /**
-     * Stops playing audio file.
+     * Stops playing any audio that is currently playing.
      */
     public static void stopSound() {
         if (this.mediaPlayer != null) {
