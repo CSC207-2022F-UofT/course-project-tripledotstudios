@@ -1,22 +1,26 @@
-import java.util.Objects;
 import java.util.Scanner;
 
-interface StorylineInteractorInterface {
-    public void display_event(); //display string objects
-    public void display_event_choices(); //display event choices
-    public void display_lose();
-    public void display_lose_options();
-    public void returnHomeScreen();
-    public void display_exit();
+interface StorylineInterface {
+    public void display_event(String string); //display string objects
+    public int display_event_choices(String string); //prompt Player to input choice and return the choice
+    public void display_lose(); //display losing screen
+    public void display_exit(); //display Exit screen
+    public String display_exit_options(); //prompt Player to input choice from Exit options and return the choice
+    public void returnHomeScreen(); //return to the HomeScreen
 }
 public class StorylineInteractor {
 
-    /** Create the Player and set them on their first Event. The method
-     * takes in the username set by LoginInteractor
+    /**Create and return a Player
      */
-    public void startGame(String username) {
-        first_event = EventManager.getEvent(1000);
-        player = PlayerData(username, first_event, 100);
+    public PlayerData createPlayer(String username, int eventID) {
+        player = PlayerData(username, eventID, 100, 10);
+        return player;
+    }
+
+    /** Set Player on their first Event. The method
+     * takes in the username set by LoginInteractor.
+     */
+    public void startGame(PlayerData player) {
         StorylineInteractor.playEvent(player);
     }
 
@@ -27,7 +31,7 @@ public class StorylineInteractor {
 
         //Choice options
         Scanner choice_reader = new Scanner(System.in);
-        ViewController.display_lose_options();
+        ViewController.display_exit_options();
         String choice = choice_reader.nextLine();
 
         SaveInteractor.loadSave();
@@ -46,8 +50,7 @@ public class StorylineInteractor {
         ViewController.display_exit();
 
         //Choice options
-        Scanner choice_reader = new Scanner(System.in);
-        ViewController.display_lose_options();
+        Scanner choice_reader = new Scanner(ViewController.display_exit_options());
         String choice = choice_reader.nextLine();
 
         SaveInteractor.loadSave();
@@ -77,10 +80,8 @@ public class StorylineInteractor {
 
             ViewController.display_event(event.getNarration());
 
-            //idk how to implement combat features
-
             if (CombatInteractor.initiateCombat(event) == True) {
-                player.eventID = event.getChoicesNextUUIDs()[0];
+                PlayerInteractor.updateEvent.(event.getChoicesNextUUIDs()[0]);
             }
             else {
                 ///Player loses
@@ -95,15 +96,15 @@ public class StorylineInteractor {
             ViewController.display_event(event.getNarration());
 
             //User input system
-            Scanner choice_reader = new Scanner(System.in);
-            ViewController.display_event_choices(event.getChoicesNarrations());
+            Scanner choice_reader = new
+                    Scanner(ViewController.display_event_choices(event.getChoicesNarrations()));
 
             //idk if choice buttons are integers
             int choice = choice_reader.nextInt();
 
             for (int next_event : event.getChoicesNextUUIDs()) {
                 if (choice == next_event) {
-                    player.eventID = choice;
+                    PlayerInteractor.updateEvent(choice);
                     break;
                 }
             }
