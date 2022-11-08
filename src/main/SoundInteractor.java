@@ -8,8 +8,11 @@ public class SoundInteractor {
      * Plays audio file.
      */
     public static void playSound(String filepath) {
+        // need to stop any sound that is already playing first
         try {
-
+            Media sound = new Media(filepath);
+            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+            mediaPlayer.play();
         }
         catch(Exception e) {
             System.out.println("Could not play sound.");
