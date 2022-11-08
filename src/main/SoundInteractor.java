@@ -41,6 +41,7 @@ public class SoundInteractor {
     public static void stopSound() {
         try {
             this.mediaPlayer.stop();
+            this.sound, this.mediaPlayer = null;
         }
         catch(Exception e) {
             System.out.println("Could not stop playing sound.");
