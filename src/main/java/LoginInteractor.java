@@ -1,4 +1,10 @@
+// import PlayerData
+
 public class LoginInteractor {
+
+    public LoginInteractor() { // parameter should be a csv file
+        // read csv file and create hashmap mapping usernames to passwords
+    }
 
     /**
      * Returns true iff username and password match each other.
