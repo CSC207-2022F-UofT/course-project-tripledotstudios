@@ -1,4 +1,6 @@
 public class ItemData {
-    String name;
+    public String getName() {
+        return "";
+    }
     public ItemData(){}
 }

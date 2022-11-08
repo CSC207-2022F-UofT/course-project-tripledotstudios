@@ -108,12 +108,12 @@ public class PlayerData implements Serializable {
      */
     public void addToInventory(ItemData item) {
         // if the item is not already in the map, create a list for it.
-        if (!inventory.containsKey(item.name)) {
-            inventory.put(item.name, new ArrayList<ItemData>());
+        if (!inventory.containsKey(item.getName())) {
+            inventory.put(item.getName(), new ArrayList<ItemData>());
         }
 
         // add the item to the list in the hashmap.
-        inventory.get(item.name).add(item);
+        inventory.get(item.getName()).add(item);
     }
 
     /**
@@ -125,14 +125,14 @@ public class PlayerData implements Serializable {
         // boolean to determine if the value was returned successfuly.
         boolean removed = false;
         // assign a pointer to the list contained in the hashmap
-        ArrayList<ItemData> pointer = inventory.get(item.name);
+        ArrayList<ItemData> pointer = inventory.get(item.getName());
 
         // removes the item if it is in the inventory
         removed = pointer.remove(item);
 
         // if the list is empty, we will entirely remove the entry from the hashmap
         if (pointer.isEmpty()) {
-            inventory.remove(item.name);
+            inventory.remove(item.getName());
         }
 
         // returns whether this was successful
@@ -145,6 +145,6 @@ public class PlayerData implements Serializable {
      * @return the number of instances of the item type in the inventory.
      */
     public int itemCount(ItemData item) {
-        return inventory.get(item.name).size();
+        return inventory.get(item.getName()).size();
     }
 }
