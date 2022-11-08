@@ -5,27 +5,28 @@ import javafx.scene.media.MediaPlayer;
 public class SoundInteractor {
     private static Media sound;
     private static MediaPlayer mediaPlayer;
+
     /**
-     *
+     * Constructor.
+     * @param sound
+     * @param mediaPlayer
      */
-    public SoundInteractor(String filepath) {
-        try {
-            // these all need to be static variables!
-            this.sound = new Media(filepath);
-            this.mediaPlayer = new MediaPlayer(sound);
-            mediaPlayer.play();
-        }
-        catch(Exception e) {
-            System.out.println(""); // add error message
-        }
+    public SoundInteractor() {
+            this.sound = null;
+            this.mediaPlayer = null;
     }
 
     /**
-     * Plays audio file.
+     * Plays audio file at location filepath.
      */
-    public static void playSound() {
+    public static void playSound(String filepath) {
         try {
-
+            if (this.sound != null){
+                this.stopSound()
+            }
+            this.sound = new Media(filepath);
+            this.mediaPlayer = new MediaPlayer(sound)
+            this.mediaPlayer.play();
         }
         catch(Exception e) {
             System.out.println("Could not play sound.");
@@ -36,6 +37,12 @@ public class SoundInteractor {
      * Stops playing audio file.
      */
     public static void stopSound() {
+        try {
+            this.mediaPlayer.stop();
+        }
+        catch(Exception e) {
+            System.out.println("Could not stop playing sound.");
+        }
 
     }
 
