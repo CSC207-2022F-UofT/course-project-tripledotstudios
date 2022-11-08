@@ -38,8 +38,10 @@ public class SoundInteractor {
      * Stops playing audio file.
      */
     public static void stopSound() {
+        if (this.mediaPlayer != null) {
             this.mediaPlayer.stop();
-            this.sound, this.mediaPlayer = null;
+        }
+        this.sound, this.mediaPlayer = null;
     }
 
 }
