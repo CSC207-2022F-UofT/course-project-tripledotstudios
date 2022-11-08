@@ -26,7 +26,7 @@ public class SoundInteractor {
                 this.stopSound()
             }
             this.sound = new Media(filepath);
-            this.mediaPlayer = new MediaPlayer(sound)
+            this.mediaPlayer = new MediaPlayer(sound);
             this.mediaPlayer.play();
         }
         catch(Exception e) {
