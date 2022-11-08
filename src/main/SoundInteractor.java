@@ -1,3 +1,7 @@
+import java.io.File;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 public class SoundInteractor {
 
     /**
@@ -8,7 +12,7 @@ public class SoundInteractor {
 
         }
         catch(Exception e) {
-            // show error message
+            System.out.println("Could not play sound.");
         }
     }
 
