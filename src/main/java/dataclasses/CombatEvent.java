@@ -9,8 +9,6 @@ public class CombatEvent extends Event {
     private EnemyData enemy;  // The enemy encountered
     private List<QuestionData> questions;  // The questions that are within the CombatEvent
 
-    // TODO: Add instance var for the reward the player gets.
-
     /**
      * Default constructor.
      * TODO: Refine the constructor to better initialize enemy and questions.
