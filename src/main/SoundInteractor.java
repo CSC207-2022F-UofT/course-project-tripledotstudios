@@ -18,7 +18,7 @@ public class SoundInteractor {
 
     /**
      * Plays audio file at location filepath.
-     * @throws e if
+     * @throws e if sound cannot be played.
      */
     public static void playSound(String filepath) {
         try {
@@ -36,16 +36,10 @@ public class SoundInteractor {
 
     /**
      * Stops playing audio file.
-     * @throws e if
      */
     public static void stopSound() {
-        try {
             this.mediaPlayer.stop();
             this.sound, this.mediaPlayer = null;
-        }
-        catch(Exception e) {
-            System.out.println("Could not stop playing sound.");
-        }
     }
 
 }
