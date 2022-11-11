@@ -29,22 +29,6 @@ public class PlayerInteractor {
     }
 
     /**
-     * Updates the Player's health.
-     * @param val The amount of health to add.
-     */
-    public void updateHealth(int val) {
-        player.setHealth(player.getHealth() + val);
-    }
-
-    /**
-     * Returns the PlayerData object's health status.
-     * @return The health of the PlayerData object.
-     */
-    public int getPlayerHealth() {
-        return player.getHealth();
-    }
-
-    /**
      * Updates the player's attack power.
      * @param attackPower the value to be added to the PlayerData object.
      */
@@ -73,14 +57,6 @@ public class PlayerInteractor {
      */
     public int getPlayerEventID() {
         return player.getEventID();
-    }
-
-    /**
-     * Sets the username of the PlayerData object.
-     * @param un The new username value.
-     */
-    public void setPlayerUsername(String un) {
-        player.setUsername(un);
     }
 
     /**

@@ -18,7 +18,7 @@ public class PlayerData implements Serializable {
     private int eventID;
 
     /** The username of the player */
-    private String username;
+    private final String username;
 
     /** The inventory of the PlayerData stores the name of the item mapped to the ItemData object */
     private HashMap<String, ArrayList<ItemData>> inventory;
@@ -73,14 +73,6 @@ public class PlayerData implements Serializable {
      */
     public String getUsername() {
         return username;
-    }
-
-    /**
-     * Updates the PlayerData object's value.
-     * @param username the new username
-     */
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     /**
