@@ -1,17 +1,19 @@
-/** relevant imports*/
+package entities; /** relevant imports*/
+import entities.ItemData;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
 /**
- * The PlayerData class
+ * The entities.PlayerData class
  */
 public class PlayerData implements Serializable {
-    /** Stores the health of the PlayerData object */
+    /** Stores the health of the entities.PlayerData object */
     public static final int MAXHEALTH = 500;
 
-    /** Stores the attack power of the PlayerData object */
+    /** Stores the attack power of the entities.PlayerData object */
     private int attackPower;
 
     /** The current event */
@@ -20,7 +22,7 @@ public class PlayerData implements Serializable {
     /** The username of the player */
     private final String username;
 
-    /** The inventory of the PlayerData stores the name of the item mapped to the ItemData object */
+    /** The inventory of the entities.PlayerData stores the name of the item mapped to the entities.ItemData object */
     private HashMap<String, ArrayList<ItemData>> inventory;
 
     /**
@@ -36,7 +38,7 @@ public class PlayerData implements Serializable {
     }
 
     /**
-     * Returns the value of the PlayerData object's Attack Power
+     * Returns the value of the entities.PlayerData object's Attack Power
      * @return attackPower
      */
     public int getAttackPower() {
@@ -44,7 +46,7 @@ public class PlayerData implements Serializable {
     }
 
     /**
-     * Updates the PlayerData's attack power
+     * Updates the entities.PlayerData's attack power
      * @param attackPower the new value for attackPower
      */
     public void setAttackPower(int attackPower) {
@@ -52,7 +54,7 @@ public class PlayerData implements Serializable {
     }
 
     /**
-     * Returns the eventID of the PlayerData object
+     * Returns the eventID of the entities.PlayerData object
      * @return eventID
      */
     public int getEventID() {
@@ -68,7 +70,7 @@ public class PlayerData implements Serializable {
     }
 
     /**
-     * Returns the username of the PlayerData object
+     * Returns the username of the entities.PlayerData object
      * @return username
      */
     public String getUsername() {
@@ -76,9 +78,9 @@ public class PlayerData implements Serializable {
     }
 
     /**
-     * Adds an ItemData object to the PlayerData object's inventory.
-     * Creates a new list of ItemData if there is not already one.
-     * @param item The ItemData object that is added to the PlayerData's inventory.
+     * Adds an entities.ItemData object to the entities.PlayerData object's inventory.
+     * Creates a new list of entities.ItemData if there is not already one.
+     * @param item The entities.ItemData object that is added to the entities.PlayerData's inventory.
      */
     public void addToInventory(ItemData item) {
         // if the item is not already in the map, create a list for it.
@@ -91,9 +93,9 @@ public class PlayerData implements Serializable {
     }
 
     /**
-     * Removes an ItemData object from the PlayerData object's inventory.
-     * @param item The ItemData object that is removed from the inventory.
-     * @return removed Whether the ItemData object was removed.
+     * Removes an entities.ItemData object from the entities.PlayerData object's inventory.
+     * @param item The entities.ItemData object that is removed from the inventory.
+     * @return removed Whether the entities.ItemData object was removed.
      */
     public boolean removeFromInventory(ItemData item) {
         // boolean to determine if the value was returned successfuly.
@@ -115,7 +117,7 @@ public class PlayerData implements Serializable {
 
     /**
      * Returns the number of items of a type in a list.
-     * @param item The ItemData object that we count in the inventory.
+     * @param item The entities.ItemData object that we count in the inventory.
      * @return the number of instances of the item type in the inventory.
      */
     public int itemCount(ItemData item) {
