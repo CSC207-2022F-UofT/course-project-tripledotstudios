@@ -1,8 +1,9 @@
 package useCases;
+import entities.PlayerData;
 
 import java.io.*;
 
-public class LoadInteractor {
+public class LoadInteractor implements Writer {
     /**
      * Loads the player data from the file path
      *
