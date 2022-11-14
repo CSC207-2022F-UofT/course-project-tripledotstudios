@@ -1,6 +1,6 @@
 import java.io.File;
 import javax.sound.sampled.*;
-import java.lang.Exception;
+import java.io.IOException;
 
 public class SoundInteractor {
     private Clip sound;
@@ -8,24 +8,33 @@ public class SoundInteractor {
     private AudioInputStream inputStream;
 
     public SoundInteractor() {
-        this.isPlaying = false;
+        isPlaying = false;
     }
 
     /**
-     * Plays audio file located at </filepath>.
+     * Plays new audio located at </filepath>.
+     * @param filepath a String of the desired audio's path.
      */
     public void playSound(String filepath) {
         try {
-            this.stopSound();
+            // Stop any sound that may already be playing
+            stopSound();
+            // Create a File from the desired audio's path
             File audioFile = new File(filepath);
-            this.inputStream = AudioSystem.getAudioInputStream(audioFile);
-            this.sound = AudioSystem.getClip();
-            this.sound.open(inputStream);
-            this.sound.start();
-            this.isPlaying = true;
-        }
-        catch(Exception e) {
-            System.out.println("Cannot find audio file.");
+            // Assign a new AudioInputStream to inputStream using the File that was just created
+            inputStream = AudioSystem.getAudioInputStream(audioFile);
+            // Create and play new Clip item
+            sound = AudioSystem.getClip();
+            sound.open(inputStream);
+            sound.start();
+            // Update status
+            isPlaying = true;
+            // Print statement is necessary for sound to play
+            System.out.println();
+            // Ensures that sound will not stop prematurely
+            while (sound.isActive()) {}
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            System.out.println(e);
         }
     }
 
@@ -33,12 +42,13 @@ public class SoundInteractor {
      * Stops playing audio if an audio is currently playing.
      */
     public void stopSound() {
-        if (this.isPlaying) {
-            this.sound.stop();
-            this.sound.close();
-            this.sound = null;
-            this.isPlaying = false;
-            this.inputStream = null;
+        // Checks if sound is playing before executing
+        if (isPlaying) {
+            sound.stop();
+            sound.close();
+            sound = null;
+            isPlaying = false;
+            inputStream = null;
         }
     }
 
