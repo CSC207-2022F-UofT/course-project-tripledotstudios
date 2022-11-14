@@ -1,5 +1,7 @@
+package entities;
+
 /**
- * ItemData class that has information of what one Item object has as attributes and methods.
+ * entities.ItemData class that has information of what one Item object has as attributes and methods.
  */
 public class ItemData {
 
