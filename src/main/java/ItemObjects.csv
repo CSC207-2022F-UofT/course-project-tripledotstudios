@@ -1,7 +1,0 @@
-ItemName, ItemEffectAttribute, ItemEffectValue
-"Health Potion", "health", 100
-"Rare Health Potion", "health", 500
-"Attack Potion", "attack", 50
-"Rare Attack Potion", "attack", 200
-"Enemy Health Debuff", "attack", 30
-"Major Enemy Health Debuff", "attack", 80
