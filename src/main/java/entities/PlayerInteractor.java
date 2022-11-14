@@ -1,14 +1,15 @@
-/** relevant imports */
-import java.util.ArrayList;
+package entities; /** relevant imports */
+import entities.ItemData;
+import entities.PlayerData;
 
 /**
- * PlayerInteractor class
- * Responsible for updating the PlayerData class.
+ * entities.PlayerInteractor class
+ * Responsible for updating the entities.PlayerData class.
  */
 public class PlayerInteractor {
 
     /**
-     * The PlayerData object that this class will interact with.
+     * The entities.PlayerData object that this class will interact with.
      */
     PlayerData player;
 
@@ -21,8 +22,8 @@ public class PlayerInteractor {
     }
 
     /**
-     * Updates the PlayerData object that this class interacts with.
-     * @param p the new PlayerData object.
+     * Updates the entities.PlayerData object that this class interacts with.
+     * @param p the new entities.PlayerData object.
      */
     public void updatePlayer(PlayerData p) {
         player = p;
@@ -30,7 +31,7 @@ public class PlayerInteractor {
 
     /**
      * Updates the player's attack power.
-     * @param attackPower the value to be added to the PlayerData object.
+     * @param attackPower the value to be added to the entities.PlayerData object.
      */
     public void updateAttackPower(int attackPower) {
         player.setAttackPower(player.getAttackPower() + attackPower);
@@ -38,7 +39,7 @@ public class PlayerInteractor {
 
     /**
      * Returns the player's attack power.
-     * @return the PlayerData object's attack power.
+     * @return the entities.PlayerData object's attack power.
      */
     public int getAttackPower() {
         return player.getAttackPower();
@@ -52,34 +53,34 @@ public class PlayerInteractor {
     }
 
     /**
-     * Returns what event id is stored in the PlayerData object.
-     * @return The current event stored in the PlayerData object.
+     * Returns what event id is stored in the entities.PlayerData object.
+     * @return The current event stored in the entities.PlayerData object.
      */
     public int getPlayerEventID() {
         return player.getEventID();
     }
 
     /**
-     * Returns the username of the PlayerData object.
-     * @return The username of the PlayerData object.
+     * Returns the username of the entities.PlayerData object.
+     * @return The username of the entities.PlayerData object.
      */
     public String getPlayerUsername() {
         return player.getUsername();
     }
 
     /**
-     * Adds an ItemData object to the PlayerData object's inventory.
-     * Creates a new list of ItemData if there is not already one.
-     * @param item The ItemData object that is added to the PlayerData's inventory.
+     * Adds an entities.ItemData object to the entities.PlayerData object's inventory.
+     * Creates a new list of entities.ItemData if there is not already one.
+     * @param item The entities.ItemData object that is added to the entities.PlayerData's inventory.
      */
     public void addToInventory(ItemData item) {
         player.addToInventory(item);
     }
 
     /**
-     * Removes an ItemData object from the PlayerData object's inventory.
-     * @param item The ItemData object that is removed from the inventory.
-     * @return removed Whether the ItemData object was removed.
+     * Removes an entities.ItemData object from the entities.PlayerData object's inventory.
+     * @param item The entities.ItemData object that is removed from the inventory.
+     * @return removed Whether the entities.ItemData object was removed.
      */
     public boolean removeFromInventory(ItemData item) {
         return player.removeFromInventory(item);
@@ -87,7 +88,7 @@ public class PlayerInteractor {
 
     /**
      * Returns the number of items of a type in a list.
-     * @param item The ItemData object that we count in the inventory.
+     * @param item The entities.ItemData object that we count in the inventory.
      * @return the number of instances of the item type in the inventory.
      */
     public int itemCount(ItemData item) {
