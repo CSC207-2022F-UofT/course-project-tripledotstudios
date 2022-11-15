@@ -17,8 +17,10 @@ public class QuestionData {
     }
 
     private final List<String> answers;  // List of valid answers as Strings.
-    private final List<Integer> attackValues;  // List of attack values corresponding to the answers (as Integers).
-    // Note that the indexes of the two lists ALIGN WITH EACH OTHER.
+    private final List<String> responses;  //List of responses from the enemy.
+	private final List<Integer> attackValues;  // List of attack values corresponding to the answers (as Integers). 
+	// If -1 the corresponding answer is "wrong" and the enemy attacks back at the player.
+    // (Note that the indexes of the 3 lists ALIGN WITH EACH OTHER.)
     /**
      * Return the list of valid answers to the question.
      * @return the list of valid answers (as a list of Strings)

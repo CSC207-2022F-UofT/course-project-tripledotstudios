@@ -7,6 +7,10 @@ import java.util.List;
  */
 public class Event {
     protected final Integer UUID;  // The UUID of the Event
+	
+	// Imporant Feature Notice: If the UUID of the event is EVEN, then it's a normal event.
+	// If the UUID of the event is ODD, then it's a combat event.
+	
     /**
      * Returns the UUID of the Event.
      * @return UUID of the current Event (as an Integer).

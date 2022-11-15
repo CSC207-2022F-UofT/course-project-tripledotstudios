@@ -16,6 +16,15 @@ public class EnemyData {
         return name;
     }
 
+	private final Integer health;  //The max health value of the enemy.
+	/**
+	 * Returns the max health of the enemy encountered.
+	 * @return the max health of the enemy (as an Integer)
+	 */
+	public Integer getHealth() {
+		return health;
+	}
+
     // Enemy attack value parameters:
     private final Integer enemyAttackValueMean;
     private final Integer enemyAttackValueDeviation;
