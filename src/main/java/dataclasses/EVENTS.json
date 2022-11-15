@@ -1,0 +1,81 @@
+[
+	{
+		"UUID": 0,
+		"narration": "This is the starting point. Two paths open before you.",
+		"choicesNarrations": ["Walk the path to the left.", "Walk the path to the right"],
+		"choicesNextUUIDs": [2, 4],
+		"soundFile": "data/placeholder.wav",
+		"doesAutoSave": false
+	},
+
+	{
+		"UUID": 2,
+		"narration": "You walked towards the left. The is a dense forest before you. It looks dangerous. Venture forth or fall back?",
+		"choicesNarrations": ["Forward!", "Nope. Nope. Nope."],
+		"choicesNextUUIDs": [1, 0],
+		"soundFile": "data/placeholder.wav",
+		"doesAutoSave": true
+	},
+	{
+		"UUID": 4,
+		"narration": "A filthy swamp is before you. What will you do?",
+		"choicesNarrations": ["Run through it.", "Carefully tread through it."],
+		"choicesNextUUIDs": [3, 3],
+		"soundFile": "data/placeholder.wav",
+		"doesAutoSave": true
+	},
+
+	{
+		"UUID": 1,
+		"narration": "Behold! A hungry wolf! You drew your weapon just before it could pounce on you...",
+		"choicesNarrations": ["The wolf ravaged your lifeless corpse, leaving nothing behind.", "You washed the wolf's blood off of you hands and moved on."],
+		"choicesNextUUIDs": [-1, 6],
+		"soundFile": "data/placeholder.wav",
+		"doesAutoSave": false,
+
+		"enemy": {
+			"name": "The Hungry Wolf",
+			"health": 10,
+			"enemyAttackValueMean": 30,
+			"enemyAttackValueDeviation" : 5
+		},
+		"questions": [
+			{
+				"question": "What is my name?",
+				"answers": ["How would I know?", "Uhh... Wolf?", "Althoesjandr!"],
+				"responses": ["No answer, no pass. Take this!", "Bruh... How's that a name?", "WOW! It is my name! How did you know?"],
+				"attackValues": [-1, -1, 20]
+			}
+		]
+	},
+	{
+		"UUID": 3,
+		"narration": "Behold! A serpent emerges out from the swamp. As it opened its jaws towards you, you drew your weapon...",
+		"choicesNarrations": ["The snake swallowd you whole. Your adventure ends here.", "The snake is dead. You moved on."],
+		"choicesNextUUIDs": [-1, 6],
+		"soundFile": "data/placeholder.wav",
+		"doesAutoSave": false,
+
+		"enemy": {
+			"name": "The Serpent in the Swamp",
+			"health": 25,
+			"enemyAttackValueMean": 40,
+			"enemyAttackValueDeviation" : 10
+		},
+		"questions": [
+			{
+				"question": "What is the partial differential equation of f(x,y)=x^3 y*2 + x^4 if we differentiate by x?",
+				"answers": ["6 x^2 y + 4 x^3", "3 x^2 y^2 + 4 x^3", "What is a partial differential ... thing?", "Your mom!"],
+				"responses": ["Aha! You're WRONG!", "Pff... You're just lucky!", "That's what you get for not learning math!", "(The serpent gasped could not handle your insult.)"],
+				"attackValues": [-1, 20, -1, 999]
+			},
+			{
+				"question": "What is the airspeed velocity of an unladened swallow? If you say *I don't know* you explode!!! Haha! ",
+				"answers": ["Umm... 10 m/s?", "15 m/s?", "Well. I don't know.", "What do you mean? African or European Swallow?"],
+				"responses": ["Nope! You're WRONG!", "Nope! You're WRONG!", "Aha! No answer, no pass!", "Umm... I don't know. (The snake explodes.)"],
+				"attackValues": [-1, -1, -1, 999]
+			}
+		]
+
+	}
+]
