@@ -14,6 +14,14 @@ public class SoundInteractor {
     }
 
     /**
+     * Getter method for isPlaying, which indicates whether sound is currently playing.
+     * @return isPlaying.
+     */
+    public boolean getIsPlaying() {
+        return isPlaying;
+    }
+
+    /**
      * Plays new audio located at </filepath>.
      * @param filepath a String of the desired audio's path.
      */
