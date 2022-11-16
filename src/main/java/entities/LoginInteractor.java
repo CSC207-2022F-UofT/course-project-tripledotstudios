@@ -27,6 +27,10 @@ public class LoginInteractor {
         } catch (IOException e) { System.out.println(e); }
     }
 
+    public HashMap<String, String> getAccounts() {
+        return accounts;
+    }
+
     /**
      * Check whether the user can log into an account with <username> and <password>.
      * @param username a String of a username attempt
