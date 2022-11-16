@@ -27,6 +27,10 @@ public class LoginInteractor {
         } catch (IOException e) { System.out.println(e); }
     }
 
+    /**
+     * Getter method for accounts, the HashMap mapping usernames to passwords.
+     * @return accounts.
+     */
     public HashMap<String, String> getAccounts() {
         return accounts;
     }
