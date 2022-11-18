@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class StorylineInteractor {
 
+
     private static final ViewController View;
     private static final SoundInteractor Sound;
     private static final SaveInteractor Save;
