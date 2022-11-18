@@ -2,7 +2,7 @@ package useCases;
 
 import java.io.IOException;
 
-public interface Reader {
+public interface Saver {
     /**
      * @param filepath location of ser file
      * @param o object to be serialized

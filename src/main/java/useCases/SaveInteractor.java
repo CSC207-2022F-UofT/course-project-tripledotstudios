@@ -1,10 +1,9 @@
 package useCases;
 
-import useCases.Reader;
 
 import java.io.*;
 
-public class SaveInteractor implements Reader {
+public class SaveInteractor implements Saver {
     /**
      * Writes the player data to file at filepath.
      *

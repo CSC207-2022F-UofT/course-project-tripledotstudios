@@ -4,7 +4,7 @@ import entities.PlayerData;
 
 import java.io.IOException;
 
-public interface Writer {
+public interface Loader {
     /**
      * @param filepath location of ser file
      * */
