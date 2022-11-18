@@ -2,6 +2,7 @@ package useCases;
 
 import java.io.IOException;
 
+
 public interface Saver {
     /**
      * @param filepath location of ser file

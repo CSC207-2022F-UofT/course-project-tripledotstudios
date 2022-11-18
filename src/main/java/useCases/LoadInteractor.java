@@ -3,6 +3,7 @@ import entities.PlayerData;
 
 import java.io.*;
 
+
 public class LoadInteractor implements Loader {
     /**
      * Loads the player data from the file path
