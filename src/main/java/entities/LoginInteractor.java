@@ -6,14 +6,17 @@ import java.util.Objects;
 
 public class LoginInteractor {
     private HashMap<String, String> accounts;
+    private String filePath;
 
     /**
      * Constructor.
-     * @param fileName a String of the csv file containing all registered accounts
+     * @param filePath a String of the csv file containing all registered accounts
      */
-    public LoginInteractor(String fileName) {
+    public LoginInteractor(String filePath) {
+        // save the name of the file that LoginInteractor will read from and write to
+        this.filePath = filePath;
         // read csv file and create hashmap mapping usernames to passwords
-        String line;
+        String line = "";
         // assign new HashMap to accounts attribute
         accounts = new HashMap<>();
         // read csv file and map usernames to passwords in <accounts>
@@ -22,7 +25,7 @@ public class LoginInteractor {
             while ((line = br.readLine()) != null) {
                 String[] accountInfo = line.split(",");
                 // Puts key (a username) and value (a password) in accounts
-                accounts.put(accountInfo[1], accountInfo[2]);
+                accounts.put(accountInfo[0], accountInfo[1]);
             }
         } catch (IOException e) { System.out.println(e); }
     }
@@ -54,8 +57,8 @@ public class LoginInteractor {
         if (validateNewUsername(username) && validateNewPassword(password)) {
             try {
                 // create new FileWriter
-                FileWriter fw = new FileWriter(filepath);
-                fw.write("username" + ", " + "password");
+                FileWriter fw = new FileWriter(filepath, true);
+                fw.write("\n" + username + "," + password);
                 fw.close();
                 // update <accounts> so that LoginInteractor doesn't have to be reconstructed
                 accounts.put(username, password);
