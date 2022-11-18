@@ -30,8 +30,8 @@ public class PlayerData implements Serializable {
      * @param username The username of the Player
      * @param eventID The current event
      */
-    public PlayerData(String username, int eventID, int ap) {
-        inventory = new HashMap<String, ArrayList<ItemData>>();
+    public PlayerData(String username, int eventID, int ap, HashMap<String, ArrayList<ItemData>> inventory) {
+        this.inventory = inventory;
         this.eventID = eventID;
         this.username = username;
         this.attackPower = ap;
