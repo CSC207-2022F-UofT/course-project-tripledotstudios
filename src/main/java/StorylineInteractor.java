@@ -12,6 +12,7 @@ public class StorylineInteractor {
     private static final EventManager Manager;
 
 
+
     public StorylineInteractor(ViewController viewController, SoundInteractor soundInteractor,
                                SaveInteractor saveInteractor, PlayerData playerData,
                                PlayerInteractor playerInteractor,
