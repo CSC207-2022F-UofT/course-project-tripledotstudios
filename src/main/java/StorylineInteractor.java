@@ -45,7 +45,9 @@ public class StorylineInteractor {
     /** Loads the current event of the Player
      */
     public void loadGame() {
-        Load.readFromFile("/savefiles/username.ser");
+        String username = Login.getCurrentUser();
+        String filename = username + ".ser";
+        Load.readFromFile("/savefiles/" + filename);
     }
 
     /** Loads the final event after the Player beats the game
@@ -66,7 +68,9 @@ public class StorylineInteractor {
         View.display_exit_options();
         String choice = choice_reader.nextLine();
 
-        Load.readFromFile("/savefiles/username.ser");
+        String username = Login.getCurrentUser();
+        String filename = username + ".ser";
+        Load.readFromFile("/savefiles/" + filename);
         if (choice.equals("Quit")) {
             View.returnHomeScreen();
         }
@@ -85,7 +89,10 @@ public class StorylineInteractor {
         Scanner choice_reader = new Scanner(View.display_exit_options());
         String choice = choice_reader.nextLine();
 
-        Load.readFromFile("/savefiles/username.ser");
+        String username = Login.getCurrentUser();
+        String filename = username + ".ser";
+        Load.readFromFile("/savefiles/" + filename);
+
         if (choice.equals("Quit")) {
             View.returnHomeScreen();
         }
@@ -105,7 +112,8 @@ public class StorylineInteractor {
         Sound.playSound(event.getSoundFile);
 
         if (event.doesAutosave == True) {
-            Save.saveToFile("/savefiles/username.ser", player);
+            String filename = player.username + ".ser";
+            Save.saveToFile("/savefiles/" + filename, player);
         }
 
         if (event instanceof CombatEvent) {
@@ -145,7 +153,8 @@ public class StorylineInteractor {
 
         //finish the game, dunno final event id
         if (player.eventID == 1000) {
-            Save.saveToFile("/savefiles/username.ser", player);
+            String filename = player.username + ".ser";
+            Save.saveToFile("/savefiles/" + filename, player);
 
             StorylineInteractor.endGame();
         }
