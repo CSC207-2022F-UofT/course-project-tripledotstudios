@@ -44,7 +44,7 @@ public class SoundInteractor {
             // Ensures that sound will not stop prematurely
             while (sound.isActive()) {}
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
