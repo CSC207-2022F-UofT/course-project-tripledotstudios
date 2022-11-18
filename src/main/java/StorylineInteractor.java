@@ -8,29 +8,31 @@ public class StorylineInteractor {
     private static final ViewController View;
     private static final SoundInteractor Sound;
     private static final SaveInteractor Save;
-    private static final PlayerData Player;
+    private static final LoadInteractor Load;
     private static final PlayerInteractor PlayerAction;
     private static final EventManager Manager;
+    private static final CombatInteractor Combat;
 
 
 
     public StorylineInteractor(ViewController viewController, SoundInteractor soundInteractor,
-                               SaveInteractor saveInteractor, PlayerData playerData,
-                               PlayerInteractor playerInteractor,
-                               EventManager eventManager) {
+                               SaveInteractor saveInteractor, LoadInteractor loadInteractor,
+                               PlayerInteractor playerInteractor, EventManager eventManager,
+                               CombatInteractor combatInteractor) {
         View = viewController;
         Sound = soundInteractor;
+        Load = loadInteractor;
         Save = saveInteractor;
-        Player = playerData;
         PlayerAction = playerInteractor;
         Manager = eventManager;
+        Combat = combatInteractor;
 
     }
 
     /**Create and return a Player
      */
     public PlayerData createPlayer(String username, int eventID) {
-        player = Player(username, eventID, 100, 10);
+        player = PlayerData(username, eventID, 100, 10);
         return player;
     }
 
@@ -39,6 +41,11 @@ public class StorylineInteractor {
      */
     public void startGame(PlayerData player) {
         StorylineInteractor.playEvent(player);
+    }
+
+    public static void finishGame() {
+        //dunno ending cutscene event id
+        View.display_event(1000);
     }
 
     /** If the Player loses the game, bring the Player back to the last save
@@ -51,7 +58,7 @@ public class StorylineInteractor {
         View.display_exit_options();
         String choice = choice_reader.nextLine();
 
-        Save.loadSave();
+        Load.readFromFile();
         if (choice.equals("Quit")) {
             View.returnHomeScreen();
         }
@@ -70,7 +77,7 @@ public class StorylineInteractor {
         Scanner choice_reader = new Scanner(View.display_exit_options());
         String choice = choice_reader.nextLine();
 
-        Save.loadSave();
+        Load.readFromFile();
         if (choice.equals("Quit")) {
             View.returnHomeScreen();
         }
@@ -90,22 +97,20 @@ public class StorylineInteractor {
         Sound.playSound(event.getSoundFile);
 
         if (event.doesAutosave == True) {
-            Save.save();
+            Save.saveToFile();
         }
 
-        if (event.instanceof(CombatEvent)) {
+        if (event instanceof CombatEvent) {
 
             View.display_event(event.getNarration());
 
-            if (CombatInteractor.initiateCombat(event) == True) {
+            if (Combat.initiateCombat(event) == True) {
                 PlayerAction.updateEvent(event.getChoicesNextUUIDs()[0]);
             }
             else {
                 ///Player loses
                 StorylineInteractor.lose(player);
             }
-
-
         }
 
         else {
@@ -129,8 +134,15 @@ public class StorylineInteractor {
         }
 
         Sound.stopSound(event.getSoundFile);
-        StorylineInteractor.playEvent(player);
 
+        //finish the game, dunno final event id
+        if (player.eventID == 1000) {
+            StorylineInteractor.finishGame();
+        }
+
+        else {
+            StorylineInteractor.playEvent(player);
+        }
     }
 
 }
