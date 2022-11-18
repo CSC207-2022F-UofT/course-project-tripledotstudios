@@ -1,4 +1,4 @@
-package UI;
+package Controller;
 
 public interface StorylineInterface {
     public String display_event(); //display string objects

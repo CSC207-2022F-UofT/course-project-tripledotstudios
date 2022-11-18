@@ -1,5 +1,7 @@
 package UI;
 
+import Controller.StorylineInterface;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
