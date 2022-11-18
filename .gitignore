@@ -117,4 +117,4 @@ hs_err_pid*
 replay_pid*
 
 # Mac hidden files
-**/.DS_Store
+.DS_Store
