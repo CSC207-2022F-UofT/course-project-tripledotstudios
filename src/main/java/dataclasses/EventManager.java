@@ -1,18 +1,20 @@
 package dataclasses;
 
 import java.util.*;
+import java.io.IOException;
 import java.nio.file.*;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.json.*;
 
 /**
  * The class that reads from Events.json (which stores our events in the story),
  * and generates a data structure (Map), like a factory, 
  * which maps the events' UUIDs to the Event objects.
+ * 
+ * Important Note: The main method "getAllEvents()" is STATIC. Keep this in mind when using it!
  */
 public class EventManager{	
 	
-	public Map<Integer, Event> getAllEvents(){
+	public static Map<Integer, Event> getAllEvents(){
 		Map<Integer, Event> eventMap = new HashMap<Integer, Event>();
 
 		String jsonFile = stringFromJsonFile("data/Events.json");
@@ -47,36 +49,75 @@ public class EventManager{
 			
 			if(id % 2 == 0){  // normal Event
 				
-				// Creating the Event object, and putting it into the Map:
-				eventMap.put(id, new Event(id, narr, choicesNarr, choicesUUIDs, sound, autoSaves));
+				eventMap.put(id, new Event(id, narr, choicesNarr, choicesUUIDs, sound, autoSaves));  // Puts new Event object in Map
 
-			}else{  // Combat Event! More attributes to read!
+			}else{  // Combat Event! 
 				
 				JSONObject enemyObj = obj.getJSONObject("enemy");  // Enemy Object
-
-				String enemyName = enemyObj.getString("name");
-				Integer enemyHealth = enemyObj.getInt("health");
-				Integer enemyAttackMean = enemyObj.getInt("enemyAttackValueMean");
-				Integer enemyAttackDeviation = enemyObj.getInt("enemyAttackValueDeviation");
+				EnemyData enemy = generateEnemyDataObject(enemyObj);
 				
 				JSONArray questionsArr = obj.getJSONArray("questions");  // Array of Questions
 				List<QuestionData> questions = new ArrayList<QuestionData>();
-				for(int i = 0; i < questionsArr.length(); i++){
-					//
-					JSONObject qObj = questionsArr.getJSONObject(i);
-					
-					// TODO: parse each attribute of each QuestionData instance.
-
-					questions.add(new QuestionData());
-				}
-
+				generateListOfQuestions(questionsArr, questions);
 				
+				eventMap.put(id, new CombatEvent(id, narr, choicesNarr, choicesUUIDs, sound, autoSaves, enemy, questions));
 			}
 		}
+
+		return eventMap;
 	}
 
-	private String stringFromJsonFile(String filePath){
-		return new String(Files.readAllBytes(Paths.get(filePath)));
+	// Below are private helper functions:
+
+	private static String stringFromJsonFile(String filePath){
+		String fileAsString = "[]";
+		try {
+			fileAsString = new String(Files.readAllBytes(Paths.get(filePath)));
+		} catch (IOException e) {
+			// Auto-generated catch block
+			e.printStackTrace();
+		}
+		return fileAsString;
+	}
+
+	private static EnemyData generateEnemyDataObject(JSONObject enemyObj){
+
+		String enemyName = enemyObj.getString("name");
+		Integer enemyHealth = enemyObj.getInt("health");
+		Integer enemyAttackMean = enemyObj.getInt("enemyAttackValueMean");
+		Integer enemyAttackDeviation = enemyObj.getInt("enemyAttackValueDeviation");
+
+		return new EnemyData(enemyName, enemyHealth, enemyAttackMean, enemyAttackDeviation);
+	}
+
+	private static void generateListOfQuestions(JSONArray questionsArr, List<QuestionData> questions){
+
+		for(int i = 0; i < questionsArr.length(); i++){
+			JSONObject qObj = questionsArr.getJSONObject(i);
+			
+			// Parsing each attribute of each QuestionData instance.
+			String q = qObj.getString("question");
+			
+			JSONArray answersArr = qObj.getJSONArray("answers");
+			List<String> answers = new ArrayList<String>();
+			for(int j = 0; j < answersArr.length(); j++){
+				answers.add(answersArr.getString(j));
+			}
+
+			JSONArray responsesArr = qObj.getJSONArray("responses");
+			List<String> responses = new ArrayList<String>();
+			for(int j = 0; j < responsesArr.length(); j++){
+				responses.add(responsesArr.getString(j));
+			}
+
+			JSONArray attackValuesArr = qObj.getJSONArray("attackValues");
+			List<Integer> attackValues = new ArrayList<Integer>();
+			for(int j = 0; j < attackValuesArr.length(); j++){
+				attackValues.add(attackValuesArr.getInt(j));
+			}
+
+			questions.add(new QuestionData(q, answers, responses, attackValues));
+		}
 	}
 
 }
