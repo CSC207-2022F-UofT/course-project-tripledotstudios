@@ -86,7 +86,7 @@ public class LoginInteractor {
                 validateLogin(username,password);
             }
             catch (IOException e) {
-                System.out.println(e);
+                e.printStackTrace();
             }
         }
     }
