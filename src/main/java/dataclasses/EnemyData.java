@@ -32,8 +32,9 @@ public class EnemyData {
     /**
      * The default constructor.
      */
-    public EnemyData(String name, Integer enemyAttackValueMean, Integer enemyAttackValueDeviation) {
+    public EnemyData(String name, int health, int enemyAttackValueMean, int enemyAttackValueDeviation) {
         this.name = name;
+        this.health = health;
         this.enemyAttackValueMean = enemyAttackValueMean;
         this.enemyAttackValueDeviation = enemyAttackValueDeviation;
     }

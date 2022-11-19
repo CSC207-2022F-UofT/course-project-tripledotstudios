@@ -1,7 +1,9 @@
 package dataclasses;
 
+import java.util.*;
 import java.nio.file.*;
-import org.json.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * The class that reads from Events.json (which stores our events in the story),

@@ -28,6 +28,15 @@ public class QuestionData {
     public List<String> getAnswers() {
         return answers;
     }
+
+    /**
+     * Return the list of responses from the enemy corresponding to each answer.
+     * @return the list of responses from the enemy 
+     */
+    public List<String> getResponses() {
+        return responses;
+    }
+
     /**
      * Return the attack values of the valid answers.
      * @return the list of attack values of the valid answers (as a list of Integers)
@@ -36,9 +45,10 @@ public class QuestionData {
         return attackValues;
     }
 
-    public QuestionData(String question, List<String> answers, List<Integer> attackValues) {
+    public QuestionData(String question, List<String> answers, List<String> responses, List<Integer> attackValues) {
         this.question = question;
         this.answers = answers;
+        this.responses = responses;
         this.attackValues = attackValues;
     }
 }
