@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * The data class that stores a CombatEvent. TODO: INCOMPLETE
+ * The data class that stores a CombatEvent.
  */
 public class CombatEvent extends Event {
     private EnemyData enemy;  // The enemy encountered
