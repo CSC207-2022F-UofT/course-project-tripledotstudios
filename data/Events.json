@@ -7,7 +7,6 @@
 		"soundFile": "data/placeholder.wav",
 		"doesAutoSave": false
 	},
-
 	{
 		"UUID": 2,
 		"narration": "You walked towards the left. The is a dense forest before you. It looks dangerous. Venture forth or fall back?",
@@ -24,7 +23,6 @@
 		"soundFile": "data/placeholder.wav",
 		"doesAutoSave": true
 	},
-
 	{
 		"UUID": 1,
 		"narration": "Behold! A hungry wolf! You drew your weapon just before it could pounce on you...",
@@ -76,6 +74,5 @@
 				"attackValues": [-1, -1, -1, 999]
 			}
 		]
-
 	}
 ]
