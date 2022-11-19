@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class StorylineInteractor {
 
-
     private static final ViewController View;
     private static final SoundInteractor Sound;
     private static final SaveInteractor Save;
@@ -13,8 +12,6 @@ public class StorylineInteractor {
     private static final EventManager Manager;
     private static final CombatInteractor Combat;
     private static final LoginInteractor Login;
-
-
 
     public StorylineInteractor(ViewController viewController, SoundInteractor soundInteractor,
                                SaveInteractor saveInteractor, LoadInteractor loadInteractor,
@@ -102,6 +99,20 @@ public class StorylineInteractor {
         }
     }
 
+    /**Gets narration from Event
+     */
+    public static String getEventNarration(PlayerData player) {
+        event = Manager.getEvent(player.eventID);
+        return event.getNarration();
+    }
+
+    /**Gets event choices from Event
+     */
+    public static String getEventChoices(PlayerData player) {
+        event = Manager.getEvent(player.eventID);
+        return event.getChociesNextUUIDs();
+    }
+
     /** Grab an event based on the inputted UUID and output its sound file and narration.
      * At the end of the narration, let the Player make a choice based on the Event's
      * choicesNarration. If Event is a CombatEvent, make the Player fight the Enemy after
@@ -163,5 +174,4 @@ public class StorylineInteractor {
             StorylineInteractor.playEvent(player);
         }
     }
-
 }
