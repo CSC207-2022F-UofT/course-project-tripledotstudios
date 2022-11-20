@@ -41,6 +41,7 @@ public class EnterAGameScreen {
         logout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                controller.logOut();
                 controller.returnCreateAccountOrLoginScreen();
             }
         });

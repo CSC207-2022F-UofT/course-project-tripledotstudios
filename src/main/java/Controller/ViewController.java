@@ -84,6 +84,11 @@ public class ViewController implements StorylineInterface {
     }
 
     @Override
+    public void logOut() {
+        loginInteractor.logOut();
+    }
+
+    @Override
     public void buildRegisterScreen() { //jump to RegisterScreen
         register.buildRegisterScreen(this);
     }
