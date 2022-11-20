@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 public class CreateAccountOrLogin {
     StorylineInterface controller;
 
-    public void BuildCreateAccountOrLoginScreen() {
+    public void buildCreateAccountOrLoginScreen() {
         JFrame frame = new JFrame("Create an account or login?");
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -25,13 +25,13 @@ public class CreateAccountOrLogin {
         createAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.BuildRegisterScreen(); //jump to RegisterScreen
+                controller.buildRegisterScreen(); //jump to RegisterScreen
             }
         });
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.BuildLoginScreen(); //jump to LoginScreen
+                controller.buildLoginScreen(); //jump to LoginScreen
             }
         });
 

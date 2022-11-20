@@ -14,7 +14,7 @@ public class ExitOptionsScreen {
 
     StorylineInterface controller;
 
-    public void BuildExitOptionScreen() {
+    public void buildExitOptionScreen() {
         JFrame frame = new JFrame("Exit the Game or Continue?");
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

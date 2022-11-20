@@ -14,7 +14,7 @@ public class EnterAGameScreen {
 
     StorylineInterface controller;
 
-    public void BuildEnterAGameScreen(StorylineInterface contr) {
+    public void buildEnterAGameScreen(StorylineInterface contr) {
         controller = contr;
         JFrame frame = new JFrame("Enter A Game");
         frame.setSize(600, 300);
@@ -23,12 +23,13 @@ public class EnterAGameScreen {
 
         JButton startANewGame = new JButton("Start a new game");
         JButton resumeASavedGame = new JButton("Resume a saved game");
+        JButton logout = new JButton("Log out");
 
         startANewGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username = controller.getUsername();
-                controller.setNewGame(username);
+                controller.setNewGame();
             }
         });
         resumeASavedGame.addActionListener(new ActionListener() {
@@ -37,9 +38,16 @@ public class EnterAGameScreen {
                 controller.display_event();
             }
         });
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.returnCreateAccountOrLoginScreen();
+            }
+        });
 
         frame.add(startANewGame);
         frame.add(resumeASavedGame);
+        frame.add(logout);
         frame.setVisible(true);
 
     }

@@ -28,7 +28,7 @@ public class LoginScreen extends JPanel {
     /**
      * Build a register screen to sign up or cancel.
      */
-    public void BuildLoginScreen(StorylineInterface contr) {
+    public void buildLoginScreen(StorylineInterface contr) {
 
         controller = contr;
 
@@ -52,21 +52,30 @@ public class LoginScreen extends JPanel {
             @Override
             public void actionPerformed(ActionEvent eve) {
                 try {
-                    controller.login(username.getText(),
+                    int validateLogin = controller.login(username.getText(),
                             String.valueOf(password.getPassword()));
-                    JOptionPane.showMessageDialog(null, String.format("%s logged in.", username.getText()));
-                    controller.returnHomeScreen(); //jump to the EnterAGameScreen
+                    if (validateLogin == 1) {
+                        JOptionPane.showMessageDialog(null, String.format("%s logged in.", username.getText()));
+                        controller.returnHomeScreen(); //jump to the EnterAGameScreen
+                    }
+                    else if (validateLogin == 2) {
+                        JOptionPane.showMessageDialog(null, "Username does not exist");
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Wrong password");
+                    }
+
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
                 }
             }
         });
+
         JButton cancel = new JButton("Cancel");
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent eve) {
-                username.updateUI();
-                password.updateUI();
+                controller.returnCreateAccountOrLoginScreen();
             }
         });
 
