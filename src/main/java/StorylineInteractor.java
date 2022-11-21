@@ -2,6 +2,10 @@ import jdk.jfr.Event;
 
 import java.util.Scanner;
 
+import dataclasses.*;
+import entities.*;
+import use_cases.*;
+
 public class StorylineInteractor {
 
     private static final ViewController View;
