@@ -117,7 +117,7 @@ public class StorylineInteractor {
         return event.getChociesNextUUIDs();
     }
     
-    /** Turns off sound
+    /** Stop playing Player's existing sound file
     */
     public static void SoundOff() {
         if (Sound.getIsPlaying == true) {
@@ -125,6 +125,8 @@ public class StorylineInteractor {
         }
     }
 
+    /** Play Player's existing sound file
+    */
     public static void SoundOn(PlayerData player) {
         event = Manager.getEvent(player.eventID);
         if (Sound.getIsPlaying != true) {
