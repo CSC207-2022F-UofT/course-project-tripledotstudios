@@ -28,7 +28,7 @@ public class LoginInteractor {
                 // Puts key (a username) and value (a password) in accounts
                 accounts.put(accountInfo[0], accountInfo[1]);
             }
-        } catch (IOException e) { System.out.println(e); }
+        } catch (IOException e) { e.printStackTrace(); }
     }
 
     /**
@@ -59,36 +59,55 @@ public class LoginInteractor {
      * Check whether the user can log into an account with <username> and <password>.
      * @param username a String of a username attempt
      * @param password a String of a password attempt
-     * @return true iff <username> and <password> represent a created account.
+     * @return 1 if username does not exist, 2 if password doesn't match username on record, and 3 if login is valid and
+     * currentUser has been updated.
      */
-    public boolean validateLogin(String username, String password) {
-        boolean result = (accounts.containsKey(username)) && (Objects.equals(accounts.get(username), password));
-        if (result) {
-            currentUser = username;
+    public int validateLogin(String username, String password) {
+        // an account with this username already exists
+        if (!(accounts.containsKey(username))) {
+            return 1;
         }
-        return result;
+        // password does not match username
+        else if (!(Objects.equals(accounts.get(username), password))) {
+            return 2;
+        }
+        // login is successful
+        else {
+            this.currentUser = username;
+            return 1;
+        }
     }
 
     /**
      * Create and record a new account. Log into the new account.
      * @param username a String of a proposed username for a new account
-     * @param password a String of a proposed password for a new account
+     * @param password1 a String of a proposed password for a new account
+     * @param password2 a String of a proposed password for a new account
+     * @return 1 if account creation is successful, 2 if username already exists, 3 if passwords do not match, 4
+     * if passwords match but password is too short, 5 otherwise.
      */
-    public void createAccount(String username, String password) {
-        if (validateNewUsername(username) && validateNewPassword(password)) {
+    public int createAccount(String username, String password1, String password2) {
+        // case that username is unique and password is long enough
+        if (validateNewUsername(username) && validateNewPassword(password1) && (password1.equals(password2))) {
             try {
                 // create new FileWriter
                 FileWriter fw = new FileWriter(filepath, true);
-                fw.write("\n" + username + "," + password);
+                fw.write("\n" + username + "," + password1);
                 fw.close();
                 // update <accounts> so that LoginInteractor doesn't have to be reconstructed
-                accounts.put(username, password);
-                validateLogin(username,password);
+                accounts.put(username, password1);
+                return 1;
             }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
+            catch (IOException e) { e.printStackTrace(); }
         }
+        // case that username already exists
+        else if (!(validateNewUsername(username))) { return 2; }
+        // case that passwords do not match
+        else if (!Objects.equals(password1, password2)) { return 3; }
+        // case that passwords match but password is too short
+        else if (!(validateNewPassword(password1))) { return 4; }
+        // some other case is true
+        return 5;
     }
 
     /**
