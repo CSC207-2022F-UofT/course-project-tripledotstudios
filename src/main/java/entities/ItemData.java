@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * entities.ItemData class that has information of what one Item object has as attributes and methods.
  */
-public class ItemData implements Serializable {
+public class ItemData implements Serializable{
 
     private final String name; // Name of the item
 
