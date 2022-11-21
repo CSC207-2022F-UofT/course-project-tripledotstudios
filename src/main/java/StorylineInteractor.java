@@ -116,7 +116,9 @@ public class StorylineInteractor {
         event = Manager.getEvent(player.getEventID);
         return event.getChociesNextUUIDs();
     }
-
+    
+    /** Turns off sound
+    */
     public static void SoundOff() {
         if (Sound.getIsPlaying == true) {
             Sound.stopSound();
