@@ -59,17 +59,16 @@ public class LoginInteractor {
      * Check whether the user can log into an account with <username> and <password>.
      * @param username a String of a username attempt
      * @param password a String of a password attempt
-     * @return 1 if username does not exist, 2 if password doesn't match username on record, and 3 if login is valid and
-     * currentUser has been updated.
+     * @return 1 if login is valid, 2 if username does not exist, and 3 if password does not match username on file.
      */
     public int validateLogin(String username, String password) {
-        // an account with this username already exists
+        // an account with this username does not exist
         if (!(accounts.containsKey(username))) {
-            return 1;
+            return 2;
         }
         // password does not match username
         else if (!(Objects.equals(accounts.get(username), password))) {
-            return 2;
+            return 3;
         }
         // login is successful
         else {
@@ -87,7 +86,7 @@ public class LoginInteractor {
      * if passwords match but password is too short, 5 otherwise.
      */
     public int createAccount(String username, String password1, String password2) {
-        // case that username is unique and password is long enough
+        // case that username is unique, password is long enough, and passwords match
         if (validateNewUsername(username) && validateNewPassword(password1) && (password1.equals(password2))) {
             try {
                 // create new FileWriter
