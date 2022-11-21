@@ -102,14 +102,14 @@ public class StorylineInteractor {
     /**Gets narration from Event
      */
     public static String getEventNarration(PlayerData player) {
-        event = Manager.getEvent(player.eventID);
+        event = Manager.getEvent(player.getEventID);
         return event.getNarration();
     }
 
     /**Gets event choices from Event
      */
     public static String getEventChoices(PlayerData player) {
-        event = Manager.getEvent(player.eventID);
+        event = Manager.getEvent(player.getEventID);
         return event.getChociesNextUUIDs();
     }
 
@@ -163,7 +163,7 @@ public class StorylineInteractor {
 
         //finish the game, dunno final event id
         if (player.eventID == 1000) {
-            String filename = player.username + ".ser";
+            String filename = player.getUsername() + ".ser";
             Save.saveToFile("/savefiles/" + filename, player);
 
             StorylineInteractor.endGame();
