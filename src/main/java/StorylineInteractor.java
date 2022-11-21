@@ -50,7 +50,7 @@ public class StorylineInteractor {
     /** Loads the final event after the Player beats the game
      */
     public static void endGame() {
-        //dunno ending cutscene event id
+        //ending text id is 1001
         View.display_event(1001);
         View.returnHomeScreen();
     }
@@ -175,7 +175,7 @@ public class StorylineInteractor {
 
         Sound.stopSound();
 
-        //finish the game, dunno final event id
+        //finish the game. final event id is 1000
         if (player.eventID == 1000) {
             String filename = player.getUsername() + ".ser";
             Save.saveToFile("/savefiles/" + filename, player);
