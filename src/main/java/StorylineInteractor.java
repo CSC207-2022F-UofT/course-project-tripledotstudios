@@ -148,7 +148,7 @@ public class StorylineInteractor {
             Scanner choice_reader = new
                     Scanner(View.display_event_choices(event.getChoicesNarrations()));
 
-            String choice = choice_reader.next();
+            String choice = choice_reader.nextLine();
 
             for (String next_event : event.getChoicesNextUUIDs()) {
                 if (choice.equals(next_event)) {
