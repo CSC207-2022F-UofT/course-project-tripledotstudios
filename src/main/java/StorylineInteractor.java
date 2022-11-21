@@ -8,7 +8,7 @@ import use_cases.*;
 
 public class StorylineInteractor {
 
-    private static final ViewController View;
+    private static final StorylineInterface View;
     private static final SoundInteractor Sound;
     private static final SaveInteractor Save;
     private static final LoadInteractor Load;
@@ -17,11 +17,11 @@ public class StorylineInteractor {
     private static final CombatInteractor Combat;
     private static final LoginInteractor Login;
 
-    public StorylineInteractor(ViewController viewController, SoundInteractor soundInteractor,
+    public StorylineInteractor(StorylineInterface story, SoundInteractor soundInteractor,
                                SaveInteractor saveInteractor, LoadInteractor loadInteractor,
                                PlayerInteractor playerInteractor, EventManager eventManager,
                                CombatInteractor combatInteractor, LoginInteractor loginInteractor) {
-        View = viewController;
+        View = story;
         Sound = soundInteractor;
         Load = loadInteractor;
         Save = saveInteractor;
