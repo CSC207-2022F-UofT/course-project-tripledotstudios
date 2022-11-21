@@ -113,6 +113,19 @@ public class StorylineInteractor {
         return event.getChociesNextUUIDs();
     }
 
+    public static void SoundOff() {
+        if (Sound.getIsPlaying == true) {
+            Sound.stopSound();
+        }
+    }
+
+    public static void SoundOn(PlayerData player) {
+        event = Manager.getEvent(player.eventID);
+        if (Sound.getIsPlaying != true) {
+            Sound.playSound(event.getSoundFile);
+        }
+    }
+
     /** Grab an event based on the inputted UUID and output its sound file and narration.
      * At the end of the narration, let the Player make a choice based on the Event's
      * choicesNarration. If Event is a CombatEvent, make the Player fight the Enemy after
@@ -120,6 +133,7 @@ public class StorylineInteractor {
      */
     public static void playEvent(PlayerData player) {
         event = Manager.getEvent(player.eventID);
+
         Sound.playSound(event.getSoundFile);
 
         if (event.doesAutosave == True) {
@@ -159,7 +173,7 @@ public class StorylineInteractor {
 
         }
 
-        Sound.stopSound(event.getSoundFile);
+        Sound.stopSound();
 
         //finish the game, dunno final event id
         if (player.eventID == 1000) {
