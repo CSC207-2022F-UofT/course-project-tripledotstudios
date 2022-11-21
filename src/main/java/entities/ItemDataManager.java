@@ -1,7 +1,5 @@
 package entities;
 
-import entities.ItemData;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,14 +8,14 @@ import java.util.List;
  * entities.ItemDataManager class that reads through the entities.ItemData csv and stores objects of type entities.ItemData
  * in a list.
  */
-public class ItemDataManager{
+public class ItemDataManager {
     public List<ItemData> lst = new ArrayList<>(); // List of entities.ItemData Objects;
 
-    public ItemDataManager(String fileName){
+    public ItemDataManager(String fileName) {
         String line = "";
         String splitBy = ",";
 
-        try{
+        try {
             //parsing a CSV file into BufferedReader class constructor
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             while ((line = br.readLine()) != null)   //returns a Boolean value
@@ -27,7 +25,7 @@ public class ItemDataManager{
                 lst.add(item);
             }
         }
-        catch (Exception e){
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
