@@ -48,8 +48,11 @@ public class Presenter implements StorylineInterface, LoginInterface {
         else if (view == 3) {
             JOptionPane.showMessageDialog(null, "Passwords too short");
         }
-        else {
+        else if (view == 4) {
             JOptionPane.showMessageDialog(null, "Passwords do not match");
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Something went wrong");
         }
     }
 
