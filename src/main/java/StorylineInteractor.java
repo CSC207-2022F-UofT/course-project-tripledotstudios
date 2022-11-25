@@ -5,7 +5,7 @@ import java.util.*;
 import dataclasses.*;
 import entities.*;
 import use_cases.*;
-import Controller.*;
+import controller.*;
 
 public class StorylineInteractor {
 
@@ -64,6 +64,7 @@ public class StorylineInteractor {
     }
 
     /** If the Player loses the game, bring the Player back to the last save
+     * @param player: The player
      */
     public void lose(PlayerData player) {
         view.display_lose();
@@ -86,6 +87,7 @@ public class StorylineInteractor {
     }
 
     /** Exit the game
+     * @param player The Player
      */
     public void exitGame(PlayerData player) {
         view.display_exit_options();
@@ -108,6 +110,7 @@ public class StorylineInteractor {
     }
 
     /**Turn sound on or off
+     * @param event Event
      */
     public static void soundSwitch(dataclasses.Event event, boolean sound_status) {
         if (!sound.getIsPlaying()) {
@@ -119,10 +122,13 @@ public class StorylineInteractor {
         }
     }
 
+
+
     /** Grab an event based on the inputted UUID and output its sound file and narration.
      * At the end of the narration, let the Player make a choice based on the Event's
      * choicesNarration. If Event is a CombatEvent, make the Player fight the Enemy after
      * the narration. The method should also Save the game if the Event has an Auto Save
+     * @param player the Player
      */
     public void playEvent(PlayerData player) {
         Map<Integer, dataclasses.Event> event_map = EventManager.getAllEvents();
