@@ -1,6 +1,7 @@
 import jdk.jfr.Event;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -39,9 +40,10 @@ public class StorylineInteractor {
      */
     public void startGame() {
         String username = Login.getCurrentUser();
+        HashMap<String, ArrayList<ItemData>> inventory = new HashMap<>(); //empty Hash Map
 
         //dunno very first event ID
-        player = new PlayerData(username, 1, 100, HashMap<>);
+        PlayerData player = new PlayerData(username, 1, 100, inventory);
         StorylineInteractor.playEvent(player);
     }
 
@@ -85,7 +87,7 @@ public class StorylineInteractor {
 
     /** Exit the game
      */
-    public static void exitGame() {
+    public static void exitGame(PlayerData player) {
         View.display_exit();
 
         //Choice options
@@ -105,34 +107,15 @@ public class StorylineInteractor {
         }
     }
 
-    /**Gets narration from Event
+    /**Turn sound on or off
      */
-    public static String getEventNarration(PlayerData player) {
-        event = Manager.getEvent(player.getEventID);
-        return event.getNarration();
-    }
-
-    /**Gets event choices from Event
-     */
-    public static String getEventChoices(PlayerData player) {
-        event = Manager.getEvent(player.getEventID);
-        return event.getChociesNextUUIDs();
-    }
-    
-    /** Stop playing Player's existing sound file
-    */
-    public static void SoundOff() {
-        if (Sound.getIsPlaying()) {
-            Sound.stopSound();
-        }
-    }
-
-    /** Play Player's existing sound file
-    */
-    public static void SoundOn(PlayerData player) {
-        event = Manager.getEvent(player.eventID);
+    public static void soundSwitch(Event event, boolean sound_status) {
         if (!Sound.getIsPlaying()) {
-            Sound.playSound(event.getSoundFile);
+            Sound.playSound(event.getSoundFile());
+        }
+        else {
+            Sound.stopSound();
+            sound_status = false;
         }
     }
 
@@ -144,9 +127,11 @@ public class StorylineInteractor {
     public static void playEvent(PlayerData player) {
         event = Manager.getEvent(player.getEventID());
 
-        Sound.playSound(event.getSoundFile());
+        boolean sound_status = true;
+        //the sound plays when the event starts, player can call soundSwitch to turn it off
+        StorylineInteractor.soundSwitch(event, sound_status);
 
-        if (event.doesAutosave == True) {
+        if (event.doesAutosave()) {
             String filename = player.getUsername() + ".ser";
             Save.saveToFile("/savefiles/" + filename, player);
         }
@@ -155,7 +140,7 @@ public class StorylineInteractor {
 
             View.display_event(event.getNarration());
 
-            if (Combat.initiateCombat(event) == True) {
+            if (Combat.initiateCombat(event)) {
                 PlayerAction.updateEvent(event.getChoicesNextUUIDs()[0]);
             }
             else {
@@ -172,10 +157,10 @@ public class StorylineInteractor {
             Scanner choice_reader = new
                     Scanner(View.display_event_choices(event.getChoicesNarrations()));
 
-            String choice = choice_reader.nextLine();
+            int choice = choice_reader.nextInt();
 
-            for (String next_event : event.getChoicesNextUUIDs()) {
-                if (choice.equals(next_event)) {
+            for (int next_event : event.getChoicesNextUUIDs()) {
+                if (choice == next_event) {
                     PlayerAction.updateEvent(choice);
                     break;
                 }
@@ -186,7 +171,7 @@ public class StorylineInteractor {
         Sound.stopSound();
 
         //finish the game. final event id is 1000
-        if (player.eventID == 1000) {
+        if (player.getEventID() == 1000) {
             String filename = player.getUsername() + ".ser";
             Save.saveToFile("/savefiles/" + filename, player);
 
