@@ -115,6 +115,7 @@ public class PlayerData implements Serializable {
         return removed;
     }
 
+
     /**
      * Returns the number of items of a type in a list.
      * @param item The entities.ItemData object that we count in the inventory.
