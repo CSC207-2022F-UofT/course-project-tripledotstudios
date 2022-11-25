@@ -44,7 +44,7 @@ public class StorylineInteractor {
 
         //dunno very first event ID
         PlayerData player = new PlayerData(username, 1, 100, inventory);
-        StorylineInteractor.playEvent(player);
+        this.playEvent(player);
     }
 
     /** Loads the current event of the Player
@@ -52,7 +52,8 @@ public class StorylineInteractor {
     public void loadGame() {
         String username = Login.getCurrentUser();
         String filename = username + ".ser";
-        Load.readFromFile("/savefiles/" + filename);
+        PlayerData player = Load.readFromFile("/savefiles/" + filename); //since it returns a PlayerData
+        this.playEvent(player);
     }
 
     /** Loads the final event after the Player beats the game
@@ -65,7 +66,7 @@ public class StorylineInteractor {
 
     /** If the Player loses the game, bring the Player back to the last save
      */
-    public static void lose(PlayerData player) {
+    public void lose(PlayerData player) {
         View.display_lose();
 
         //Choice options
@@ -81,13 +82,13 @@ public class StorylineInteractor {
         }
 
         else {
-            StorylineInteractor.playEvent(player);
+            this.playEvent(player);
         }
     }
 
     /** Exit the game
      */
-    public static void exitGame(PlayerData player) {
+    public void exitGame(PlayerData player) {
         View.display_exit();
 
         //Choice options
@@ -103,7 +104,7 @@ public class StorylineInteractor {
         }
 
         else {
-            StorylineInteractor.playEvent(player);
+            this.playEvent(player);
         }
     }
 
@@ -124,7 +125,7 @@ public class StorylineInteractor {
      * choicesNarration. If Event is a CombatEvent, make the Player fight the Enemy after
      * the narration. The method should also Save the game if the Event has an Auto Save
      */
-    public static void playEvent(PlayerData player) {
+    public void playEvent(PlayerData player) {
         event = Manager.getEvent(player.getEventID());
 
         boolean sound_status = true;
@@ -145,7 +146,7 @@ public class StorylineInteractor {
             }
             else {
                 ///Player loses
-                StorylineInteractor.lose(player);
+                this.lose(player);
             }
         }
 
@@ -179,7 +180,7 @@ public class StorylineInteractor {
         }
 
         else {
-            StorylineInteractor.playEvent(player);
+            this.playEvent(player);
         }
     }
 }
