@@ -8,14 +8,17 @@ public class LoginInteractor {
     private HashMap<String, String> accounts; // a HashMap mapping usernames to passwords for all registered accounts
     private final String filepath; // a String of the csv file containing all registered accounts
     private String currentUser; // a String of which, if any, user is currently logged in
+    private final LoginInterface presenter; // TODO: add description
 
     /**
      * Constructor.
      * @param filepath a String of the csv file containing all registered accounts
      */
-    public LoginInteractor(String filepath) {
+    public LoginInteractor(String filepath, LoginInterface presenter) {
         // save the name of the file that LoginInteractor will read from and write to
         this.filepath = filepath;
+        // save the LoginInterface that LoginInteractor will use
+        this.presenter = presenter;
         // read csv file and create hashmap mapping usernames to passwords
         String line = "";
         // assign new HashMap to accounts attribute
@@ -61,19 +64,19 @@ public class LoginInteractor {
      * @param password a String of a password attempt
      * @return 1 if login is valid, 2 if username does not exist, and 3 if password does not match username on file.
      */
-    public int validateLogin(String username, String password) {
+    public void validateLogin(String username, String password) {
         // an account with this username does not exist
         if (!(accounts.containsKey(username))) {
-            return 2;
+            presenter.updateLogin(2, username);
         }
         // password does not match username
         else if (!(Objects.equals(accounts.get(username), password))) {
-            return 3;
+            presenter.updateLogin(3, username);
         }
         // login is successful
         else {
-            this.currentUser = username;
-            return 1;
+            currentUser = username;
+            presenter.updateLogin(1, username);
         }
     }
 
@@ -85,8 +88,8 @@ public class LoginInteractor {
      * @return 1 if account creation is successful, 2 if username already exists, 3 if passwords do not match, 4
      * if passwords match but password is too short, 5 otherwise.
      */
-    public int createAccount(String username, String password1, String password2) {
-        // case that username is unique, password is long enough, and passwords match
+    public void createAccount(String username, String password1, String password2) {
+        // case that username is unique, password is long enough, and passwords match (i.e., valid account creation)
         if (validateNewUsername(username) && validateNewPassword(password1) && (password1.equals(password2))) {
             try {
                 // create new FileWriter
@@ -95,18 +98,18 @@ public class LoginInteractor {
                 fw.close();
                 // update <accounts> so that LoginInteractor doesn't have to be reconstructed
                 accounts.put(username, password1);
-                return 1;
+                presenter.updateRegister(1, username);
             }
             catch (IOException e) { e.printStackTrace(); }
         }
         // case that username already exists
-        else if (!(validateNewUsername(username))) { return 2; }
+        else if (!(validateNewUsername(username))) { presenter.updateRegister(2, username); }
         // case that passwords do not match
-        else if (!Objects.equals(password1, password2)) { return 3; }
+        else if (!Objects.equals(password1, password2)) { presenter.updateRegister(4, username); }
         // case that passwords match but password is too short
-        else if (!(validateNewPassword(password1))) { return 4; }
+        else if (!(validateNewPassword(password1))) { presenter.updateRegister(3, username); }
         // some other case is true
-        return 5;
+        presenter.updateRegister(5, username);
     }
 
     /**
