@@ -1,5 +1,7 @@
 import jdk.jfr.Event;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import dataclasses.*;
@@ -8,14 +10,14 @@ import use_cases.*;
 
 public class StorylineInteractor {
 
-    private static final StorylineInterface View;
-    private static final SoundInteractor Sound;
-    private static final SaveInteractor Save;
-    private static final LoadInteractor Load;
-    private static final PlayerInteractor PlayerAction;
-    private static final EventManager Manager;
-    private static final CombatInteractor Combat;
-    private static final LoginInteractor Login;
+    private static StorylineInterface View;
+    private static SoundInteractor Sound;
+    private static SaveInteractor Save;
+    private static LoadInteractor Load;
+    private static PlayerInteractor PlayerAction;
+    private static EventManager Manager;
+    private static CombatInteractor Combat;
+    private static LoginInteractor Login;
 
     public StorylineInteractor(StorylineInterface story, SoundInteractor soundInteractor,
                                SaveInteractor saveInteractor, LoadInteractor loadInteractor,
@@ -39,7 +41,7 @@ public class StorylineInteractor {
         String username = Login.getCurrentUser();
 
         //dunno very first event ID
-        player = PlayerData(username, 1, 100, 10);
+        player = new PlayerData(username, 1, 100, HashMap<>);
         StorylineInteractor.playEvent(player);
     }
 
@@ -120,7 +122,7 @@ public class StorylineInteractor {
     /** Stop playing Player's existing sound file
     */
     public static void SoundOff() {
-        if (Sound.getIsPlaying == true) {
+        if (Sound.getIsPlaying()) {
             Sound.stopSound();
         }
     }
@@ -129,7 +131,7 @@ public class StorylineInteractor {
     */
     public static void SoundOn(PlayerData player) {
         event = Manager.getEvent(player.eventID);
-        if (Sound.getIsPlaying != true) {
+        if (!Sound.getIsPlaying()) {
             Sound.playSound(event.getSoundFile);
         }
     }
@@ -140,12 +142,12 @@ public class StorylineInteractor {
      * the narration. The method should also Save the game if the Event has an Auto Save
      */
     public static void playEvent(PlayerData player) {
-        event = Manager.getEvent(player.eventID);
+        event = Manager.getEvent(player.getEventID());
 
-        Sound.playSound(event.getSoundFile);
+        Sound.playSound(event.getSoundFile());
 
         if (event.doesAutosave == True) {
-            String filename = player.username + ".ser";
+            String filename = player.getUsername() + ".ser";
             Save.saveToFile("/savefiles/" + filename, player);
         }
 
