@@ -1,5 +1,6 @@
 package UI;
 
+import Controller.Controller;
 import Controller.StorylineInterface;
 
 import javax.swing.*;
@@ -27,16 +28,17 @@ public class RegisterScreen extends JPanel {
     /**
      * The controller
      */
-    StorylineInterface controller;
+    Controller controller;
+
+    JFrame frame;
 
     /**
      * Build a register screen to sign up or cancel.
      */
-    public void buildRegisterScreen(StorylineInterface contr) {
-
+    public RegisterScreen(Controller contr) {
         controller = contr;
 
-        JFrame frame = new JFrame("Register");
+        frame = new JFrame("Register");
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(new CardLayout());
@@ -60,23 +62,8 @@ public class RegisterScreen extends JPanel {
             @Override
             public void actionPerformed(ActionEvent eve) {
                 try {
-                    int validateRegister = controller.createAccount(username.getText(),
-                            String.valueOf(password.getPassword()),
+                    controller.createAccount(username.getText(), String.valueOf(password.getPassword()),
                             String.valueOf(repeatPassword.getPassword()));
-                    if (validateRegister == 1) {
-                        JOptionPane.showMessageDialog(null, String.format("%s created.", username.getText()));
-                        controller.buildLoginScreen();
-                    }
-                    else if (validateRegister == 2) {
-                        JOptionPane.showMessageDialog(null, "Username already exists");
-                    }
-                    else if (validateRegister == 3) {
-                        JOptionPane.showMessageDialog(null, "Passwords too short");
-                    }
-                    else {
-                        JOptionPane.showMessageDialog(null, "Passwords do not match");
-                    }
-
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
                 }
@@ -87,13 +74,24 @@ public class RegisterScreen extends JPanel {
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent eve) {
-                controller.returnCreateAccountOrLoginScreen();
+                username.setText("");
+                password.setText("");
+                repeatPassword.setText("");
             }
         });
 
         JPanel buttons = new JPanel();
         buttons.add(signUp);
         buttons.add(cancel);
+
+        JButton sound = new JButton("Sound On/Off");
+        sound.setBounds(450,200,130,40);
+        sound.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.soundSwitch();
+            }
+        });
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -102,7 +100,16 @@ public class RegisterScreen extends JPanel {
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
         this.add(buttons);
+        frame.add(this);
+        frame.add(sound);
 
     }
 
+    public void setVisible() {
+        frame.setVisible(true);
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
 }

@@ -1,42 +1,65 @@
 package UI;
 
-import Controller.StorylineInterface;
+import Controller.Controller;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- *Create an account or login
+ *Create an account or login option screen
  */
 public class CreateAccountOrLogin {
-    StorylineInterface controller;
+    RegisterScreen registerScreen;
+    LoginScreen loginScreen;
+    Controller controller;
+    JFrame frame;
 
-    public void buildCreateAccountOrLoginScreen() {
-        JFrame frame = new JFrame("Create an account or login?");
+    public CreateAccountOrLogin(RegisterScreen rs, LoginScreen ls, Controller contr) {
+        registerScreen = rs;
+        loginScreen = ls;
+        controller = contr;
+
+        frame = new JFrame("Create an account or login?");
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLayout(new GridLayout());
+        frame.setLayout(null);
 
         JButton createAccount = new JButton("Create an account");
         JButton login = new JButton("Login");
+        JButton sound = new JButton("Sound On/Off");
+        createAccount.setBounds(200,50,200,50);
+        login.setBounds(200,130,200,50);
+        sound.setBounds(450,200,130,40);
 
         createAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.buildRegisterScreen(); //jump to RegisterScreen
+                frame.dispose();
+                registerScreen.setVisible();; //jump to RegisterScreen
             }
         });
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.buildLoginScreen(); //jump to LoginScreen
+                frame.dispose();
+                loginScreen.setVisible(); //jump to LoginScreen
+            }
+        });
+
+        sound.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.soundSwitch();
             }
         });
 
         frame.add(createAccount);
         frame.add(login);
+        frame.add(sound);
+    }
+
+    public void setVisible() {
         frame.setVisible(true);
     }
 }

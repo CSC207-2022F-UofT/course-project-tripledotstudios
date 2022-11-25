@@ -1,6 +1,6 @@
 package UI;
 
-import Controller.StorylineInterface;
+import Controller.Controller;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,16 +23,17 @@ public class LoginScreen extends JPanel {
     /**
      * The controller
      */
-    StorylineInterface controller;
+    Controller controller;
+
+    JFrame frame;
 
     /**
      * Build a register screen to sign up or cancel.
      */
-    public void buildLoginScreen(StorylineInterface contr) {
-
+    public LoginScreen(Controller contr) {
         controller = contr;
 
-        JFrame frame = new JFrame("Login");
+        frame = new JFrame("Login");
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(new CardLayout());
@@ -52,19 +53,7 @@ public class LoginScreen extends JPanel {
             @Override
             public void actionPerformed(ActionEvent eve) {
                 try {
-                    int validateLogin = controller.login(username.getText(),
-                            String.valueOf(password.getPassword()));
-                    if (validateLogin == 1) {
-                        JOptionPane.showMessageDialog(null, String.format("%s logged in.", username.getText()));
-                        controller.returnHomeScreen(); //jump to the EnterAGameScreen
-                    }
-                    else if (validateLogin == 2) {
-                        JOptionPane.showMessageDialog(null, "Username does not exist");
-                    }
-                    else {
-                        JOptionPane.showMessageDialog(null, "Wrong password");
-                    }
-
+                    controller.login(username.getText(), String.valueOf(password.getPassword()));
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
                 }
@@ -75,7 +64,8 @@ public class LoginScreen extends JPanel {
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent eve) {
-                controller.returnCreateAccountOrLoginScreen();
+                username.setText("");
+                password.setText("");
             }
         });
 
@@ -83,13 +73,31 @@ public class LoginScreen extends JPanel {
         buttons.add(signIn);
         buttons.add(cancel);
 
+        JButton sound = new JButton("Sound On/Off");
+        sound.setBounds(450,200,130,40);
+        sound.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.soundSwitch();
+            }
+        });
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
         this.add(usernameInfo);
         this.add(passwordInfo);
         this.add(buttons);
+        frame.add(this);
+        frame.add(sound);
 
     }
 
+    public void setVisible() {
+        frame.setVisible(true);
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
 }
