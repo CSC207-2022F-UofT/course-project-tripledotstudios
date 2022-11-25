@@ -21,7 +21,7 @@ public class Presenter implements StorylineInterface, LoginInterface {
     }
 
     @Override
-    public void updateLogin(int view, String username) {
+    public void updateLogin(int view, String username) { //when click sign in button, present the result
         if (view == 1) {
             JOptionPane.showMessageDialog(null, String.format("%s logged in.", username));
             loginScreen.getFrame().dispose(); //close loginScreen
@@ -36,7 +36,7 @@ public class Presenter implements StorylineInterface, LoginInterface {
     }
 
     @Override
-    public void updateRegister(int view, String username) {
+    public void updateRegister(int view, String username) { //when click sign up button, present the result
         if (view == 1) {
             JOptionPane.showMessageDialog(null, String.format("%s created.", username));
             registerScreen.getFrame().dispose(); //close loginScreen
