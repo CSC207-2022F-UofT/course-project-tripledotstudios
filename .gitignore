@@ -116,11 +116,4 @@ gradle-app.setting
 hs_err_pid*
 replay_pid*
 
-.idea/.gitignore
-.idea/misc.xml
-.idea/vcs.xml
-gradle/wrapper/gradle-wrapper.jar
-gradle/wrapper/gradle-wrapper.properties
-gradlew
-gradlew.bat
-implementation_plan.md
+
