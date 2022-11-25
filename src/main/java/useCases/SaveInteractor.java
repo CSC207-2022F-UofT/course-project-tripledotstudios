@@ -1,5 +1,5 @@
 package useCases;
-
+import entities.PlayerData;
 
 
 import java.io.*;
@@ -17,7 +17,7 @@ public class SaveInteractor implements Saver {
      */
 
     @Override
-    public void saveToFile(String filePath, Object playerData) throws IOException{
+    public void saveToFile(String filePath, PlayerData playerData) throws IOException{
 
         OutputStream file = new FileOutputStream(filePath);
         OutputStream buffer = new BufferedOutputStream(file);
