@@ -1,11 +1,13 @@
 import jdk.jfr.Event;
 
+import java.io.IOException;
 import java.util.*;
 
 import dataclasses.*;
 import entities.*;
 import use_cases.*;
 import controller.*;
+import useCases.*;
 
 public class StorylineInteractor {
 
@@ -36,28 +38,36 @@ public class StorylineInteractor {
     /** Set Player on their first Event. The method
      * takes in the username set by LoginInteractor.
      */
-    public void startGame() {
+    public void startGame() throws IOException, ClassNotFoundException {
         String username = login.getCurrentUser();
         HashMap<String, ArrayList<ItemData>> inventory = new HashMap<>(); //empty Hash Map
 
         //dunno very first event ID
         PlayerData player = new PlayerData(username, 1, 100, inventory);
+
+        //play the first event
         this.playEvent(player);
     }
 
     /** Loads the current event of the Player
      */
-    public void loadGame() {
+    public void loadGame() throws IOException, ClassNotFoundException {
         String username = login.getCurrentUser();
         String filename = username + ".ser";
+
+        //load method
         PlayerData player = load.readFromFile("/savefiles/" + filename); //since it returns a PlayerData
+        //start the game on the current event
         this.playEvent(player);
     }
 
     /** Loads the final event after the Player beats the game
      */
     public static void endGame() {
+        //grab event map
         Map<Integer, dataclasses.Event> event_map = EventManager.getAllEvents();
+
+        //grab last event
         dataclasses.Event event = event_map.get(1001);
         view.display_event(event.getNarration());
         view.returnHomeScreen();
@@ -66,7 +76,7 @@ public class StorylineInteractor {
     /** If the Player loses the game, bring the Player back to the last save
      * @param player: The player
      */
-    public void lose(PlayerData player) {
+    public void lose(PlayerData player) throws IOException, ClassNotFoundException {
         view.display_lose();
 
         //Choice options
@@ -89,7 +99,7 @@ public class StorylineInteractor {
     /** Exit the game
      * @param player The Player
      */
-    public void exitGame(PlayerData player) {
+    public void exitGame(PlayerData player) throws IOException, ClassNotFoundException {
         view.display_exit_options();
 
         //Choice options
@@ -130,7 +140,7 @@ public class StorylineInteractor {
      * the narration. The method should also Save the game if the Event has an Auto Save
      * @param player the Player
      */
-    public void playEvent(PlayerData player) {
+    public void playEvent(PlayerData player) throws IOException, ClassNotFoundException {
         Map<Integer, dataclasses.Event> event_map = EventManager.getAllEvents();
         dataclasses.Event event = event_map.get(player.getEventID());
 
@@ -147,7 +157,7 @@ public class StorylineInteractor {
 
             view.display_event(event.getNarration());
 
-            if (combat.initiateCombat(event)) {
+            if (combat.combat(event.getUUID())) {
                 player_action.updateEvent(event.getChoicesNextUUIDs().get(0));
             }
             else {
