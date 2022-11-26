@@ -140,7 +140,6 @@ public class StorylineInteractor {
                 this.lose(player);
             }
         }
-
         else {
 
             view.display_event(event.getNarration());
