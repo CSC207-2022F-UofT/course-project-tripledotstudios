@@ -11,7 +11,7 @@ import useCases.*;
 
 public class StorylineInteractor {
 
-    private static StorylineInterface view;
+    private static StorylinePresenter view;
     private static SoundInteractor sound;
     private static SaveInteractor save;
     private static LoadInteractor load;
@@ -20,7 +20,7 @@ public class StorylineInteractor {
     private static CombatInteractor combat;
     private static LoginInteractor login;
 
-    public StorylineInteractor(StorylineInterface story, SoundInteractor soundInteractor,
+    public StorylineInteractor(StorylinePresenter story, SoundInteractor soundInteractor,
                                SaveInteractor saveInteractor, LoadInteractor loadInteractor,
                                PlayerInteractor playerInteractor, EventManager eventManager,
                                CombatInteractor combatInteractor, LoginInteractor loginInteractor) {
@@ -63,7 +63,7 @@ public class StorylineInteractor {
 
     /** Loads the final event after the Player beats the game
      */
-    public static void endGame() {
+    public void endGame() {
         //grab event map
         Map<Integer, dataclasses.Event> event_map = EventManager.getAllEvents();
 
@@ -74,26 +74,11 @@ public class StorylineInteractor {
     }
 
     /** If the Player loses the game, bring the Player back to the last save
-     * @param player: The player
+     * @param player The player
      */
     public void lose(PlayerData player) throws IOException, ClassNotFoundException {
         view.display_lose();
-
-        //Choice options
-        Scanner choice_reader = new Scanner(System.in);
         view.display_exit_options();
-        String choice = choice_reader.nextLine();
-
-        String username = login.getCurrentUser();
-        String filename = username + ".ser";
-        load.readFromFile("/savefiles/" + filename);
-        if (choice.equals("Quit")) {
-            view.returnHomeScreen();
-        }
-
-        else {
-            this.playEvent(player);
-        }
     }
 
     /** Exit the game
@@ -101,38 +86,20 @@ public class StorylineInteractor {
      */
     public void exitGame(PlayerData player) throws IOException, ClassNotFoundException {
         view.display_exit_options();
-
-        //Choice options
-        Scanner choice_reader = new Scanner(view.display_exit_options());//why?? what??
-        String choice = choice_reader.nextLine();
-
-        String username = login.getCurrentUser();
-        String filename = username + ".ser";
-        load.readFromFile("/savefiles/" + filename);
-
-        if (choice.equals("Quit")) {
-            view.returnHomeScreen();
-        }
-
-        else {
-            this.playEvent(player);
-        }
     }
 
     /**Turn sound on or off
-     * @param event Event
      */
-    public static void soundSwitch(dataclasses.Event event, boolean sound_status) {
+    public void soundSwitch() {
+        Map<Integer, dataclasses.Event> event_map = EventManager.getAllEvents();
+        dataclasses.Event event = event_map.get(player_action.getPlayerEventID());
         if (!sound.getIsPlaying()) {
             sound.playSound(event.getSoundFile());
         }
         else {
             sound.stopSound();
-            sound_status = false;
         }
     }
-
-
 
     /** Grab an event based on the inputted UUID and output its sound file and narration.
      * At the end of the narration, let the Player make a choice based on the Event's
@@ -144,9 +111,17 @@ public class StorylineInteractor {
         Map<Integer, dataclasses.Event> event_map = EventManager.getAllEvents();
         dataclasses.Event event = event_map.get(player.getEventID());
 
-        boolean sound_status = true;
-        //the sound plays when the event starts, player can call soundSwitch to turn it off
-        StorylineInteractor.soundSwitch(event, sound_status);
+        //finish the game. final event id is 1000
+        if (player.getEventID() == 1000) {
+            String filename = player.getUsername() + ".ser";
+            save.saveToFile("/savefiles/" + filename, player);
+
+            this.endGame();
+        }
+
+        if (sound.getIsPlaying()) {
+            sound.playSound(event.getSoundFile());
+        }
 
         if (event.getDoesAutoSave()) {
             String filename = player.getUsername() + ".ser";
@@ -170,32 +145,15 @@ public class StorylineInteractor {
 
             view.display_event(event.getNarration());
 
+            StringBuilder choices = new StringBuilder();
             //User input system
-            Scanner choice_reader = new
-                    Scanner(view.display_event_choices(event.getChoicesNarrations()));
-
-            String choice = choice_reader.nextLine();
-
-            for (int i = 0; i < event.getChoicesNarrations().size(); i++) {
-                if (choice.equals(event.getChoicesNarrations().get(i))) {
-                    player_action.updateEvent(event.getChoicesNextUUIDs().get(i));
-                    break;
-                }
+            for (String choice : event.getChoicesNarrations()) {
+                choices.append(", ").append(choice);
             }
-        }
+            view.display_event_choices(choices);
+            view.take_event_choice(player);
 
-        sound.stopSound();
 
-        //finish the game. final event id is 1000
-        if (player.getEventID() == 1000) {
-            String filename = player.getUsername() + ".ser";
-            save.saveToFile("/savefiles/" + filename, player);
-
-            StorylineInteractor.endGame();
-        }
-
-        else {
-            this.playEvent(player);
         }
     }
 }
