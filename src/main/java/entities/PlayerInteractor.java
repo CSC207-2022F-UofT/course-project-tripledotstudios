@@ -98,7 +98,7 @@ public class PlayerInteractor {
     }
 
     /**
-     * Returns a list of the ItemData objects.
+     * Returns a list of the ItemData objects using the PLayerData class's method.
      * @return items
      */
     public ArrayList<ItemData> getInventoryItems() {

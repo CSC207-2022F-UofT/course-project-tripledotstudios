@@ -125,7 +125,7 @@ public class PlayerData implements Serializable {
     }
 
     /**
-     * Returns a list of the ItemData objects.
+     * Returns a list of the ItemData objects from the inventory.
      * @return items
      */
     public ArrayList<ItemData> getInventoryItems() {
