@@ -10,15 +10,16 @@ import java.awt.event.ActionListener;
  * Exit the game or continue the game
  */
 public class ExitOptionsScreen {
-    CreateAccountOrLogin createAccountOrLogin;
+    EnterAGameScreen enterAGameScreen;
     StorylineController storylineController;
     JFrame frame;
 
-    public ExitOptionsScreen(CreateAccountOrLogin cl, StorylineController contr) {
-        createAccountOrLogin = cl;
+    public ExitOptionsScreen(EnterAGameScreen egs, StorylineController contr) {
+        enterAGameScreen = egs;
         storylineController = contr;
 
         frame = new JFrame("Exit the Game or Continue?");
+        frame.add(new JLabel("If you did not save, any unsaved progress will be lost."));
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(null);
@@ -34,7 +35,7 @@ public class ExitOptionsScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                createAccountOrLogin.setVisible();
+                enterAGameScreen.setVisible();
             }
         });
         continueGame.addActionListener(new ActionListener() {

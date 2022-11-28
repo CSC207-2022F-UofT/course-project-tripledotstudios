@@ -3,38 +3,38 @@ package presenter;
 import UI.*;
 
 import javax.swing.*;
-import java.util.Scanner;
+import java.util.List;
 
 public class StorylinePresenter implements StorylineInterface {
     ExitOptionsScreen exitOptionsScreen;
     EnterAGameScreen enterAGameScreen;
-    GameView gameView;
+    GameScreen gameScreen;
 
-    public StorylinePresenter(EnterAGameScreen egs, ExitOptionsScreen eos, GameView gv) {
+    public StorylinePresenter(EnterAGameScreen egs, ExitOptionsScreen eos, GameScreen gv) {
         enterAGameScreen = egs;
         exitOptionsScreen = eos;
-        gameView = gv;
+        gameScreen = gv;
     }
 
 
     @Override
     public void display_event(String narration) {  //display string objects
-        gameView.display_event(narration);
+        gameScreen.display_event(narration);
     }
 
     @Override
-    public void display_event_choices(String narrationChoices) { //display choices string narration
-        gameView.display_event_choices(narrationChoices);
+    public void display_event_choices(List<String> narrationChoices) { //display choices string narration
+        gameScreen.display_event_choices(narrationChoices);
     }
 
     @Override
     public void take_event_choice(Player player) {
-        gameView.take_event_choice(player);
+        gameScreen.take_event_choice(player);
     }
 
     @Override
     public void display_lose() { //display losing screen
-        gameView.display_lose();
+        gameScreen.display_lose();
     }
 
     @Override
