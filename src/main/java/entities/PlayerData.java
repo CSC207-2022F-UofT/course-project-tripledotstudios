@@ -1,5 +1,4 @@
 package entities; /** relevant imports*/
-import entities.ItemData;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -123,5 +122,23 @@ public class PlayerData implements Serializable {
      */
     public int itemCount(ItemData item) {
         return inventory.get(item.getName()).size();
+    }
+
+    /**
+     * Returns a list of the ItemData objects from the inventory.
+     * @return items
+     */
+    public ArrayList<ItemData> getInventoryItems() {
+        // the list of ItemData objects
+        ArrayList<ItemData> items = new ArrayList<>();
+
+        // looping through the values of the hashmap
+        for (ArrayList<ItemData> itemList : inventory.values()) {
+            // looping through the values in each list
+            for (ItemData item: itemList) {
+                items.add(item);
+            }
+        }
+        return items;
     }
 }
