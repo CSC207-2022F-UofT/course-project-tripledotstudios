@@ -9,12 +9,28 @@ import org.json.*;
  * The class that reads from Events.json (which stores our events in the story),
  * and generates a data structure (Map), like a factory, 
  * which maps the events' UUIDs to the Event objects.
- * 
- * Important Note: The main method "getAllEvents()" is STATIC. Keep this in mind when using it!
  */
 public class EventManager{	
 	
-	public static Map<Integer, Event> getAllEvents(){
+	private Map<Integer, Event> eventMap;
+
+	public EventManager(){
+		eventMap = getAllEventsFromFile();
+	}
+
+	/**
+	 * Main function the user of this class must call upon to return a map of
+	 * all the Events.
+	 * @return a Map<Integer, Event> mapping the UUIDs to the Event objects
+	 */
+	public Map<Integer, Event> getAllEvents(){
+		return eventMap;
+	}
+
+	/**
+	 * Private function that is run once in constructor to read from file.
+	 */
+	private Map<Integer, Event> getAllEventsFromFile(){
 		Map<Integer, Event> eventMap = new HashMap<Integer, Event>();
 
 		String jsonFile = stringFromJsonFile("data/Events.json");
@@ -69,7 +85,7 @@ public class EventManager{
 
 	// Below are private helper functions:
 
-	private static String stringFromJsonFile(String filePath){
+	private String stringFromJsonFile(String filePath){
 		String fileAsString = "[]";
 		try {
 			fileAsString = new String(Files.readAllBytes(Paths.get(filePath)));
@@ -80,7 +96,7 @@ public class EventManager{
 		return fileAsString;
 	}
 
-	private static EnemyData generateEnemyDataObject(JSONObject enemyObj){
+	private EnemyData generateEnemyDataObject(JSONObject enemyObj){
 
 		String enemyName = enemyObj.getString("name");
 		Integer enemyHealth = enemyObj.getInt("health");
@@ -90,7 +106,7 @@ public class EventManager{
 		return new EnemyData(enemyName, enemyHealth, enemyAttackMean, enemyAttackDeviation);
 	}
 
-	private static void generateListOfQuestions(JSONArray questionsArr, List<QuestionData> questions){
+	private void generateListOfQuestions(JSONArray questionsArr, List<QuestionData> questions){
 
 		for(int i = 0; i < questionsArr.length(); i++){
 			JSONObject qObj = questionsArr.getJSONObject(i);
