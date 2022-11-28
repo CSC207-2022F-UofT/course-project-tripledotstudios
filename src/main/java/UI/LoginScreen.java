@@ -1,6 +1,7 @@
 package UI;
 
-import Controller.Controller;
+import controller.LoginController;
+import controller.StorylineController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,17 +22,23 @@ public class LoginScreen extends JPanel {
     JPasswordField password = new JPasswordField(15);
 
     /**
-     * The controller
+     * The login controller
      */
-    Controller controller;
+    LoginController loginController;
+
+    /**
+     * The storyline controller
+     */
+    StorylineController storylineController;
 
     JFrame frame;
 
     /**
      * Build a register screen to sign up or cancel.
      */
-    public LoginScreen(Controller contr) {
-        controller = contr;
+    public LoginScreen(LoginController lc, StorylineController sc) {
+        loginController = lc;
+        storylineController = sc;
 
         frame = new JFrame("Login");
         frame.setSize(600, 300);
@@ -53,7 +60,7 @@ public class LoginScreen extends JPanel {
             @Override
             public void actionPerformed(ActionEvent eve) {
                 try {
-                    controller.login(username.getText(), String.valueOf(password.getPassword()));
+                    loginController.login(username.getText(), String.valueOf(password.getPassword()));
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
                 }
@@ -77,8 +84,7 @@ public class LoginScreen extends JPanel {
         sound.setBounds(450,200,130,40);
         sound.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.soundSwitch();
+            public void actionPerformed(ActionEvent e) { storylineController.soundSwitch();
             }
         });
 

@@ -1,6 +1,7 @@
 package UI;
 
-import Controller.Controller;
+import controller.LoginController;
+import controller.StorylineController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,12 +12,14 @@ import java.awt.event.ActionListener;
  */
 public class EnterAGameScreen {
     CreateAccountOrLogin createAccountOrLogin;
-    Controller controller;
+    LoginController loginController;
+    StorylineController storylineController;
     JFrame frame;
 
-    public EnterAGameScreen(CreateAccountOrLogin cl, Controller contr) {
+    public EnterAGameScreen(CreateAccountOrLogin cl, LoginController lc, StorylineController sc) {
         createAccountOrLogin = cl;
-        controller = contr;
+        loginController = lc;
+        storylineController =sc;
         frame = new JFrame("Enter A Game");
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -35,21 +38,21 @@ public class EnterAGameScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                controller.setNewGame();
+                storylineController.setNewGame();
             }
         });
         resumeASavedGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                controller.loadGame();
+                storylineController.loadGame();
             }
         });
         logout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                controller.logOut();
+                loginController.logOut();
                 createAccountOrLogin.setVisible();
             }
         });
@@ -57,7 +60,7 @@ public class EnterAGameScreen {
         sound.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.soundSwitch();
+                storylineController.soundSwitch();
             }
         });
 

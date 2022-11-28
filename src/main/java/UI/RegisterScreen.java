@@ -1,7 +1,7 @@
 package UI;
 
-import Controller.Controller;
-import Controller.StorylineInterface;
+import controller.LoginController;
+import controller.StorylineController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,17 +26,22 @@ public class RegisterScreen extends JPanel {
     JPasswordField repeatPassword = new JPasswordField(15);
 
     /**
-     * The controller
+     * The login controller
      */
-    Controller controller;
+    LoginController loginController;
+    /**
+     * The storyline controller
+     */
+    StorylineController storylineController;
 
     JFrame frame;
 
     /**
      * Build a register screen to sign up or cancel.
      */
-    public RegisterScreen(Controller contr) {
-        controller = contr;
+    public RegisterScreen(LoginController lc, StorylineController sc) {
+        loginController = lc;
+        storylineController = sc;
 
         frame = new JFrame("Register");
         frame.setSize(600, 300);
@@ -62,7 +67,7 @@ public class RegisterScreen extends JPanel {
             @Override
             public void actionPerformed(ActionEvent eve) {
                 try {
-                    controller.createAccount(username.getText(), String.valueOf(password.getPassword()),
+                    loginController.createAccount(username.getText(), String.valueOf(password.getPassword()),
                             String.valueOf(repeatPassword.getPassword()));
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
@@ -89,7 +94,7 @@ public class RegisterScreen extends JPanel {
         sound.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.soundSwitch();
+                storylineController.soundSwitch();
             }
         });
 

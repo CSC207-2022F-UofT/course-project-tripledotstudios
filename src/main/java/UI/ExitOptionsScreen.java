@@ -1,6 +1,6 @@
 package UI;
 
-import Controller.Controller;
+import controller.StorylineController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,12 +11,12 @@ import java.awt.event.ActionListener;
  */
 public class ExitOptionsScreen {
     CreateAccountOrLogin createAccountOrLogin;
-    Controller controller;
+    StorylineController storylineController;
     JFrame frame;
 
-    public ExitOptionsScreen(CreateAccountOrLogin cl, Controller contr) {
+    public ExitOptionsScreen(CreateAccountOrLogin cl, StorylineController contr) {
         createAccountOrLogin = cl;
-        controller = contr;
+        storylineController = contr;
 
         frame = new JFrame("Exit the Game or Continue?");
         frame.setSize(600, 300);
@@ -40,14 +40,14 @@ public class ExitOptionsScreen {
         continueGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.loadGame();
+                storylineController.loadGame();
             }
         });
 
         sound.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.soundSwitch();
+                storylineController.soundSwitch();
             }
         });
 

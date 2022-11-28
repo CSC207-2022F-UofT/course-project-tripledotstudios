@@ -1,26 +1,10 @@
-package Controller;
+package controller;
 
-public class Controller {
-
-    private final StorylineInteractor storylineInteractor;
+public class LoginController {
     private final LoginInteractor loginInteractor;
 
-
-    public Controller(StorylineInteractor storylineInter, LoginInteractor loginInter) {
-        storylineInteractor = storylineInter;
+    public LoginController(LoginInteractor loginInter) {
         loginInteractor = loginInter;
-    }
-
-    public void setNewGame() { //set a new game
-        storylineInteractor.startGame();
-    }
-
-    public void loadGame() { //load the saved game
-        storylineInteractor.loadGame();
-    }
-
-    public void soundSwitch() {
-        storylineInteractor.soundSwitch();
     }
 
     public void createAccount(String username, String password, String repeatPassword) {

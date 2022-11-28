@@ -1,4 +1,4 @@
-package Controller;
+package presenter;
 
 import UI.EnterAGameScreen;
 import UI.ExitOptionsScreen;
@@ -7,17 +7,15 @@ import UI.RegisterScreen;
 
 import javax.swing.*;
 
-public class Presenter implements StorylineInterface, LoginInterface {
+public class LoginPresenter implements LoginInterface {
     RegisterScreen registerScreen;
     LoginScreen loginScreen;
     EnterAGameScreen enterAGameScreen;
-    ExitOptionsScreen exitOptionsScreen;
 
-    public Presenter(RegisterScreen rs, LoginScreen ls, EnterAGameScreen egs, ExitOptionsScreen eos) {
+    public LoginPresenter(RegisterScreen rs, LoginScreen ls, EnterAGameScreen egs) {
         registerScreen = rs;
         loginScreen = ls;
         enterAGameScreen = egs;
-        exitOptionsScreen = eos;
     }
 
     @Override
@@ -54,31 +52,6 @@ public class Presenter implements StorylineInterface, LoginInterface {
         else {
             JOptionPane.showMessageDialog(null, "Something went wrong");
         }
-    }
-
-    @Override
-    public void display_event(String narration) {  //display string objects
-        System.out.println(narration);
-    }
-
-    @Override
-    public void display_event_choices(String narrationChoices) { //display choices string narration
-        System.out.println(narrationChoices);
-    }
-
-    @Override
-    public void display_lose() { //display losing screen
-        JOptionPane.showMessageDialog(null, "Ahh...You lose.Try it again!");
-    }
-
-    @Override
-    public void display_exit_options() { //display exit option screen
-        exitOptionsScreen.setVisible();
-    }
-
-    @Override
-    public void returnHomeScreen() { //return to the HomeScreen
-        enterAGameScreen.setVisible();
     }
 
 }

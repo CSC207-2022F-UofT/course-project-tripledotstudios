@@ -1,6 +1,7 @@
 package UI;
 
-import Controller.Controller;
+import controller.LoginController;
+import controller.StorylineController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,13 +13,15 @@ import java.awt.event.ActionListener;
 public class CreateAccountOrLogin {
     RegisterScreen registerScreen;
     LoginScreen loginScreen;
-    Controller controller;
+    LoginController loginController;
+    StorylineController storylineController;
     JFrame frame;
 
-    public CreateAccountOrLogin(RegisterScreen rs, LoginScreen ls, Controller contr) {
+    public CreateAccountOrLogin(RegisterScreen rs, LoginScreen ls, LoginController lc, StorylineController sc) {
         registerScreen = rs;
         loginScreen = ls;
-        controller = contr;
+        loginController = lc;
+        storylineController = sc;
 
         frame = new JFrame("Create an account or login?");
         frame.setSize(600, 300);
@@ -50,7 +53,7 @@ public class CreateAccountOrLogin {
         sound.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.soundSwitch();
+                storylineController.soundSwitch();
             }
         });
 
