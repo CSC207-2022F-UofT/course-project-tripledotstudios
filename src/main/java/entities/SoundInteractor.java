@@ -5,20 +5,42 @@ import javax.sound.sampled.*;
 import java.io.IOException;
 
 public class SoundInteractor {
+    /** Clip that contains the audio */
     private Clip sound;
+
+    /** Stores whether playSound has been called more recently than stopSound if at all */
     private boolean isPlaying;
+
+    /** InputStream through which audio is played */
     private AudioInputStream inputStream;
+
+    /** Stores whether the sound setting is set to on */
+    private boolean soundChoice;
 
     public SoundInteractor() {
         isPlaying = false;
+        soundChoice = true;
     }
 
     /**
-     * Getter method for isPlaying, which indicates whether sound is currently playing.
+     * Getter method for isPlaying.
      * @return isPlaying.
      */
     public boolean getIsPlaying() {
         return isPlaying;
+    }
+
+    /**
+     * Getter method for soundChoice.
+     * @return soundChoice.
+     */
+    public boolean getSoundChoice() { return soundChoice; }
+
+    /**
+     * Changes soundChoice to store the opposite boolean that it currently stores.
+     */
+    public void switchSoundChoice() {
+        soundChoice = !soundChoice;
     }
 
     /**
