@@ -16,20 +16,18 @@ public class StorylineInteractor {
     private static SaveInteractor save;
     private static LoadInteractor load;
     private static PlayerInteractor player_action;
-    private static EventManager manager;
     private static CombatInteractor combat;
     private static LoginInteractor login;
 
     public StorylineInteractor(StorylinePresenter story, SoundInteractor soundInteractor,
                                SaveInteractor saveInteractor, LoadInteractor loadInteractor,
-                               PlayerInteractor playerInteractor, EventManager eventManager,
-                               CombatInteractor combatInteractor, LoginInteractor loginInteractor) {
+                               PlayerInteractor playerInteractor, CombatInteractor combatInteractor,
+                               LoginInteractor loginInteractor) {
         view = story;
         sound = soundInteractor;
         load = loadInteractor;
         save = saveInteractor;
         player_action = playerInteractor;
-        manager = eventManager;
         combat = combatInteractor;
         login = loginInteractor;
 
@@ -59,6 +57,11 @@ public class StorylineInteractor {
         PlayerData player = load.readFromFile("/savefiles/" + filename); //since it returns a PlayerData
         //start the game on the current event
         this.playEvent(player);
+    }
+
+    public void saveGame(PlayerData player) throws IOException {
+        String filename = "/savefiles/" + player.getUsername() + ".ser";
+        save.saveToFile(filename, player);
     }
 
     /** Loads the final event after the Player beats the game
@@ -95,9 +98,11 @@ public class StorylineInteractor {
         dataclasses.Event event = event_map.get(player_action.getPlayerEventID());
         if (!sound.getIsPlaying()) {
             sound.playSound(event.getSoundFile());
+            sound.switchSoundChoice();
         }
         else {
             sound.stopSound();
+            sound.switchSoundChoice();
         }
     }
 
@@ -113,19 +118,17 @@ public class StorylineInteractor {
 
         //finish the game. final event id is 1000
         if (player.getEventID() == 1000) {
-            String filename = player.getUsername() + ".ser";
-            save.saveToFile("/savefiles/" + filename, player);
+            this.saveGame(player);
 
             this.endGame();
         }
 
-        if (sound.getIsPlaying()) {
+        if (sound.getSoundChoice()) {
             sound.playSound(event.getSoundFile());
         }
 
         if (event.getDoesAutoSave()) {
-            String filename = player.getUsername() + ".ser";
-            save.saveToFile("/savefiles/" + filename, player);
+            this.saveGame(player);
         }
 
         if (event instanceof CombatEvent) {
@@ -143,13 +146,7 @@ public class StorylineInteractor {
         else {
 
             view.display_event(event.getNarration());
-
-            StringBuilder choices = new StringBuilder();
-            //User input system
-            for (String choice : event.getChoicesNarrations()) {
-                choices.append(", ").append(choice);
-            }
-            view.display_event_choices(choices);
+            view.display_event_choices(event.getChoicesNarrations());
             view.take_event_choice(player);
 
 
