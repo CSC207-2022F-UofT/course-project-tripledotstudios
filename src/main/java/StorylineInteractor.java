@@ -47,6 +47,15 @@ public class StorylineInteractor {
         this.playEvent(player);
     }
 
+    /** update the Player's current event based on the choice Player makes that correspond
+     * to the UUID from ChoicesNextUUIDs in Event
+    * @param event current event being played
+    * @param choice the integer choice the PLayer makes
+    */
+    public void updateEventID(dataclasses.Event event, int choice) {
+        player_action.updateEvent(event.getChoicesNextUUIDs().get(choice));
+    }
+
     /** Loads the current event of the Player
      */
     public void loadGame() throws IOException, ClassNotFoundException {
@@ -59,6 +68,9 @@ public class StorylineInteractor {
         this.playEvent(player);
     }
 
+    /** Saves PLayer data to the file
+     * @param player The Player
+     */
     public void saveGame(PlayerData player) throws IOException {
         String filename = "/savefiles/" + player.getUsername() + ".ser";
         save.saveToFile(filename, player);
