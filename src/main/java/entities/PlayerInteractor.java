@@ -2,6 +2,8 @@ package entities; /** relevant imports */
 import entities.ItemData;
 import entities.PlayerData;
 
+import java.util.ArrayList;
+
 /**
  * entities.PlayerInteractor class
  * Responsible for updating the entities.PlayerData class.
@@ -93,6 +95,10 @@ public class PlayerInteractor {
      */
     public int itemCount(ItemData item) {
         return player.itemCount(item);
+    }
+
+    public ArrayList<ItemData> getInventoryItems() {
+        return player.getInventoryItems();
     }
 
 }
