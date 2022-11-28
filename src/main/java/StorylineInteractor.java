@@ -11,7 +11,7 @@ import useCases.*;
 
 public class StorylineInteractor {
 
-    private static StorylinePresenter view;
+    private static StorylineInterface view;
     private static SoundInteractor sound;
     private static SaveInteractor save;
     private static LoadInteractor load;
@@ -19,7 +19,7 @@ public class StorylineInteractor {
     private static CombatInteractor combat;
     private static LoginInteractor login;
 
-    public StorylineInteractor(StorylinePresenter story, SoundInteractor soundInteractor,
+    public StorylineInteractor(StorylineInterface story, SoundInteractor soundInteractor,
                                SaveInteractor saveInteractor, LoadInteractor loadInteractor,
                                PlayerInteractor playerInteractor, CombatInteractor combatInteractor,
                                LoginInteractor loginInteractor) {
