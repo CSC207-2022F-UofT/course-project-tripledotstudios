@@ -1,6 +1,6 @@
 # CSC207 Project: Lost-the Game
 
-As of Nov. 28, we have finished most of our features for the game. We just need to finish the UI and one small feature 
+As of Nov. 21, we have finished most of our features for the game. We just need to finish the UI and one small feature 
 between the CombatInteractor class and the StorylineInteractor class. After these implementations, our program will 
 be able to run. 
 
@@ -13,10 +13,8 @@ be able to run.
 - [X] HP and Attack System in the game
 - [X] Dialogue options and storyline interactions
 - [X] Player data classes and interactors
-- [X] UI
 - 
-
-## How to Run the game
+## How to Run the Game
 Run the main program
  
 ## Testing and Functionality
@@ -24,13 +22,6 @@ Run the main program
 Since we cannot fully run our game right now, we have individually written tests for our code and tested it before
 submitting the pull requests and merging.
 
-
-## Design Patterns
-
-In our CRC model, we already separated our classes into the different layers of Clean Architecture, so during
-implementation, we did not have issues with adhering to Clean Architecture and the SOLID design rules. Putting our data 
-classes into the entities layer and the interactors into the Use Case layer helped us not run into instances of breaking
-Clean Architecture.  
 
 ## Members of Group
 - Josh Chan
@@ -40,5 +31,12 @@ Clean Architecture.
 - Taha Saeed Piracha
 - Natasha Sharan
 - Ludan Ye
+
+## Design Patterns
+
+In our CRC model, we already separated our classes into the different layers of Clean Architecture, so during
+implementation, we did not have issues with adhering to Clean Architecture and the SOLID design rules. Putting our data 
+classes into the entities layer and the interactors into the Use Case layer helped us not run into instances of breaking
+Clean Architecture.  
 
 
