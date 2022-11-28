@@ -97,6 +97,10 @@ public class PlayerInteractor {
         return player.itemCount(item);
     }
 
+    /**
+     * Returns a list of the ItemData objects.
+     * @return items
+     */
     public ArrayList<ItemData> getInventoryItems() {
         return player.getInventoryItems();
     }
