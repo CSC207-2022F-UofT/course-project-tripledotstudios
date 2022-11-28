@@ -14,13 +14,23 @@ be able to run.
 - [X] Dialogue options and storyline interactions
 - [X] Player data classes and interactors
 - 
-
+## How to Run the Game
+Run the main program
  
 ## Testing and Functionality
 
 Since we cannot fully run our game right now, we have individually written tests for our code and tested it before
 submitting the pull requests and merging.
 
+
+## Members of Group
+- Josh Chan
+- Alaina Hu
+- Chris Jiang
+- Gwendolyn Kwong
+- Taha Saeed Piracha
+- Natasha Sharan
+- Ludan Ye
 
 ## Design Patterns
 
