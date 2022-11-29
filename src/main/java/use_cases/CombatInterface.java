@@ -25,13 +25,13 @@ public interface CombatInterface {
      * Asks the player whether the player wants to use an item or not.
      * @return whether the player wants to use an item in the current turn
      */
-    boolean playerUsesItem();
+    void playerUsesItem();
 
     /**
      * Asks the player the question, and let the player choose between a list of answers.
      * After the player chooses an answer, display the corresponding response (the indexes match)
-     * And return the index of the answer within "answers" that the player has chosen.
-     * @return index of the answer [0 to length(answers)-1] that the player has chosen.
+     * .
+     * Note that CombatController must use returnAnswer() to return the index of the answer chosen
      */
-    int askQuestion(String question, List<String> answers, List<String> responses);
+    void askQuestion(String question, List<String> answers, List<String> responses);
 }

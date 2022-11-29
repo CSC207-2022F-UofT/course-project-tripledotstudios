@@ -45,8 +45,8 @@ public class CombatInteractor {
 				// TODO: Item Usage Support
 			}else{
 				QuestionData q = event.getRandomQuestion();
-				int index = view.askQuestion(q.getQuestion(), q.getAnswers(), q.getResponses());
-				int damage = q.getAttackValues().get(index);
+				view.askQuestion(q.getQuestion(), q.getAnswers(), q.getResponses());
+				int damage = q.getAttackValues().get(answerIndex);
 				if(damage == -1){
 					playerCurrentHealth -= event.generateEnemyAttackValue();
 				}else{
@@ -59,5 +59,12 @@ public class CombatInteractor {
 
 		return enemyCurrentHealth <= 0;
     }
+
+	// Functions for CombatController to call
+
+	private int answerIndex;
+	public void returnAnswer(int answerIndex){
+		this.answerIndex = answerIndex;
+	}
 
 }
