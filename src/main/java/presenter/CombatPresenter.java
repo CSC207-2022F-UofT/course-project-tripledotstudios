@@ -1,9 +1,12 @@
 package presenter;
 
-import UI.EnterAGameScreen;
-import UI.ExitOptionsScreen;
+import UI.GameScreen;
+import entities.ItemData;
+import use_cases.CombatInterface;
 
-public class CombatPresenter implements CombatInterface{
+import java.util.List;
+
+public class CombatPresenter implements CombatInterface {
     GameScreen gameScreen;
 
     public CombatPresenter(GameScreen gv) {
@@ -25,13 +28,23 @@ public class CombatPresenter implements CombatInterface{
     }
 
     @Override
-    public boolean playerUsesItem() {
-        return gameScreen.playerUsesItem();
+    public void askIfPlayerUsesItem() {
+        gameScreen.askIfPlayerUsesItem();
     }
 
     @Override
-    public int askQuestion(String question, List<String> answers, List<String> responses) {
-        return gameScreen.askQuestion(qustion, answers, reponses);
+    public void letPlayerChooseItem(List<ItemData> playerItems) {
+        gameScreen.letPlayerChooseItem(playerItems);
+    }
+
+    @Override
+    public void informPlayerOfItemUse(ItemData item) {
+        gameScreen.informPlayerOfItemUse(item);
+    }
+
+    @Override
+    public void askQuestion(String question, List<String> answers, List<String> responses) {
+        gameScreen.askQuestion(question, answers, responses);
     }
 
 }

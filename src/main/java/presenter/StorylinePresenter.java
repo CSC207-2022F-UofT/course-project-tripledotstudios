@@ -1,6 +1,7 @@
 package presenter;
 
 import UI.*;
+import entities.PlayerData;
 
 import javax.swing.*;
 import java.util.List;
@@ -28,7 +29,7 @@ public class StorylinePresenter implements StorylineInterface {
     }
 
     @Override
-    public void take_event_choice(Player player) {
+    public void take_event_choice(PlayerData player) {
         gameScreen.take_event_choice(player);
     }
 
