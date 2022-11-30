@@ -2,6 +2,7 @@ package use_cases;
 
 import java.util.*;
 import dataclasses.*;
+import entities.ItemData;
 import entities.PlayerInteractor;
 
 public class CombatInteractor {
@@ -41,8 +42,28 @@ public class CombatInteractor {
 		view.displayNarration(event.getNarration());
 
         while(enemyCurrentHealth > 0 && playerCurrentHealth > 0){  // Checking the ending condition of the combat
-			if(view.playerUsesItem()){
-				// TODO: Item Usage Support
+			List<ItemData> playerItems = player.getInventoryItems();
+			playerWantsItemUse = false;
+
+			if(playerItems.size() > 0) {
+				view.askIfPlayerUsesItem();  // Asks if player wants to use an item.
+				// Answer is returned by CombatController calling respondItemUse() function.
+			}
+
+			if(playerWantsItemUse){
+				// Item Usage Support
+				view.letPlayerChooseItem(playerItems);  // Let player choose the item to use, index is returned
+
+				ItemData item = playerItems.get(itemChoice);
+				player.removeFromInventory(item);
+				view.informPlayerOfItemUse(item);  // Tell the player that the item is used and its effects
+
+				if (item.getAttribute().equals("health")){
+					playerCurrentHealth += item.getValue();
+				}else{  // Assuming the attribute is "attack"
+					enemyCurrentHealth -= item.getValue();
+				}
+
 			}else{
 				QuestionData q = event.getRandomQuestion();
 				view.askQuestion(q.getQuestion(), q.getAnswers(), q.getResponses());
@@ -61,6 +82,16 @@ public class CombatInteractor {
     }
 
 	// Functions for CombatController to call
+
+	private boolean playerWantsItemUse;
+	public void respondItemUse(boolean playerWantsItemUse){
+		this.playerWantsItemUse = playerWantsItemUse;
+	}
+
+	private int itemChoice;
+	public void playerChoosesItem(int itemChoice){
+		this.itemChoice = itemChoice;
+	}
 
 	private int answerIndex;
 	public void returnAnswer(int answerIndex){

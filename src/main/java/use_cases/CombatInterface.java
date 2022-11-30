@@ -1,5 +1,7 @@
 package use_cases;
 
+import entities.ItemData;
+
 import java.util.*;
 
 public interface CombatInterface {
@@ -23,9 +25,26 @@ public interface CombatInterface {
 
     /**
      * Asks the player whether the player wants to use an item or not.
-     * @return whether the player wants to use an item in the current turn
+     * .
+     * Return this function by calling respondItemUse(bool) from Controller.
      */
-    void playerUsesItem();
+    void askIfPlayerUsesItem();
+
+    /**
+     * Lets the player choose which item to use from a list of items.
+     * @param playerItems the list (of ItemData) that contains all the players items
+     *
+     * Return the result (index of the item in the array) by calling playerChoosesItem(int) from Controller
+     */
+    void letPlayerChooseItem(List<ItemData> playerItems);
+
+    /**
+     * Tell the player that s/he used this item, and display its effects,
+     * e.g. "You used [item name] and it healed you by [...] points" or
+     *      "You used [item name] and it damaged the enemy by [...] points"
+     * @param item the item being used
+     */
+    void informPlayerOfItemUse(ItemData item);
 
     /**
      * Asks the player the question, and let the player choose between a list of answers.
