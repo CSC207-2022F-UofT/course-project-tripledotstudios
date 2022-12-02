@@ -113,7 +113,7 @@ public class StorylineInteractor {
     public void soundSwitch() {
         Map<Integer, dataclasses.Event> event_map = manager.getAllEvents();
         dataclasses.Event event = event_map.get(player_action.getPlayerEventID());
-        if (!sound.getIsPlaying()) {
+        if (!sound.getSoundChoice()) {
             sound.playSound(event.getSoundFile());
             sound.switchSoundChoice();
         }
