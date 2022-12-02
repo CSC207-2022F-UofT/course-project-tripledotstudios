@@ -19,7 +19,7 @@ public class StorylineController {
         storylineInteractor.soundSwitch();
     }
 
-    public void updateEventID(Player player, int choice) {
+    public void updateEventID(Playerdata player, int choice) {
         storylineInteractor.updateEventID(player, choice);
         storylineInteractor.playEvent(player);
     }
