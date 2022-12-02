@@ -17,18 +17,20 @@ public class StorylineInteractor {
     private static LoadInteractor load;
     private static PlayerInteractor player_action;
     private static CombatInteractor combat;
+    private static EventManager manager;
     private static LoginInteractor login;
 
     public StorylineInteractor(StorylineInterface story, SoundInteractor soundInteractor,
                                SaveInteractor saveInteractor, LoadInteractor loadInteractor,
                                PlayerInteractor playerInteractor, CombatInteractor combatInteractor,
-                               LoginInteractor loginInteractor) {
+                               EventManager eventManager, LoginInteractor loginInteractor) {
         view = story;
         sound = soundInteractor;
         load = loadInteractor;
         save = saveInteractor;
         player_action = playerInteractor;
         combat = combatInteractor;
+        manager = eventManager;
         login = loginInteractor;
 
     }
@@ -80,7 +82,7 @@ public class StorylineInteractor {
      */
     public void endGame() {
         //grab event map
-        Map<Integer, dataclasses.Event> event_map = EventManager.getAllEvents();
+        Map<Integer, dataclasses.Event> event_map = manager.getAllEvents();
 
         //grab last event
         dataclasses.Event event = event_map.get(1001);
@@ -106,7 +108,7 @@ public class StorylineInteractor {
     /**Turn sound on or off
      */
     public void soundSwitch() {
-        Map<Integer, dataclasses.Event> event_map = EventManager.getAllEvents();
+        Map<Integer, dataclasses.Event> event_map = manager.getAllEvents();
         dataclasses.Event event = event_map.get(player_action.getPlayerEventID());
         if (!sound.getIsPlaying()) {
             sound.playSound(event.getSoundFile());
@@ -125,7 +127,7 @@ public class StorylineInteractor {
      * @param player the Player
      */
     public void playEvent(PlayerData player) throws IOException, ClassNotFoundException {
-        Map<Integer, dataclasses.Event> event_map = EventManager.getAllEvents();
+        Map<Integer, dataclasses.Event> event_map = manager.getAllEvents();
         dataclasses.Event event = event_map.get(player.getEventID());
 
         //finish the game. final event id is 1000
