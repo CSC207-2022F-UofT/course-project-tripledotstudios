@@ -57,8 +57,8 @@ public class StorylineInteractor {
 
     /** update the Player's current event based on the choice Player makes that correspond
      * to the UUID from ChoicesNextUUIDs in Event
-    * @param event current event being played
-    * @param choice the integer choice the PLayer makes
+    * @param player current event being played
+    * @param choice the integer choice the Player makes
     */
     public void updateEventID(PlayerData player, int choice) {
         Map<Integer, dataclasses.Event> event_map = manager.getAllEvents();
