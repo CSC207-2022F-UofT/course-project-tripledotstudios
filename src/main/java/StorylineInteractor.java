@@ -19,11 +19,14 @@ public class StorylineInteractor {
     private static CombatInteractor combat;
     private static EventManager manager;
     private static LoginInteractor login;
+    private static int first_event;
+    private static int last_event;
 
     public StorylineInteractor(StorylineInterface story, SoundInteractor soundInteractor,
                                SaveInteractor saveInteractor, LoadInteractor loadInteractor,
                                PlayerInteractor playerInteractor, CombatInteractor combatInteractor,
-                               EventManager eventManager, LoginInteractor loginInteractor) {
+                               EventManager eventManager, LoginInteractor loginInteractor, int first_UUID,
+                               int last_UUID) {
         view = story;
         sound = soundInteractor;
         load = loadInteractor;
@@ -32,6 +35,9 @@ public class StorylineInteractor {
         combat = combatInteractor;
         manager = eventManager;
         login = loginInteractor;
+        first_event = first_UUID;
+        last_event = last_UUID;
+
 
     }
 
@@ -43,7 +49,7 @@ public class StorylineInteractor {
         HashMap<String, ArrayList<ItemData>> inventory = new HashMap<>(); //empty Hash Map
 
         //dunno very first event ID
-        PlayerData player = new PlayerData(username, 1, 100, inventory);
+        PlayerData player = new PlayerData(username, first_event, 100, inventory);
 
         //play the first event
         this.playEvent(player);
@@ -54,7 +60,10 @@ public class StorylineInteractor {
     * @param event current event being played
     * @param choice the integer choice the PLayer makes
     */
-    public void updateEventID(dataclasses.Event event, int choice) {
+    public void updateEventID(PlayerData player, int choice) {
+        Map<Integer, dataclasses.Event> event_map = manager.getAllEvents();
+        dataclasses.Event event = event_map.get(player_action.getPlayerEventID());
+
         player_action.updateEvent(event.getChoicesNextUUIDs().get(choice));
     }
 
@@ -78,15 +87,9 @@ public class StorylineInteractor {
         save.saveToFile(filename, player);
     }
 
-    /** Loads the final event after the Player beats the game
+    /** Returns the Player back to the homescreen
      */
     public void endGame() {
-        //grab event map
-        Map<Integer, dataclasses.Event> event_map = manager.getAllEvents();
-
-        //grab last event
-        dataclasses.Event event = event_map.get(1001);
-        view.display_event(event.getNarration());
         view.returnHomeScreen();
     }
 
@@ -131,7 +134,7 @@ public class StorylineInteractor {
         dataclasses.Event event = event_map.get(player.getEventID());
 
         //finish the game. final event id is 1000
-        if (player.getEventID() == 1000) {
+        if (player.getEventID() == last_event) {
             this.saveGame(player);
 
             this.endGame();
@@ -150,7 +153,7 @@ public class StorylineInteractor {
             view.display_event(event.getNarration());
 
             if (combat.combat(event.getUUID())) {
-                player_action.updateEvent(event.getChoicesNextUUIDs().get(0));
+                player_action.updateEvent(event.getChoicesNextUUIDs().get(1));
             }
             else {
                 ///Player loses
