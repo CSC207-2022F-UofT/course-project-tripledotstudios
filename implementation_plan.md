@@ -4,6 +4,6 @@
 - **Chris** : `Event` & `CombatEvent` & `EnemyData` & `QuestionsData`, `CombatInteractor`, `EventManager` *(end of Oct 29)*
 - **Natasha** : `entities.PlayerData`, `entities.PlayerInteractor` *(end of Oct 29)*
 - **Alaina** : `LoadInteractor`, `<LoadInterface>`, `SaveInteractor`, `<SaveInterface>`
-- **Josh** : `StorylineInteractor`, `<StorylineInterface>`
+- **Josh** : `use_cases.StorylineInteractor`, `<use_cases.StorylineInterface>`
 - **Ludan** : `ViewController`, `View`
 - **Gwen** : `SoundInteractor`, `LoginInteractor`

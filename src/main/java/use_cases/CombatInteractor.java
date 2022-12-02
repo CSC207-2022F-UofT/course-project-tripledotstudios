@@ -22,7 +22,7 @@ public class CombatInteractor {
     }
 
     /**
-     * Gets called upon by StorylineInteractor whenever a combat event is encountered.
+     * Gets called upon by use_cases.StorylineInteractor whenever a combat event is encountered.
      * @param UUID the unique id of the CombatEvent. (MUST be a CombatEvent)
      * @return whether the player wins or not: true if won, false if lost
      */
@@ -60,4 +60,15 @@ public class CombatInteractor {
 		return enemyCurrentHealth <= 0;
     }
 
+	public void respondItemUse(boolean playerWantsItemUse) {
+
+	}
+
+	public void playerChoosesItem(int itemChoice) {
+
+	}
+
+	public void returnAnswer(int answerIndex) {
+
+	}
 }

@@ -1,5 +1,7 @@
 package presenter;
 
+import java.util.List;
+
 public interface CombatInterface {
     /**
      * Displays the health bar.

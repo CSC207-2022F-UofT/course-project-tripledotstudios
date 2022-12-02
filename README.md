@@ -1,7 +1,7 @@
 # CSC207 Project: Lost-the Game
 
 As of Nov. 21, we have finished most of our features for the game. We just need to finish the UI and one small feature 
-between the CombatInteractor class and the StorylineInteractor class. After these implementations, our program will 
+between the CombatInteractor class and the use_cases.StorylineInteractor class. After these implementations, our program will 
 be able to run. 
 
 ## Progress Report

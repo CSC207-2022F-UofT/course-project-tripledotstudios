@@ -1,4 +1,5 @@
 package entities;
+import presenter.LoginInterface;
 
 import java.io.*;
 import java.util.HashMap;

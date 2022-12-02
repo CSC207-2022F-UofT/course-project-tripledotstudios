@@ -1,3 +1,5 @@
+package use_cases;
+
 import entities.*;
 import java.util.List;
 

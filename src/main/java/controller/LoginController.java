@@ -1,4 +1,5 @@
 package controller;
+import entities.LoginInteractor;
 
 public class LoginController {
     private final LoginInteractor loginInteractor;
@@ -14,7 +15,7 @@ public class LoginController {
 
     public void login(String username, String password) {
         //ask LoginInteractor to login, if not successful, give a warning
-        loginInteractor.validatelogin(username, password);
+        loginInteractor.validateLogin(username, password);
     }
 
     public void logOut() {

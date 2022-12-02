@@ -2,11 +2,14 @@ package presenter;
 
 import UI.EnterAGameScreen;
 import UI.ExitOptionsScreen;
+import UI.GameView;
+
+import java.util.List;
 
 public class CombatPresenter implements CombatInterface{
-    GameScreen gameScreen;
+    GameView gameScreen;
 
-    public CombatPresenter(GameScreen gv) {
+    public CombatPresenter(GameView gv) {
         gameScreen = gv;
     }
     @Override
@@ -31,7 +34,7 @@ public class CombatPresenter implements CombatInterface{
 
     @Override
     public int askQuestion(String question, List<String> answers, List<String> responses) {
-        return gameScreen.askQuestion(qustion, answers, reponses);
+        return gameScreen.askQuestion(question, answers, responses);
     }
 
 }

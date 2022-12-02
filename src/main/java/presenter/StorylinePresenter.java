@@ -1,16 +1,18 @@
 package presenter;
 
 import UI.*;
+import entities.PlayerData;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.List;
 
 public class StorylinePresenter implements StorylineInterface {
     ExitOptionsScreen exitOptionsScreen;
     EnterAGameScreen enterAGameScreen;
-    GameScreen gameScreen;
+    GameView gameScreen;
 
-    public StorylinePresenter(EnterAGameScreen egs, ExitOptionsScreen eos, GameScreen gv) {
+    public StorylinePresenter(EnterAGameScreen egs, ExitOptionsScreen eos, GameView gv) {
         enterAGameScreen = egs;
         exitOptionsScreen = eos;
         gameScreen = gv;
@@ -24,11 +26,11 @@ public class StorylinePresenter implements StorylineInterface {
 
     @Override
     public void display_event_choices(List<String> narrationChoices) { //display choices string narration
-        gameScreen.display_event_choices(narrationChoices);
+        gameScreen.display_event_choices(narrationChoices.toString());
     }
 
     @Override
-    public void take_event_choice(Player player) {
+    public void take_event_choice(PlayerData player) throws IOException, ClassNotFoundException {
         gameScreen.take_event_choice(player);
     }
 
