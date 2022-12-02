@@ -4,7 +4,7 @@
 		"narration": "This is the starting point. Two paths open before you.",
 		"choicesNarrations": ["Walk the path to the left.", "Walk the path to the right"],
 		"choicesNextUUIDs": [2, 4],
-		"soundFile": "data/placeholder.wav",
+		"soundFile": "data/sound/morning-funny-beat.wav",
 		"doesAutoSave": false
 	},
 	{
@@ -12,7 +12,7 @@
 		"narration": "You walked towards the left. The is a dense forest before you. It looks dangerous. Venture forth or fall back?",
 		"choicesNarrations": ["Forward!", "Nope. Nope. Nope."],
 		"choicesNextUUIDs": [1, 0],
-		"soundFile": "data/placeholder.wav",
+		"soundFile": "data/sound/nerdy-and-quirky.wav",
 		"doesAutoSave": true
 	},
 	{
@@ -20,7 +20,7 @@
 		"narration": "A filthy swamp is before you. What will you do?",
 		"choicesNarrations": ["Run through it.", "Carefully tread through it."],
 		"choicesNextUUIDs": [3, 3],
-		"soundFile": "data/placeholder.wav",
+		"soundFile": "data/sound/epic-inspirational.wav",
 		"doesAutoSave": true
 	},
 	{
@@ -28,7 +28,7 @@
 		"narration": "Behold! A hungry wolf! You drew your weapon just before it could pounce on you...",
 		"choicesNarrations": ["The wolf ravaged your lifeless corpse, leaving nothing behind.", "You washed the wolf's blood off of you hands and moved on."],
 		"choicesNextUUIDs": [-1, 6],
-		"soundFile": "data/placeholder.wav",
+		"soundFile": "data/sound/crazy-chase.wav",
 		"doesAutoSave": false,
 
 		"enemy": {
@@ -51,7 +51,7 @@
 		"narration": "Behold! A serpent emerges out from the swamp. As it opened its jaws towards you, you drew your weapon...",
 		"choicesNarrations": ["The snake swallowd you whole. Your adventure ends here.", "The snake is dead. You moved on."],
 		"choicesNextUUIDs": [-1, 6],
-		"soundFile": "data/placeholder.wav",
+		"soundFile": "data/sound/hip-hop-rock.wav",
 		"doesAutoSave": false,
 
 		"enemy": {
