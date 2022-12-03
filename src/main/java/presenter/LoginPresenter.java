@@ -1,9 +1,6 @@
 package presenter;
 
-import UI.EnterAGameScreen;
-import UI.ExitOptionsScreen;
-import UI.LoginScreen;
-import UI.RegisterScreen;
+import UI.*;
 
 import javax.swing.*;
 
@@ -12,10 +9,10 @@ public class LoginPresenter implements LoginInterface {
     LoginScreen loginScreen;
     EnterAGameScreen enterAGameScreen;
 
-    public LoginPresenter(RegisterScreen rs, LoginScreen ls, EnterAGameScreen egs) {
-        registerScreen = rs;
-        loginScreen = ls;
-        enterAGameScreen = egs;
+    public LoginPresenter(UIFacade uiFacade) {
+        registerScreen = uiFacade.getRegisterScreen();
+        loginScreen = uiFacade.getLoginScreen();
+        enterAGameScreen = uiFacade.getEnterAGameScreen();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package controller;
 
-import entities.PlayerData;
 import usecases.StorylineInteractor;
 
 import java.io.IOException;
@@ -27,6 +26,16 @@ public class StorylineController {
     public void updateEventID(int choice) throws IOException, ClassNotFoundException {
         storylineInteractor.updateEventID(choice);
         storylineInteractor.playEvent();
+    }
+
+    /**Play HomeScreen sound*/
+    public void homeSoundPlay() {
+        storylineInteractor.homeSoundPlay();
+    }
+
+    /**Stop HomeScreen sound*/
+    public void homeSoundStop() {
+        storylineInteractor.homeSoundStop();
     }
 
 }

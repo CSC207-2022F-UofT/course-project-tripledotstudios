@@ -2,6 +2,7 @@ package UI;
 
 import controller.LoginController;
 import controller.StorylineController;
+import usecases.LoginInteractor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,9 +37,7 @@ public class LoginScreen extends JPanel {
     /**
      * Build a register screen to sign up or cancel.
      */
-    public LoginScreen(LoginController lc, StorylineController sc) {
-        loginController = lc;
-        storylineController = sc;
+    public LoginScreen() {
 
         frame = new JFrame("Login");
         frame.setSize(600, 300);
@@ -97,6 +96,11 @@ public class LoginScreen extends JPanel {
         frame.add(this);
         frame.add(sound);
 
+    }
+
+    public void setController(UIFacade uiFacade) {
+        loginController = uiFacade.getLoginController();
+        storylineController = uiFacade.getStorylineController();
     }
 
     public void setVisible() {

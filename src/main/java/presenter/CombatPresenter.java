@@ -1,6 +1,7 @@
 package presenter;
 
 import UI.GameScreen;
+import UI.UIFacade;
 import entities.ItemData;
 import usecases.CombatInterface;
 
@@ -10,8 +11,8 @@ import java.util.List;
 public class CombatPresenter implements CombatInterface {
     GameScreen gameScreen;
 
-    public CombatPresenter(GameScreen gv) {
-        gameScreen = gv;
+    public CombatPresenter(UIFacade uiFacade) {
+        gameScreen = uiFacade.getGameScreen();
     }
     @Override
     public void displayHealthBar(String playerName, int playerMaxHealth, int playerCurrentHealth, String enemyName, int enemyMaxHealth, int enemyCurrentHealth) {

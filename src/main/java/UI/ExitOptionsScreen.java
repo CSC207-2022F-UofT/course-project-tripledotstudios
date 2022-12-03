@@ -15,9 +15,8 @@ public class ExitOptionsScreen {
     StorylineController storylineController;
     JFrame frame;
 
-    public ExitOptionsScreen(EnterAGameScreen egs, StorylineController contr) {
-        enterAGameScreen = egs;
-        storylineController = contr;
+    public ExitOptionsScreen(UIFacade uiFacade) {
+        enterAGameScreen = uiFacade.getEnterAGameScreen();
 
         frame = new JFrame("Exit the Game or Continue?");
         frame.add(new JLabel("If you did not save, any unsaved progress will be lost."));
@@ -60,6 +59,10 @@ public class ExitOptionsScreen {
         frame.add(exitGame);
         frame.add(continueGame);
         frame.add(sound);
+    }
+
+    public void setController(UIFacade uiFacade) {
+        storylineController = uiFacade.getStorylineController();
     }
 
     public void setVisible() {
