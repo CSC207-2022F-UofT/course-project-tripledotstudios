@@ -22,8 +22,7 @@ public class StorylineInteractor {
     public StorylineInteractor(StorylineInterface story, SoundInteractor soundInteractor,
                                SaveInteractor saveInteractor, LoadInteractor loadInteractor,
                                PlayerInteractor playerInteractor, CombatInteractor combatInteractor,
-                               EventManager eventManager, LoginInteractor loginInteractor, int first_UUID,
-                               int last_UUID) {
+                               EventManager eventManager, LoginInteractor loginInteractor) {
         VIEW = story;
         SOUND = soundInteractor;
         LOAD = loadInteractor;
@@ -32,8 +31,7 @@ public class StorylineInteractor {
         COMBAT = combatInteractor;
         MANAGER = eventManager;
         LOGIN = loginInteractor;
-        FIRST_EVENT = first_UUID;
-        LAST_EVENT = last_UUID;
+        LAST_EVENT = 6;
 
 
     }
@@ -46,7 +44,7 @@ public class StorylineInteractor {
         HashMap<String, ArrayList<ItemData>> inventory = new HashMap<>(); //empty Hash Map
 
         //dunno very first event ID
-        PlayerData player = new PlayerData(username, FIRST_EVENT, 100, inventory);
+        PlayerData player = new PlayerData(username, 0, 100, inventory);
 
         //play the first event
         this.playEvent();
