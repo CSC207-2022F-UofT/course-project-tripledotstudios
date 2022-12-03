@@ -1,6 +1,5 @@
 package controller;
 
-import entities.PlayerData;
 import usecases.StorylineInteractor;
 
 import java.io.IOException;
