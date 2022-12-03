@@ -35,8 +35,11 @@ public class StorylineInteractor {
      * takes in the username set by LoginInteractor.
      */
     public void startGame() throws IOException, ClassNotFoundException {
+        //create a file to save this user
+        saveGame();
+
         //play the first event
-        this.playEvent();
+        playEvent();
     }
 
     /** update the Player's current event based on the choice Player makes that correspond

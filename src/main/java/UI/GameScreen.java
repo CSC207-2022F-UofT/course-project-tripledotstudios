@@ -60,8 +60,6 @@ public class GameScreen {
         frame.add(bottomPanel, BorderLayout.PAGE_END);
         frame.add(dialoguePanel, BorderLayout.CENTER);
 
-        // initialize use cases and controllers
-
     }
 
     public void askIfPlayerUsesItem() {
@@ -319,6 +317,11 @@ public class GameScreen {
         buttons.add(b4);
 
         return buttons;
+    }
+
+    public void setController(UIFacade uiFacade) {
+        combatController = uiFacade.getCombatController();
+        storylineController = uiFacade.getStorylineController();
     }
 
     public void setVisible() {

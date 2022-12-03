@@ -59,6 +59,10 @@ public class CreateAccountOrLogin {
         frame.add(sound);
     }
 
+    public void setController(UIFacade uiFacade) {
+        storylineController = uiFacade.getStorylineController();
+    }
+
     public void setVisible() {
         frame.setVisible(true);
         storylineController.homeSoundPlay();

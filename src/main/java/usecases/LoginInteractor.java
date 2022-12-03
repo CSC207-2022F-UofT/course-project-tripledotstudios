@@ -31,7 +31,7 @@ public class LoginInteractor {
         try {
             BufferedReader br = new BufferedReader(new FileReader(filepath));
             while ((line = br.readLine()) != null) {
-                String[] accountInfo = line.split(",");
+                String[] accountInfo = line.split(", ");
                 // Puts key (a username) and value (a password) in accounts
                 accounts.put(accountInfo[0], accountInfo[1]);
             }
@@ -98,7 +98,7 @@ public class LoginInteractor {
             try {
                 // create new FileWriter
                 FileWriter fw = new FileWriter(filepath, true);
-                fw.write("\n" + username + "," + password1);
+                fw.write("\n" + username + ", " + password1);
                 fw.close();
                 // update <accounts> so that LoginInteractor doesn't have to be reconstructed
                 accounts.put(username, password1);
@@ -113,7 +113,7 @@ public class LoginInteractor {
         // case that passwords match but password is too short
         else if (!(validateNewPassword(password1))) { presenter.updateRegister(3, username); }
         // some other case is true
-        presenter.updateRegister(5, username);
+        else { presenter.updateRegister(5, username); }
     }
 
     /**

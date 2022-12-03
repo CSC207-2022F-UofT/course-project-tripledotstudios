@@ -61,6 +61,10 @@ public class ExitOptionsScreen {
         frame.add(sound);
     }
 
+    public void setController(UIFacade uiFacade) {
+        storylineController = uiFacade.getStorylineController();
+    }
+
     public void setVisible() {
         frame.setVisible(true);
     }

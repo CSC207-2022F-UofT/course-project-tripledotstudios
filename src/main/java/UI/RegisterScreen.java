@@ -108,6 +108,11 @@ public class RegisterScreen extends JPanel {
 
     }
 
+    public void setController(UIFacade uiFacade) {
+        loginController = uiFacade.getLoginController();
+        storylineController = uiFacade.getStorylineController();
+    }
+
     public void setVisible() {
         frame.setVisible(true);
     }

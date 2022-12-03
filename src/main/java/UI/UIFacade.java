@@ -28,7 +28,7 @@ public class UIFacade { //facade method that contains all UIs
     private final ExitOptionsScreen EXIT_OPTIONS_SCREEN = new ExitOptionsScreen(this);
 
 
-    // getters
+    // UI getters
 
     public GameScreen getGameScreen() {
         return GAME_SCREEN;
@@ -80,9 +80,27 @@ public class UIFacade { //facade method that contains all UIs
             saveInteractor, loadInteractor, playerInteractor, combatInteractor, eventManager, loginInteractor);
 
 
-    // set up controllers
-    LoginController loginController = new LoginController(loginInteractor);
-    CombatController combatController = new CombatController(combatInteractor);
-    StorylineController storylineController = new StorylineController(storylineInteractor);
+    // set up controllers and make getters
+    public LoginController getLoginController() {
+        return new LoginController(loginInteractor);
+    }
+
+    public CombatController getCombatController() {
+        return new CombatController(combatInteractor);
+    }
+
+    public StorylineController getStorylineController() {
+        return new StorylineController(storylineInteractor);
+    }
+
+    // put controllers in UIs
+    public void putControllerInUI() {
+        GAME_SCREEN.setController(this);
+        REGISTER_SCREEN.setController(this);
+        LOGIN_SCREEN.setController(this);
+        CREATE_ACCOUNT_OR_LOGIN.setController(this);
+        ENTER_A_GAME_SCREEN.setController(this);
+        EXIT_OPTIONS_SCREEN.setController(this);
+    }
 
 }

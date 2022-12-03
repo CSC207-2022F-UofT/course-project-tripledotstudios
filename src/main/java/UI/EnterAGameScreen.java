@@ -90,6 +90,11 @@ public class EnterAGameScreen {
         frame.add(sound);
     }
 
+    public void setController(UIFacade uiFacade) {
+        loginController = uiFacade.getLoginController();
+        storylineController = uiFacade.getStorylineController();
+    }
+
     public void setVisible() {
         frame.setVisible(true);
     }
