@@ -39,9 +39,7 @@ public class RegisterScreen extends JPanel {
     /**
      * Build a register screen to sign up or cancel.
      */
-    public RegisterScreen(LoginController lc, StorylineController sc) {
-        loginController = lc;
-        storylineController = sc;
+    public RegisterScreen() {
 
         frame = new JFrame("Register");
         frame.setSize(600, 300);
@@ -108,6 +106,11 @@ public class RegisterScreen extends JPanel {
         frame.add(this);
         frame.add(sound);
 
+    }
+
+    public void setController(UIFacade uiFacade) {
+        loginController = uiFacade.getLoginController();
+        storylineController = uiFacade.getStorylineController();
     }
 
     public void setVisible() {

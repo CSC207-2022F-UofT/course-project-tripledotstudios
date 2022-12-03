@@ -16,7 +16,6 @@ public class StorylineInteractor {
     private final CombatInteractor COMBAT;
     private final EventManager MANAGER;
     private final LoginInteractor LOGIN;
-    private final int LAST_EVENT;
 
     public StorylineInteractor(StorylineInterface story, SoundInteractor soundInteractor,
                                SaveInteractor saveInteractor, LoadInteractor loadInteractor,
@@ -30,23 +29,25 @@ public class StorylineInteractor {
         COMBAT = combatInteractor;
         MANAGER = eventManager;
         LOGIN = loginInteractor;
-        LAST_EVENT = 6;
-
-
     }
 
     /** Set Player on their first Event. The method
      * takes in the username set by LoginInteractor.
      */
     public void startGame() throws IOException, ClassNotFoundException {
-        String username = LOGIN.getCurrentUser();
-        HashMap<String, ArrayList<ItemData>> inventory = new HashMap<>(); //empty Hash Map
+        //create a file to save this user
+        saveGame();
 
-        //dunno very first event ID
-        PlayerData player = new PlayerData(username, 0, 100, inventory);
+        /* Old code
+          String username = LOGIN.getCurrentUser();
+          HashMap<String, ArrayList<ItemData>> inventory = new HashMap<>(); //empty Hash Map
+
+          //dunno very first event ID
+          PlayerData player = new PlayerData(username, 0, 100, inventory);
+        */
 
         //play the first event
-        this.playEvent();
+        playEvent();
     }
 
     /** update the Player's current event based on the choice Player makes that correspond
@@ -116,6 +117,17 @@ public class StorylineInteractor {
         }
     }
 
+    /**Play Homescreen sound*/
+    public void homeSoundPlay() {
+        String HOME_SOUND_FILE = "data/sound/morning-funny-beat.wav";
+        SOUND.playSound(HOME_SOUND_FILE);
+    }
+
+    /**Stop Homescreen sound*/
+    public void homeSoundStop() {
+        SOUND.stopSound();
+    }
+
     /** Grab an event based on the inputted UUID and output its sound file and narration.
      * At the end of the narration, let the Player make a choice based on the Event's
      * choicesNarration. If Event is a CombatEvent, make the Player fight the Enemy after
@@ -126,7 +138,7 @@ public class StorylineInteractor {
         Event event = event_map.get(player_action.getPlayerEventID());
 
         //finish the game. final event id is 1000
-        if (player_action.getPlayerEventID() == LAST_EVENT) {
+        if (player_action.getPlayerEventID() == 1000) {
             this.saveGame();
 
             this.endGame();
