@@ -16,7 +16,6 @@ public class StorylineInteractor {
     private final CombatInteractor COMBAT;
     private final EventManager MANAGER;
     private final LoginInteractor LOGIN;
-    private final int FIRST_EVENT;
     private final int LAST_EVENT;
 
     public StorylineInteractor(StorylineInterface story, SoundInteractor soundInteractor,
