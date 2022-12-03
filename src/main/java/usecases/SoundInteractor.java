@@ -23,6 +23,11 @@ public class SoundInteractor {
     }
 
     /**
+     *
+     */
+    public Clip getSound() { return sound;}
+
+    /**
      * Getter method for isPlaying.
      * @return isPlaying.
      */
