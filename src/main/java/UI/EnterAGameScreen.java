@@ -6,6 +6,7 @@ import controller.StorylineController;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 /**
  * Start a new game or resume a saved game
@@ -38,14 +39,29 @@ public class EnterAGameScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                storylineController.setNewGame();
+                try {
+                    storylineController.setNewGame();
+                }
+                catch (IOException c){
+                    // flkjsd
+                }
+                catch (ClassNotFoundException v) {
+                    // djsdlkf
+                }
+
             }
         });
         resumeASavedGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                storylineController.loadGame();
+                try {
+                    storylineController.loadGame();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                } catch (ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         logout.addActionListener(new ActionListener() {

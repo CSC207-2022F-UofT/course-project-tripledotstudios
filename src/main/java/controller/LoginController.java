@@ -1,5 +1,7 @@
 package controller;
 
+import usecases.LoginInteractor;
+
 public class LoginController {
     private final LoginInteractor loginInteractor;
 
@@ -22,3 +24,4 @@ public class LoginController {
     }
 
 }
+

@@ -2,8 +2,9 @@ package presenter;
 
 import UI.GameScreen;
 import entities.ItemData;
-import use_cases.CombatInterface;
+import usecases.CombatInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CombatPresenter implements CombatInterface {
@@ -34,7 +35,7 @@ public class CombatPresenter implements CombatInterface {
 
     @Override
     public void letPlayerChooseItem(List<ItemData> playerItems) {
-        gameScreen.letPlayerChooseItem(playerItems);
+        gameScreen.letPlayerChooseItem((ArrayList<ItemData>) playerItems);
     }
 
     @Override
@@ -44,7 +45,7 @@ public class CombatPresenter implements CombatInterface {
 
     @Override
     public void askQuestion(String question, List<String> answers, List<String> responses) {
-        gameScreen.askQuestion(question, answers, responses);
+        gameScreen.askQuestion(question, (ArrayList<String>) answers, (ArrayList<String>) responses);
     }
 
 }

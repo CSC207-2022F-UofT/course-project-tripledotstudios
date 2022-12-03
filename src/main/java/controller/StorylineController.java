@@ -1,5 +1,10 @@
 package controller;
 
+import entities.PlayerData;
+import usecases.StorylineInteractor;
+
+import java.io.IOException;
+
 public class StorylineController {
     private final StorylineInteractor storylineInteractor;
 
@@ -7,11 +12,11 @@ public class StorylineController {
         storylineInteractor = storylineInter;
     }
 
-    public void setNewGame() { //set a new game
+    public void setNewGame() throws IOException, ClassNotFoundException { //set a new game
         storylineInteractor.startGame();
     }
 
-    public void loadGame() { //load the saved game
+    public void loadGame() throws IOException, ClassNotFoundException { //load the saved game
         storylineInteractor.loadGame();
     }
 
@@ -19,9 +24,9 @@ public class StorylineController {
         storylineInteractor.soundSwitch();
     }
 
-    public void updateEventID(Playerdata player, int choice) {
-        storylineInteractor.updateEventID(player, choice);
-        storylineInteractor.playEvent(player);
+    public void updateEventID(int choice) throws IOException, ClassNotFoundException {
+        storylineInteractor.updateEventID(choice);
+        storylineInteractor.playEvent();
     }
 
 }

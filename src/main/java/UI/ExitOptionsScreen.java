@@ -5,6 +5,7 @@ import controller.StorylineController;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 /**
  * Exit the game or continue the game
@@ -41,7 +42,11 @@ public class ExitOptionsScreen {
         continueGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                storylineController.loadGame();
+                try {
+                    storylineController.loadGame();
+                } catch (IOException | ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 

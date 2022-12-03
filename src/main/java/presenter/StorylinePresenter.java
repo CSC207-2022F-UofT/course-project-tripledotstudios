@@ -4,6 +4,7 @@ import UI.*;
 import entities.PlayerData;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StorylinePresenter implements StorylineInterface {
@@ -19,23 +20,18 @@ public class StorylinePresenter implements StorylineInterface {
 
 
     @Override
-    public void display_event(String narration) {  //display string objects
-        gameScreen.display_event(narration);
+    public void displayNarration(String narration) {  //display string objects
+        gameScreen.displayNarration(narration);
     }
 
     @Override
-    public void display_event_choices(List<String> narrationChoices) { //display choices string narration
-        gameScreen.display_event_choices(narrationChoices);
+    public void askQuestion(String question, List<String> answers, List<String> responses) { //display choices string narration
+        gameScreen.askQuestion(question, (ArrayList<String>) answers, (ArrayList<String>) responses);
     }
 
     @Override
-    public void take_event_choice(PlayerData player) {
-        gameScreen.take_event_choice(player);
-    }
-
-    @Override
-    public void display_lose() { //display losing screen
-        gameScreen.display_lose();
+    public void displayLose() { //display losing screen
+        gameScreen.displayLose();
     }
 
     @Override
