@@ -29,4 +29,14 @@ public class StorylineController {
         storylineInteractor.playEvent();
     }
 
+    /**Play Homescreen sound*/
+    public void homeSoundPlay() {
+        storylineInteractor.homeHomePlay;
+    }
+
+    /**Stop Homescreen sound*/
+    public void homeSoundStop() {
+        storylineInteractor.homeHomeStop;
+    }
+
 }

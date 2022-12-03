@@ -38,6 +38,7 @@ public class EnterAGameScreen {
         startANewGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                storylineController.homeSoundStop();
                 frame.dispose();
                 try {
                     storylineController.setNewGame();
@@ -54,6 +55,7 @@ public class EnterAGameScreen {
         resumeASavedGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                storylineController.homeSoundStop();
                 frame.dispose();
                 try {
                     storylineController.loadGame();

@@ -64,5 +64,6 @@ public class CreateAccountOrLogin {
 
     public void setVisible() {
         frame.setVisible(true);
+        storylineController.homeSoundPlay();
     }
 }
