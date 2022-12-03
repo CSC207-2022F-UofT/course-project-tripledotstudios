@@ -1,10 +1,12 @@
 package UI;
 
+/** importing from other packages in the project **/
 import controller.CombatController;
 import controller.StorylineController;
 import entities.ItemData;
 import usecases.StorylineInteractor;
 
+/** relevant imports */
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.text.NumberFormatter;
@@ -14,28 +16,34 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The GameScreen class handles the graphic user interface while the game is running.
+ */
 public class GameScreen {
     //StorylineController storylineController;
     //CombatController combatController;
+    /** The main window of the game */
     JFrame frame;
+
+    /** The panels that construct the frame and separate the elements of the screen*/
     JPanel dialoguePanel;
     JPanel topPanel;
     JPanel bottomPanel;
 
-    JPanel gridPanel;
-
-    static Color SC_COLOUR = new Color(29, 26, 38);
-    static Font FONT = new Font("Consolas", Font.PLAIN, 20);
+    /** final values in this class*/
+    private Color SC_COLOUR = new Color(29, 26, 38);
+    private Font FONT = new Font("Consolas", Font.PLAIN, 20);
 
     /**
-     * ignoring this for now because it sucks
+     * The Constructor for GameScreen which sets up the initial layout of the screen.
      */
     public GameScreen() { //StorylineController sc, CombatController cc
+        // The controllers
         //storylineController = sc;
         //combatController = cc;
 
         // setting up the JFrame itself
-        frame = new JFrame("Mwahahah the game");
+        frame = new JFrame("Useless Facts, Life or Death: A Trivia RPG Game");
         frame.setSize(800, 800);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
@@ -45,18 +53,18 @@ public class GameScreen {
         topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
         topPanel.setBackground(SC_COLOUR);
-        topPanel.setPreferredSize(new Dimension(800, 100));
+        topPanel.setPreferredSize(new Dimension(frame.getWidth(), 100));
 
         // creating the dialogue panel
         dialoguePanel = new JPanel();
-        dialoguePanel.setPreferredSize(new Dimension(800,520));
+        dialoguePanel.setPreferredSize(new Dimension(frame.getWidth(),520));
         dialoguePanel.setBackground(SC_COLOUR);
         dialoguePanel.setLayout(new BorderLayout());
 
         // bottom panel
         bottomPanel = new JPanel();
         bottomPanel.setLayout(new BorderLayout());
-        bottomPanel.setPreferredSize(new Dimension(800, 120));
+        bottomPanel.setPreferredSize(new Dimension(frame.getWidth(), 120));
         bottomPanel.setBackground(SC_COLOUR);
         bottomPanel.add(drawButtons(), BorderLayout.PAGE_END);
 
@@ -68,32 +76,57 @@ public class GameScreen {
         frame.setVisible(true);
     }
 
+    /**
+     * Displays the status of the game at the top left and right corner of the screen.
+     * @param playerName The username of the player
+     * @param playerMaxHealth The max health of the player
+     * @param playerCurrentHealth The current health of the player
+     * @param enemyName The enemy's name
+     * @param enemyMaxHealth The maximum health of the enemy
+     * @param enemyCurrentHealth The current health of the enemy.
+     */
     public void displayHealthBar(String playerName, int playerMaxHealth, int playerCurrentHealth, String enemyName, int enemyMaxHealth, int enemyCurrentHealth) {
+        // creating the panel in the top left corner
         JPanel playerStats = new JPanel(new GridLayout(2,1));
         playerStats.setPreferredSize(new Dimension(100, 60));
-        playerStats.setBackground(Color.cyan);
+        playerStats.setBackground(SC_COLOUR);
 
+        // creating the panel in the top right corner
         JPanel enemyStats = new JPanel(new GridLayout(2,1));
         enemyStats.setPreferredSize(new Dimension(100, 60));
-        enemyStats.setBackground(Color.cyan);
+        enemyStats.setBackground(SC_COLOUR);
 
+        // creating the JTextAreas for each value using the helper method 'statsMaker'
         JTextArea pN = statsMaker(playerName);
         JTextArea pH = statsMaker(playerCurrentHealth + "/" + playerMaxHealth);
         JTextArea eN = statsMaker(enemyName);
         JTextArea eH = statsMaker(enemyCurrentHealth + "/" + enemyMaxHealth);
 
+        // adding the JTextAreas to the panels
         playerStats.add(pN);
         playerStats.add(pH);
         enemyStats.add(eN);
         enemyStats.add(eH);
 
+        // adding the local subpanels to the main panels in this class
         topPanel.add(playerStats, BorderLayout.LINE_START);
         topPanel.add(enemyStats, BorderLayout.LINE_END);
 
+        // updating the frame
         frame.setVisible(true);
     }
 
+    /**
+     * Updates the visuals of the status bars at the top corners of the screen.
+     * @param playerName The username of the player
+     * @param playerMaxHealth The max health of the player
+     * @param playerCurrentHealth The current health of the player
+     * @param enemyName The enemy's name
+     * @param enemyMaxHealth The maximum health of the enemy
+     * @param enemyCurrentHealth The current health of the enemy.
+     */
     public void updateHealthBar(String playerName, int playerMaxHealth, int playerCurrentHealth, String enemyName, int enemyMaxHealth, int enemyCurrentHealth) {
+        // we call displayHealthBar to draw over the previous panels with new values
         displayHealthBar(playerName, playerMaxHealth, playerCurrentHealth, enemyName, enemyMaxHealth, enemyCurrentHealth);
     }
 
@@ -101,7 +134,8 @@ public class GameScreen {
      * Displays the narration for the current event
      * @param narration The output string that will be printed to the interface
      */
-    public void displayNarration(String narration) {  //display string objects
+    public void displayNarration(String narration) {
+        // creating the text box that will contain the string describing the event
         JTextArea textArea = new JTextArea(narration);
         textArea.setLayout(new BorderLayout());
         textArea.setPreferredSize(new Dimension(frame.getWidth(), 200));
@@ -111,18 +145,28 @@ public class GameScreen {
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
 
+        // creating the panel that will act as the container for this string
         JPanel eventNarration = new JPanel();
         eventNarration.setPreferredSize(new Dimension(frame.getWidth(), 310));
         eventNarration.setBackground(SC_COLOUR);
         eventNarration.setLayout(new BorderLayout());
         eventNarration.add(textArea, BorderLayout.CENTER);
 
+        // adding the local subpanel to the main panel
         dialoguePanel.add(eventNarration, BorderLayout.PAGE_START);
+
+        // updating the frame
         frame.setVisible(true);
     }
 
+    /**
+     * A popup that asks if the user would like to use an item from their inventory.
+     */
     public void askIfPlayerUsesItem() {
+        // the popup
         int answer = JOptionPane.showConfirmDialog(frame, "Would you like to use an item from your inventory?");
+
+        // handling the answer
         if (answer == JOptionPane.YES_OPTION) {
             //cc.respondItemUse(true);
         } else if (answer == JOptionPane.NO_OPTION) {
@@ -130,17 +174,30 @@ public class GameScreen {
         }
     }
 
+    /**
+     * Opens a new window to allow the player to select from their inventory.
+     * This window cannot be closed unless the user selects some item.
+     * @param playerItems
+     */
     public void letPlayerChooseItem(ArrayList<ItemData> playerItems) {
+        // creating the new window
         JFrame itemFrame = new JFrame("Select an item");
         itemFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         itemFrame.setSize(600, 600);
         itemFrame.setLayout(new GridLayout(6,10));
         itemFrame.getContentPane().setBackground(SC_COLOUR);
+
+        // setting the visuals for the buttons
         Font itemFont = new Font("Consolas", Font.PLAIN, 14);
         Border b = BorderFactory.createLineBorder(Color.green, 1);
-        int c = 0;
+
+        // creating an array of buttons that will be displaying the items from the inventory
         ArrayList<JButton> buttons = new ArrayList<>(playerItems.size());
+
+        // looping through the player items.
+        int c = 0;
         for (ItemData item : playerItems) {
+            // creating a button based on an ItemData item.
             JButton i = new JButton("<html> <center> ["+(c + 1) + "] <br>" + item.getName()+ "<br>" +
                     item.getAttribute() + "<br>" + item.getValue() + "</center> </html>");
             i.setFont(itemFont);
@@ -148,18 +205,23 @@ public class GameScreen {
             i.setBackground(SC_COLOUR);
             i.setForeground(Color.green);
             i.setBorder(b);
+
+            // add the button to the frame
             itemFrame.add(i);
             c++;
             buttons.add(i);
+
+            // add the action listener to perform a function
             int finalC = c;
             i.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println(finalC - 1);
+                    System.out.println(finalC - 1); //TODO change this to directly deal with the item
                     itemFrame.dispose();
                 }
             });
         }
+        //
         itemFrame.setVisible(true);
     }
 
