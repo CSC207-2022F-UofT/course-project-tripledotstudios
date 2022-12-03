@@ -13,15 +13,12 @@ import java.awt.event.ActionListener;
 public class CreateAccountOrLogin {
     RegisterScreen registerScreen;
     LoginScreen loginScreen;
-    LoginController loginController;
     StorylineController storylineController;
     JFrame frame;
 
-    public CreateAccountOrLogin(RegisterScreen rs, LoginScreen ls, LoginController lc, StorylineController sc) {
-        registerScreen = rs;
-        loginScreen = ls;
-        loginController = lc;
-        storylineController = sc;
+    public CreateAccountOrLogin(UIFacade uiFacade) {
+        registerScreen = uiFacade.getRegisterScreen();
+        loginScreen = uiFacade.getLoginScreen();
 
         frame = new JFrame("Create an account or login?");
         frame.setSize(600, 300);

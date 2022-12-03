@@ -13,14 +13,15 @@ import java.io.IOException;
  */
 public class EnterAGameScreen {
     CreateAccountOrLogin createAccountOrLogin;
+    GameScreen gameScreen;
     LoginController loginController;
     StorylineController storylineController;
     JFrame frame;
 
-    public EnterAGameScreen(CreateAccountOrLogin cl, LoginController lc, StorylineController sc) {
-        createAccountOrLogin = cl;
-        loginController = lc;
-        storylineController =sc;
+    public EnterAGameScreen(UIFacade uiFacade) {
+        createAccountOrLogin = uiFacade.getCreateAccountOrLogin();
+        gameScreen = uiFacade.getGameScreen();
+
         frame = new JFrame("Enter A Game");
         frame.setSize(600, 300);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -39,16 +40,16 @@ public class EnterAGameScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 storylineController.homeSoundStop();
+                gameScreen.setVisible();
                 frame.dispose();
                 try {
                     storylineController.setNewGame();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                } catch (ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
                 }
-                catch (IOException c){
-                    // flkjsd
-                }
-                catch (ClassNotFoundException v) {
-                    // djsdlkf
-                }
+
 
             }
         });
@@ -56,6 +57,7 @@ public class EnterAGameScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 storylineController.homeSoundStop();
+                gameScreen.setVisible();
                 frame.dispose();
                 try {
                     storylineController.loadGame();

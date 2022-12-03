@@ -39,9 +39,7 @@ public class RegisterScreen extends JPanel {
     /**
      * Build a register screen to sign up or cancel.
      */
-    public RegisterScreen(LoginController lc, StorylineController sc) {
-        loginController = lc;
-        storylineController = sc;
+    public RegisterScreen() {
 
         frame = new JFrame("Register");
         frame.setSize(600, 300);

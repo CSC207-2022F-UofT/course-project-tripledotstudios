@@ -12,10 +12,10 @@ public class StorylinePresenter implements StorylineInterface {
     EnterAGameScreen enterAGameScreen;
     GameScreen gameScreen;
 
-    public StorylinePresenter(EnterAGameScreen egs, ExitOptionsScreen eos, GameScreen gv) {
-        enterAGameScreen = egs;
-        exitOptionsScreen = eos;
-        gameScreen = gv;
+    public StorylinePresenter(UIFacade uiFacade) {
+        enterAGameScreen = uiFacade.getEnterAGameScreen();
+        exitOptionsScreen = uiFacade.getExitOptionsScreen();
+        gameScreen = uiFacade.getGameScreen();
     }
 
 

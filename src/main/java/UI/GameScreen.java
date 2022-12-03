@@ -28,10 +28,7 @@ public class GameScreen {
     /**
      * ignoring this for now because it sucks
      */
-    public GameScreen(StorylineController sc, CombatController cc) {
-        storylineController = sc;
-        combatController = cc;
-
+    public GameScreen() {
         // setting up the JFrame itself
         frame = new JFrame("Mwahahah the game");
         frame.setSize(800, 800);
@@ -63,7 +60,8 @@ public class GameScreen {
         frame.add(bottomPanel, BorderLayout.PAGE_END);
         frame.add(dialoguePanel, BorderLayout.CENTER);
 
-        frame.setVisible(true);
+        // initialize use cases and controllers
+
     }
 
     public void askIfPlayerUsesItem() {
@@ -119,7 +117,6 @@ public class GameScreen {
         topPanel.add(playerStats, BorderLayout.LINE_START);
         topPanel.add(enemyStats, BorderLayout.LINE_END);
 
-        frame.setVisible(true);
     }
 
     public void updateHealthBar(String playerName, int playerMaxHealth, int playerCurrentHealth, String enemyName, int enemyMaxHealth, int enemyCurrentHealth) {
@@ -322,6 +319,10 @@ public class GameScreen {
         buttons.add(b4);
 
         return buttons;
+    }
+
+    public void setVisible() {
+        frame.setVisible(true);
     }
 
 //    public static void main(String args[]) {

@@ -16,14 +16,11 @@ public class StorylineInteractor {
     private final CombatInteractor COMBAT;
     private final EventManager MANAGER;
     private final LoginInteractor LOGIN;
-    private final int FIRST_EVENT;
-    private final int LAST_EVENT;
 
     public StorylineInteractor(StorylineInterface story, SoundInteractor soundInteractor,
                                SaveInteractor saveInteractor, LoadInteractor loadInteractor,
                                PlayerInteractor playerInteractor, CombatInteractor combatInteractor,
-                               EventManager eventManager, LoginInteractor loginInteractor, int first_UUID,
-                               int last_UUID) {
+                               EventManager eventManager, LoginInteractor loginInteractor) {
         VIEW = story;
         SOUND = soundInteractor;
         LOAD = loadInteractor;
@@ -32,22 +29,12 @@ public class StorylineInteractor {
         COMBAT = combatInteractor;
         MANAGER = eventManager;
         LOGIN = loginInteractor;
-        FIRST_EVENT = first_UUID;
-        LAST_EVENT = last_UUID;
-
-
     }
 
     /** Set Player on their first Event. The method
      * takes in the username set by LoginInteractor.
      */
     public void startGame() throws IOException, ClassNotFoundException {
-        String username = LOGIN.getCurrentUser();
-        HashMap<String, ArrayList<ItemData>> inventory = new HashMap<>(); //empty Hash Map
-
-        //dunno very first event ID
-        PlayerData player = new PlayerData(username, FIRST_EVENT, 100, inventory);
-
         //play the first event
         this.playEvent();
     }
@@ -140,7 +127,7 @@ public class StorylineInteractor {
         Event event = event_map.get(player_action.getPlayerEventID());
 
         //finish the game. final event id is 1000
-        if (player_action.getPlayerEventID() == LAST_EVENT) {
+        if (player_action.getPlayerEventID() == 1000) {
             this.saveGame();
 
             this.endGame();
