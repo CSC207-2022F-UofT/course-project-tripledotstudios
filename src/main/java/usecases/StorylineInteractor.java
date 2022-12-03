@@ -38,6 +38,14 @@ public class StorylineInteractor {
         //create a file to save this user
         saveGame();
 
+        /* Old code
+          String username = LOGIN.getCurrentUser();
+          HashMap<String, ArrayList<ItemData>> inventory = new HashMap<>(); //empty Hash Map
+
+          //dunno very first event ID
+          PlayerData player = new PlayerData(username, 0, 100, inventory);
+        */
+
         //play the first event
         playEvent();
     }
