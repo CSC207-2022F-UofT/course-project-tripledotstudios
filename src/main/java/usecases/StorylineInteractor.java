@@ -119,6 +119,17 @@ public class StorylineInteractor {
         }
     }
 
+    /**Play Homescreen sound*/
+    public void homeSoundPlay() {
+        String HOME_SOUND_FILE = "data/sound/morning-funny-beat.wav";
+        SOUND.playSound(HOME_SOUND_FILE);
+    }
+
+    /**Stop Homescreen sound*/
+    public void homeSoundStop() {
+        SOUND.stopSound();
+    }
+
     /** Grab an event based on the inputted UUID and output its sound file and narration.
      * At the end of the narration, let the Player make a choice based on the Event's
      * choicesNarration. If Event is a CombatEvent, make the Player fight the Enemy after
