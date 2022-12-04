@@ -55,11 +55,8 @@ public class GameScreen {
     }
 
     public void drawGameScreen(String type) {
-        //frame.repaint();
-
         if (type.equals("status") || type.equals("all")) {
             // creating the top panel
-           // topPanel.removeAll();
             topPanel = new JPanel();
             topPanel.setLayout(new BorderLayout());
             topPanel.setBackground(SC_COLOUR);
@@ -68,7 +65,6 @@ public class GameScreen {
 
         if (type.equals("event") || type.equals("all")) {
             // creating the dialogue panel
-            // dialoguePanel.removeAll();
             dialoguePanel = new JPanel();
             dialoguePanel.setPreferredSize(new Dimension(frame.getWidth(), 520));
             dialoguePanel.setBackground(SC_COLOUR);
@@ -77,7 +73,6 @@ public class GameScreen {
 
         if (type.equals("buttons") || type.equals("all")) {
             // bottom panel
-            // bottomPanel.removeAll();
             bottomPanel = new JPanel();
             bottomPanel.setLayout(new BorderLayout());
             bottomPanel.setPreferredSize(new Dimension(frame.getWidth(), 120));
@@ -242,12 +237,22 @@ public class GameScreen {
         itemFrame.setVisible(true);
     }
 
+    /**
+     * Informs the user of the items that are being used
+     * @param item
+     */
     public void informPlayerOfItemUse(ItemData item) {
         JOptionPane.showConfirmDialog(null,
                 "You have used [" + item.getName() + " -> " + item.getAttribute() + ": " + item.getValue() + "]",
                 item.getName(), JOptionPane.DEFAULT_OPTION);
     }
 
+    /** Opens a popup to ask the user for their input
+     * @param question the string displayed to the frame for a question
+     * @param answers the list of choices to be displayed to the screen
+     * @param responses the responses displayed depending on the choice
+     * @param isCombatEvent whether or not this is a combat event
+     */
     public void askQuestion(String question, ArrayList<String> answers, ArrayList<String> responses, boolean isCombatEvent) { //display choices string narration
         clearScreen("buttons");
 
@@ -275,17 +280,6 @@ public class GameScreen {
         responsePanel.setPreferredSize(new Dimension(800,150));
         responsePanel.setBackground(SC_COLOUR);
 
-//        String prompt = "Type your response... ";
-//
-//        JTextField textField = new JTextField();
-//        textField.setFont(FONT);
-//        textField.setForeground(Color.green);
-//        textField.setBackground(SC_COLOUR);
-//        textField.setBorder(null);
-//        textField.setCaretColor(Color.green);
-//        textField.setPreferredSize(new Dimension(frame.getWidth(), 15));
-//        textField.setText(prompt);
-
         int c = -1;
         for (String option: answers) {
             JTextArea textArea = new JTextArea(c+1 + ") " + option);
@@ -299,60 +293,8 @@ public class GameScreen {
             c++;
         }
 
-//        textField.addActionListener(new ActionListener(){
-//
-//            public void actionPerformed(ActionEvent e){
-//                int response;
-//
-//                System.out.println(GameScreen.question);
-//                System.out.println("s " + GameScreen.answers.size());
-//                for (String q : GameScreen.answers) {
-//                    System.out.println(q);
-//                }
-//
-//                try {
-//                    String[] r = textField.getText().split(" ");
-//                    response = Integer.parseInt("" + r[r.length - 1]);
-//                    if (response < 0 || response > GameScreen.answers.size() - 1) {
-//                        System.out.println(response + " " + GameScreen.answers.size());
-//                        //throw new IndexOutOfBoundsException();
-//                    }
-//                    //textField.setEditable(false);
-//                    //textField.setEnabled(false);
-//                    textField.setDisabledTextColor(Color.green);
-//
-//                    if (isCombatEvent) {
-//                        textField.setText(GameScreen.responses.get(response));
-//                        combatController.returnAnswer(response);
-//                    }
-//                    else {
-//                        try {
-//                            storylineController.updateEventID(response);
-//                        } catch (IOException | ClassNotFoundException ex) {
-//                            throw new RuntimeException(ex);
-//                        }
-//                    }
-//
-//
-//                    System.out.println(response);
-//                }
-//                catch (NumberFormatException v) {
-//                    textField.setText("Don't Mess Around");
-//                    JOptionPane.showConfirmDialog(null, "Please enter a valid number.", "Don't Mess Around", JOptionPane.DEFAULT_OPTION);
-//                    textField.setText(prompt);
-//                }
-//                catch (IndexOutOfBoundsException v2) {
-//                    textField.setText("Don't Mess Around");
-//                    JOptionPane.showConfirmDialog(null, "Select a number from the options.", "Don't Mess Around", JOptionPane.DEFAULT_OPTION);
-//                    textField.setText(prompt);
-//                }
-//
-//            }});
-
         questionEventPanel.add(questionP, BorderLayout.PAGE_START);
         questionEventPanel.add(eventOptions);
-
-        //responsePanel.add(textField, BorderLayout.CENTER);
 
         bottomPanel.add(responsePanel, BorderLayout.LINE_START);
         dialoguePanel.add(questionEventPanel, BorderLayout.CENTER);
@@ -367,8 +309,6 @@ public class GameScreen {
         textField.setBorder(null);
         textField.setCaretColor(Color.green);
         textField.setPreferredSize(new Dimension(frame.getWidth(), 15));
-
-
 
         if (isCombatEvent) {
             responsePanel.removeAll();

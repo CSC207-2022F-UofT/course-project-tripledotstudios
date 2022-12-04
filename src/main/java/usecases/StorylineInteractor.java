@@ -165,10 +165,10 @@ public class StorylineInteractor {
             if (COMBAT.combat(event.getUUID())) {
                 player_action.updateEvent(event.getChoicesNextUUIDs().get(1));
             }
-            //else {
-                ///Player loses
-                //this.lose();
-            //}
+            else {
+                //Player loses
+                this.lose();
+            }
         }
         else {
             System.out.println(event.getNarration());
