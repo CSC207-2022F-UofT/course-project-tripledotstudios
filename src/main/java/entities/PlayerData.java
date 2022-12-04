@@ -1,4 +1,4 @@
-package entities; /** relevant imports*/
+package entities;  // relevant imports
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,19 +9,21 @@ import java.util.HashMap;
  * The entities.PlayerData class
  */
 public class PlayerData implements Serializable {
-    /** Stores the health of the entities.PlayerData object */
-    public static final int MAXHEALTH = 500;
+    /* Stores the health of the entities.PlayerData object */
+    // public static final int MAX_HEALTH = 500;
 
-    /** Stores the attack power of the entities.PlayerData object */
+    // Stores the attack power of the entities.PlayerData object
     private int attackPower;
 
-    /** The current event */
+    // The current event
     private int eventID;
 
-    /** The username of the player */
+    // The username of the player
     private final String username;
 
-    /** The inventory of the entities.PlayerData stores the name of the item mapped to the entities.ItemData object */
+    // The inventory of the entities.PlayerData stores the
+    // name of the item mapped to the entities.ItemData object
+    @SuppressWarnings("all")
     private HashMap<String, ArrayList<ItemData>> inventory;
 
     /**
@@ -81,6 +83,7 @@ public class PlayerData implements Serializable {
      * Creates a new list of entities.ItemData if there is not already one.
      * @param item The entities.ItemData object that is added to the entities.PlayerData's inventory.
      */
+    @SuppressWarnings("all")
     public void addToInventory(ItemData item) {
         // if the item is not already in the map, create a list for it.
         if (!inventory.containsKey(item.getName())) {
@@ -97,8 +100,8 @@ public class PlayerData implements Serializable {
      * @return removed Whether the entities.ItemData object was removed.
      */
     public boolean removeFromInventory(ItemData item) {
-        // boolean to determine if the value was returned successfuly.
-        boolean removed = false;
+        // boolean to determine if the value was returned successfully.
+        boolean removed;
         // assign a pointer to the list contained in the hashmap
         ArrayList<ItemData> pointer = inventory.get(item.getName());
 
@@ -135,9 +138,7 @@ public class PlayerData implements Serializable {
         // looping through the values of the hashmap
         for (ArrayList<ItemData> itemList : inventory.values()) {
             // looping through the values in each list
-            for (ItemData item: itemList) {
-                items.add(item);
-            }
+            items.addAll(itemList);
         }
         return items;
     }

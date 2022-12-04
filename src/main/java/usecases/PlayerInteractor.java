@@ -1,13 +1,14 @@
-package usecases; /** relevant imports */
+package usecases;  // relevant imports
 import entities.ItemData;
 import entities.PlayerData;
 
 import java.util.ArrayList;
 
 /**
- * usecases.PlayerInteractor class
+ * PlayerInteractor class
  * Responsible for updating the entities.PlayerData class.
  */
+@SuppressWarnings("all")
 public class PlayerInteractor {
 
     /**

@@ -12,7 +12,7 @@ import org.json.*;
  */
 public class EventManager{	
 	
-	private Map<Integer, Event> eventMap;
+	private final Map<Integer, Event> eventMap;
 
 	public EventManager(){
 		eventMap = getAllEventsFromFile();
@@ -30,8 +30,9 @@ public class EventManager{
 	/**
 	 * Private function that is run once in constructor to read from file.
 	 */
-	private Map<Integer, Event> getAllEventsFromFile(){
-		Map<Integer, Event> eventMap = new HashMap<Integer, Event>();
+	@SuppressWarnings("all")
+	private Map<Integer, Event> getAllEventsFromFile() {
+		Map<Integer, Event> eventMap = new HashMap<>();
 
 		String jsonFile = stringFromJsonFile("data/Events.json");
 		
@@ -48,13 +49,13 @@ public class EventManager{
 			String narr = obj.getString("narration");
 
 			JSONArray choicesNarrArr = obj.getJSONArray("choicesNarrations");
-			List<String> choicesNarr = new ArrayList<String>();
+			List<String> choicesNarr = new ArrayList<>();
 			for(int i = 0; i < choicesNarrArr.length(); i++){
 				choicesNarr.add(choicesNarrArr.getString(i));
 			}
 
 			JSONArray choicesUUIDsArr = obj.getJSONArray("choicesNextUUIDs");
-			List<Integer> choicesUUIDs = new ArrayList<Integer>();
+			List<Integer> choicesUUIDs = new ArrayList<>();
 			for(int i = 0; i < choicesUUIDsArr.length(); i++){
 				choicesUUIDs.add(choicesUUIDsArr.getInt(i));
 			}
@@ -73,7 +74,7 @@ public class EventManager{
 				EnemyData enemy = generateEnemyDataObject(enemyObj);
 				
 				JSONArray questionsArr = obj.getJSONArray("questions");  // Array of Questions
-				List<QuestionData> questions = new ArrayList<QuestionData>();
+				List<QuestionData> questions = new ArrayList<>();
 				generateListOfQuestions(questionsArr, questions);
 				
 				eventMap.put(id, new CombatEvent(id, narr, choicesNarr, choicesUUIDs, sound, autoSaves, enemy, questions));
@@ -85,6 +86,7 @@ public class EventManager{
 
 	// Below are private helper functions:
 
+	@SuppressWarnings("all")
 	private String stringFromJsonFile(String filePath){
 		String fileAsString = "[]";
 		try {
@@ -96,6 +98,7 @@ public class EventManager{
 		return fileAsString;
 	}
 
+	@SuppressWarnings("all")
 	private EnemyData generateEnemyDataObject(JSONObject enemyObj){
 
 		String enemyName = enemyObj.getString("name");
@@ -106,6 +109,7 @@ public class EventManager{
 		return new EnemyData(enemyName, enemyHealth, enemyAttackMean, enemyAttackDeviation);
 	}
 
+	@SuppressWarnings("all")
 	private void generateListOfQuestions(JSONArray questionsArr, List<QuestionData> questions){
 
 		for(int i = 0; i < questionsArr.length(); i++){
