@@ -30,5 +30,5 @@ public class ItemDataManagerTest {
             Assertions.assertTrue(itemAttribute.equals("attack")  || itemAttribute.equals("health"));
             // So far attributes can only be of these 2 values, may change later.
         }
-    }g
+    }
 }
