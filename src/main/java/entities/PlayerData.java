@@ -97,7 +97,7 @@ public class PlayerData implements Serializable {
      * @return removed Whether the entities.ItemData object was removed.
      */
     public boolean removeFromInventory(ItemData item) {
-        // boolean to determine if the value was returned successfuly.
+        // boolean to determine if the value was returned successfully.
         boolean removed = false;
         // assign a pointer to the list contained in the hashmap
         ArrayList<ItemData> pointer = inventory.get(item.getName());
@@ -135,9 +135,7 @@ public class PlayerData implements Serializable {
         // looping through the values of the hashmap
         for (ArrayList<ItemData> itemList : inventory.values()) {
             // looping through the values in each list
-            for (ItemData item: itemList) {
-                items.add(item);
-            }
+            items.addAll(itemList);
         }
         return items;
     }

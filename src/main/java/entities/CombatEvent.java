@@ -7,8 +7,8 @@ import java.util.Random;
  * The data class that stores a CombatEvent.
  */
 public class CombatEvent extends Event {
-    private EnemyData enemy;  // The enemy encountered
-    private List<QuestionData> questions;  // The questions that are within the CombatEvent
+    protected EnemyData enemy;  // The enemy encountered
+    protected List<QuestionData> questions;  // The questions that are within the CombatEvent
 
     /**
      * Default constructor.
