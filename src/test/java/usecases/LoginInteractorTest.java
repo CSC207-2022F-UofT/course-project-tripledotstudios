@@ -3,7 +3,7 @@ package usecases;
 import UI.UIFacade;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import presenter.*;
+import presenter.LoginPresenter;
 
 import java.util.HashMap;
 
@@ -108,7 +108,7 @@ class LoginInteractorTest {
         Assertions.assertNull(li.getCurrentUser());
     }
 
-    // tests for changes in <accounts>
+    // tests for changes in accounts
 
     LoginInteractor blankLi = new LoginInteractor("data/blank_usernames.csv", p);
 
