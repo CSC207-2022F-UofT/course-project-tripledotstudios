@@ -6,16 +6,16 @@ import java.io.IOException;
 
 public class SoundInteractor {
     /** Clip that contains the audio */
-    private Clip sound;
+    private static Clip sound;
 
     /** Stores whether playSound has been called more recently than stopSound if at all */
-    private boolean isPlaying;
+    static boolean isPlaying;
 
     /** InputStream through which audio is played */
-    private AudioInputStream inputStream;
+    static AudioInputStream inputStream;
 
     /** Stores whether the sound setting is set to on */
-    private boolean soundChoice;
+    static boolean soundChoice;
 
     public SoundInteractor() {
         isPlaying = false;
@@ -26,7 +26,7 @@ public class SoundInteractor {
      * Getter method for isPlaying.
      * @return isPlaying.
      */
-    public boolean getIsPlaying() {
+    public static boolean getIsPlaying() {
         return isPlaying;
     }
 
@@ -34,12 +34,12 @@ public class SoundInteractor {
      * Getter method for soundChoice.
      * @return soundChoice.
      */
-    public boolean getSoundChoice() { return soundChoice; }
+    public static boolean getSoundChoice() { return soundChoice; }
 
     /**
      * Changes soundChoice to store the opposite boolean that it currently stores.
      */
-    public void switchSoundChoice() {
+    public static void switchSoundChoice() {
         soundChoice = !soundChoice;
     }
 
@@ -47,7 +47,7 @@ public class SoundInteractor {
      * Plays new audio located at </filepath>.
      * @param filepath a String of the desired audio's path.
      */
-    public void playSound(String filepath) {
+    public static void playSound(String filepath) {
         try {
             // Stop any sound that may already be playing
             stopSound();
@@ -73,12 +73,13 @@ public class SoundInteractor {
     /**
      * Stops playing audio if an audio is currently playing.
      */
-    public void stopSound() {
+    public static void stopSound() {
         // Checks if sound is playing before executing
         if (isPlaying) {
             sound.stop();
             sound.close();
             sound = null;
+            soundChoice = false;
             isPlaying = false;
             inputStream = null;
         }

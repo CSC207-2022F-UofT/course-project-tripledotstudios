@@ -16,5 +16,6 @@ public class Main {
 
         // let the first screen pop up
         uiFacade.getCreateAccountOrLogin().setVisible();
+        //while
     }
 }

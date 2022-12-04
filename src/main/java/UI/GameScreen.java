@@ -1,15 +1,14 @@
 package UI;
 
-/** importing from other packages in the project **/
+/* importing from other packages in the project **/
 import controller.CombatController;
 import controller.StorylineController;
 import entities.ItemData;
-import usecases.StorylineInteractor;
+import usecases.SoundInteractor;
 
-/** relevant imports */
+/* relevant imports */
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,8 +19,8 @@ import java.util.ArrayList;
  * The GameScreen class handles the graphic user interface while the game is running.
  */
 public class GameScreen {
-    //StorylineController storylineController;
-    //CombatController combatController;
+    StorylineController storylineController;
+    CombatController combatController;
     /** The main window of the game */
     JFrame frame;
 
@@ -29,52 +28,69 @@ public class GameScreen {
     JPanel dialoguePanel;
     JPanel topPanel;
     JPanel bottomPanel;
+    JPanel responsePanel = new JPanel();
 
     /** final values in this class*/
     private Color SC_COLOUR = new Color(29, 26, 38);
     private Font FONT = new Font("Consolas", Font.PLAIN, 20);
 
+    static ArrayList<String> answers = new ArrayList<>();
+    static String question = "";
+    static ArrayList<String> responses= new ArrayList<>();
+
     /**
      * The Constructor for GameScreen which sets up the initial layout of the screen.
      */
-    public GameScreen() { //StorylineController sc, CombatController cc
-        // The controllers
-        //storylineController = sc;
-        //combatController = cc;
-
+    public GameScreen() {
         // setting up the JFrame itself
         frame = new JFrame("Useless Facts, Life or Death: A Trivia RPG Game");
         frame.setSize(800, 800);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         frame.getContentPane().setBackground(SC_COLOUR);
+        frame.setResizable(false);
 
-        // creating the top panel
-        topPanel = new JPanel();
-        topPanel.setLayout(new BorderLayout());
-        topPanel.setBackground(SC_COLOUR);
-        topPanel.setPreferredSize(new Dimension(frame.getWidth(), 100));
+        drawGameScreen("all");
+        frame.setVisible(true);
+    }
 
-        // creating the dialogue panel
-        dialoguePanel = new JPanel();
-        dialoguePanel.setPreferredSize(new Dimension(frame.getWidth(),520));
-        dialoguePanel.setBackground(SC_COLOUR);
-        dialoguePanel.setLayout(new BorderLayout());
+    public void drawGameScreen(String type) {
+        //frame.repaint();
 
-        // bottom panel
-        bottomPanel = new JPanel();
-        bottomPanel.setLayout(new BorderLayout());
-        bottomPanel.setPreferredSize(new Dimension(frame.getWidth(), 120));
-        bottomPanel.setBackground(SC_COLOUR);
-        bottomPanel.add(drawButtons(), BorderLayout.PAGE_END);
+        if (type.equals("status") || type.equals("all")) {
+            // creating the top panel
+           // topPanel.removeAll();
+            topPanel = new JPanel();
+            topPanel.setLayout(new BorderLayout());
+            topPanel.setBackground(SC_COLOUR);
+            topPanel.setPreferredSize(new Dimension(frame.getWidth(), 100));
+        }
+
+        if (type.equals("event") || type.equals("all")) {
+            // creating the dialogue panel
+            // dialoguePanel.removeAll();
+            dialoguePanel = new JPanel();
+            dialoguePanel.setPreferredSize(new Dimension(frame.getWidth(), 520));
+            dialoguePanel.setBackground(SC_COLOUR);
+            dialoguePanel.setLayout(new BorderLayout());
+        }
+
+        if (type.equals("buttons") || type.equals("all")) {
+            // bottom panel
+            // bottomPanel.removeAll();
+            bottomPanel = new JPanel();
+            bottomPanel.setLayout(new BorderLayout());
+            bottomPanel.setPreferredSize(new Dimension(frame.getWidth(), 120));
+            bottomPanel.setBackground(SC_COLOUR);
+            bottomPanel.add(drawButtons(), BorderLayout.PAGE_END);
+        }
 
         // adding all the main panels to the frame
         frame.add(topPanel, BorderLayout.PAGE_START);
         frame.add(bottomPanel, BorderLayout.PAGE_END);
         frame.add(dialoguePanel, BorderLayout.CENTER);
 
-        frame.setVisible(true);
-    }
+        }
 
     /**
      * Displays the status of the game at the top left and right corner of the screen.
@@ -86,14 +102,15 @@ public class GameScreen {
      * @param enemyCurrentHealth The current health of the enemy.
      */
     public void displayHealthBar(String playerName, int playerMaxHealth, int playerCurrentHealth, String enemyName, int enemyMaxHealth, int enemyCurrentHealth) {
+
         // creating the panel in the top left corner
         JPanel playerStats = new JPanel(new GridLayout(2,1));
-        playerStats.setPreferredSize(new Dimension(100, 60));
+        playerStats.setPreferredSize(new Dimension(200, 60));
         playerStats.setBackground(SC_COLOUR);
 
         // creating the panel in the top right corner
         JPanel enemyStats = new JPanel(new GridLayout(2,1));
-        enemyStats.setPreferredSize(new Dimension(100, 60));
+        enemyStats.setPreferredSize(new Dimension(200, 60));
         enemyStats.setBackground(SC_COLOUR);
 
         // creating the JTextAreas for each value using the helper method 'statsMaker'
@@ -168,9 +185,9 @@ public class GameScreen {
 
         // handling the answer
         if (answer == JOptionPane.YES_OPTION) {
-            //cc.respondItemUse(true);
+            combatController.respondItemUse(true);
         } else if (answer == JOptionPane.NO_OPTION) {
-            //cc.respondItemUse(false);
+            combatController.respondItemUse(false);
         }
     }
 
@@ -231,7 +248,13 @@ public class GameScreen {
                 item.getName(), JOptionPane.DEFAULT_OPTION);
     }
 
-    public void askQuestion(String question, ArrayList<String> answers, ArrayList<String> responses) { //display choices string narration
+    public void askQuestion(String question, ArrayList<String> answers, ArrayList<String> responses, boolean isCombatEvent) { //display choices string narration
+        clearScreen("buttons");
+
+        GameScreen.answers = answers;
+        GameScreen.question = question;
+        GameScreen.responses = responses;
+
         JPanel questionEventPanel = new JPanel(new BorderLayout());
 
         JTextArea questionP = new JTextArea(question);
@@ -247,23 +270,23 @@ public class GameScreen {
         eventOptions.setBackground(SC_COLOUR);
         eventOptions.setLayout(new GridLayout(answers.size(),1));
 
-        JPanel responsePanel = new JPanel();
+
         responsePanel.setLayout(new BorderLayout());
         responsePanel.setPreferredSize(new Dimension(800,150));
         responsePanel.setBackground(SC_COLOUR);
 
-        String prompt = "Type your response... ";
+//        String prompt = "Type your response... ";
+//
+//        JTextField textField = new JTextField();
+//        textField.setFont(FONT);
+//        textField.setForeground(Color.green);
+//        textField.setBackground(SC_COLOUR);
+//        textField.setBorder(null);
+//        textField.setCaretColor(Color.green);
+//        textField.setPreferredSize(new Dimension(frame.getWidth(), 15));
+//        textField.setText(prompt);
 
-        JTextField textField = new JTextField();
-        textField.setFont(FONT);
-        textField.setForeground(Color.green);
-        textField.setBackground(SC_COLOUR);
-        textField.setBorder(null);
-        textField.setCaretColor(Color.green);
-        textField.setPreferredSize(new Dimension(frame.getWidth(), 15));
-        textField.setText(prompt);
-
-        int c = 0;
+        int c = -1;
         for (String option: answers) {
             JTextArea textArea = new JTextArea(c+1 + ") " + option);
             textArea.setBackground(SC_COLOUR);
@@ -272,49 +295,145 @@ public class GameScreen {
             textArea.setPreferredSize(new Dimension(600, 50));
             textArea.setLineWrap(true);
             eventOptions.add(textArea);
+            textArea.setEditable(false);
             c++;
         }
 
-        textField.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                int response;
-                try {
-                    String[] r = textField.getText().split(" ");
-                    response = Integer.parseInt("" + r[r.length - 1]) - 1;
-                    textField.setText(responses.get(response));
-                    textField.setEditable(false);
-                    textField.setEnabled(false);
-                    textField.setDisabledTextColor(Color.green);
-
-                }
-                catch (NumberFormatException v) {
-                    textField.setText("Don't Mess Around");
-                    JOptionPane.showConfirmDialog(null, "Please enter a valid number.", "Don't Mess Around", JOptionPane.DEFAULT_OPTION);
-                    response = -1;
-                    textField.setText(prompt);
-                }
-                catch (IndexOutOfBoundsException v2) {
-                    textField.setText("Don't Mess Around");
-                    JOptionPane.showConfirmDialog(null, "Select a number from the options.", "Don't Mess Around", JOptionPane.DEFAULT_OPTION);
-                    response = -1;
-                    textField.setText(prompt);
-                }
-
-                //storylineController.updateEventID(player, response);
-                System.out.println(response);
-
-            }});
+//        textField.addActionListener(new ActionListener(){
+//
+//            public void actionPerformed(ActionEvent e){
+//                int response;
+//
+//                System.out.println(GameScreen.question);
+//                System.out.println("s " + GameScreen.answers.size());
+//                for (String q : GameScreen.answers) {
+//                    System.out.println(q);
+//                }
+//
+//                try {
+//                    String[] r = textField.getText().split(" ");
+//                    response = Integer.parseInt("" + r[r.length - 1]);
+//                    if (response < 0 || response > GameScreen.answers.size() - 1) {
+//                        System.out.println(response + " " + GameScreen.answers.size());
+//                        //throw new IndexOutOfBoundsException();
+//                    }
+//                    //textField.setEditable(false);
+//                    //textField.setEnabled(false);
+//                    textField.setDisabledTextColor(Color.green);
+//
+//                    if (isCombatEvent) {
+//                        textField.setText(GameScreen.responses.get(response));
+//                        combatController.returnAnswer(response);
+//                    }
+//                    else {
+//                        try {
+//                            storylineController.updateEventID(response);
+//                        } catch (IOException | ClassNotFoundException ex) {
+//                            throw new RuntimeException(ex);
+//                        }
+//                    }
+//
+//
+//                    System.out.println(response);
+//                }
+//                catch (NumberFormatException v) {
+//                    textField.setText("Don't Mess Around");
+//                    JOptionPane.showConfirmDialog(null, "Please enter a valid number.", "Don't Mess Around", JOptionPane.DEFAULT_OPTION);
+//                    textField.setText(prompt);
+//                }
+//                catch (IndexOutOfBoundsException v2) {
+//                    textField.setText("Don't Mess Around");
+//                    JOptionPane.showConfirmDialog(null, "Select a number from the options.", "Don't Mess Around", JOptionPane.DEFAULT_OPTION);
+//                    textField.setText(prompt);
+//                }
+//
+//            }});
 
         questionEventPanel.add(questionP, BorderLayout.PAGE_START);
         questionEventPanel.add(eventOptions);
 
-        responsePanel.add(textField, BorderLayout.CENTER);
+        //responsePanel.add(textField, BorderLayout.CENTER);
 
         bottomPanel.add(responsePanel, BorderLayout.LINE_START);
         dialoguePanel.add(questionEventPanel, BorderLayout.CENTER);
 
-
         frame.setVisible(true);
+
+        int response = getResponse(0, answers.size() - 1);
+        JTextArea textField = new JTextArea();
+        textField.setFont(FONT);
+        textField.setForeground(Color.green);
+        textField.setBackground(SC_COLOUR);
+        textField.setBorder(null);
+        textField.setCaretColor(Color.green);
+        textField.setPreferredSize(new Dimension(frame.getWidth(), 15));
+
+
+
+        if (isCombatEvent) {
+            responsePanel.removeAll();
+            textField.setText(responses.get(response));
+            responsePanel.add(textField);
+            combatController.returnAnswer(response);
+        }
+        else {
+            try {
+                storylineController.updateEventID(response);
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public int getResponse(int min, int max) {
+        int response;
+        String ans = "";
+        JTextArea textField = new JTextArea();
+        textField.setFont(FONT);
+        textField.setForeground(Color.green);
+        textField.setBackground(SC_COLOUR);
+        textField.setBorder(null);
+        textField.setCaretColor(Color.green);
+        textField.setPreferredSize(new Dimension(frame.getWidth(), 15));
+        try {
+            ans = JOptionPane.showInputDialog("Enter your response here", null);
+            response = Integer.parseInt(ans);
+
+            if (min > response || response > max) {
+                throw new IndexOutOfBoundsException();
+            }
+            responsePanel.removeAll();
+            textField.setText("");
+            responsePanel.add(textField);
+            frame.setVisible(true);
+        }
+        catch (NumberFormatException | IndexOutOfBoundsException e) {
+            System.out.println("doesnt match");
+            responsePanel.remove(textField);
+            if (ans.equals("a")) {
+                // saving
+            }
+            else if (ans.equals("b")) {
+                // this is fine
+            }
+//            else if (ans.equals("c")) {
+//                SoundInteractor.switchSoundChoice();
+//                if (SoundInteractor.getSoundChoice()) {
+//                    SoundInteractor.playSound("data/sound/crazy-chase.wav");
+//                }
+//                else {
+//                    SoundInteractor.stopSound();
+//                }
+//            }
+            else {
+                textField.setText("Dont Mess around");
+                responsePanel.add(textField);
+                frame.setVisible(true);
+            }
+            return getResponse(min, max);
+        }
+
+        return response;
     }
 
     /**
@@ -331,17 +450,14 @@ public class GameScreen {
      */
     public static JPanel drawButtons() {
         // creating the buttons and adjusting the size
-        JButton b1 = new JButton("Save");
-        b1.setPreferredSize(new Dimension(100, 50));
+        JButton b1 = new JButton("a- Save");
+        b1.setPreferredSize(new Dimension(200, 50));
 
-        JButton b2 = new JButton("Pause");
-        b2.setPreferredSize(new Dimension(100, 50));
+        JButton b2 = new JButton("b- Pause");
+        b2.setPreferredSize(new Dimension(200, 50));
 
-        JButton b3 = new JButton("Sound On/Off");
-        b3.setPreferredSize(new Dimension(100, 50));
-
-        JButton b4 = new JButton("Skip");
-        b4.setPreferredSize(new Dimension(100, 50));
+        JButton b3 = new JButton("c- Sound \nOn/Off");
+        b3.setPreferredSize(new Dimension(200, 50));
 
         // creating the methods that will be executed after clicking
         b1.addActionListener(new ActionListener() {
@@ -363,13 +479,7 @@ public class GameScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Sound!!");
-            }
-        });
-
-        b4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("SKIP!!");
+                SoundInteractor.playSound("data/sound/crazy-chase.wav");
             }
         });
 
@@ -380,7 +490,6 @@ public class GameScreen {
         buttons.add(b1);
         buttons.add(b2);
         buttons.add(b3);
-        buttons.add(b4);
 
         return buttons;
     }
@@ -398,6 +507,19 @@ public class GameScreen {
         pN.setBackground(SC_COLOUR);
 
         return pN;
+    }
+
+    public void clearScreen(String type) {
+        drawGameScreen(type);
+        frame.setVisible(true);
+    }
+    public void setController(UIFacade uiFacade) {
+        combatController = uiFacade.getCombatController();
+        storylineController = uiFacade.getStorylineController();
+    }
+
+    public void setVisible() {
+        frame.setVisible(true);
     }
 
     /** Testing random stuff for funsies
@@ -420,36 +542,65 @@ public class GameScreen {
         a.add("beans");
         a.add("potato");
         a.add("crimes");
-        g.askQuestion("Hello this is a question", a, a);
+        //g.askQuestion("Hello this is a question", a, a);
 
 
         //testing the health bar stuff
         g.displayHealthBar("PLAYER", 100, 100, "ENEMY", 100, 100);
-        g.askIfPlayerUsesItem();
-        g.informPlayerOfItemUse(new ItemData("apple", "health", 5));
-        g.updateHealthBar("PLAYER", 1, 0, "ENEMY", 1, 0);
+//        g.askIfPlayerUsesItem();
+//        g.informPlayerOfItemUse(new ItemData("apple", "health", 5));
+//        g.updateHealthBar("PLAYER", 1, 0, "ENEMY", 1, 0);
 
 
         // testing the item display
-        g.askIfPlayerUsesItem();
-        ArrayList<ItemData> items = new ArrayList<>();
-        items.add(new ItemData("Apple", "Evilness", 5));
-        items.add(new ItemData("Beans", "Murder", 5));
-        items.add(new ItemData("Potato", "Villainy", 5));
-        items.add(new ItemData("Crimes", "Epicness", 5));
-        items.add(new ItemData("Cat", "Intelligence", 5));
-        items.add(new ItemData("Long Item Name For FUNSIES", "Attribute", 5));
-        items.add(new ItemData("Item", "Attribute", 5));
-        items.add(new ItemData("Item", "Attribute", 5));
-        items.add(new ItemData("Item", "Attribute", 5));
-        items.add(new ItemData("Item", "Attribute", 5));
-        items.add(new ItemData("Item", "Attribute", 5));
-        items.add(new ItemData("Item", "Attribute", 5));
-        g.letPlayerChooseItem(items);
-        g.informPlayerOfItemUse(new ItemData("Item", "Attribute", 5));
+//        g.askIfPlayerUsesItem();
+//        ArrayList<ItemData> items = new ArrayList<>();
+//        items.add(new ItemData("Apple", "Evilness", 5));
+//        items.add(new ItemData("Beans", "Murder", 5));
+//        items.add(new ItemData("Potato", "Villainy", 5));
+//        items.add(new ItemData("Crimes", "Epicness", 5));
+//        items.add(new ItemData("Cat", "Intelligence", 5));
+//        items.add(new ItemData("Long Item Name For FUNSIES", "Attribute", 5));
+//        items.add(new ItemData("Item", "Attribute", 5));
+////        items.add(new ItemData("Item", "Attribute", 5));
+////        items.add(new ItemData("Item", "Attribute", 5));
+////        items.add(new ItemData("Item", "Attribute", 5));
+////        items.add(new ItemData("Item", "Attribute", 5));
+////        items.add(new ItemData("Item", "Attribute", 5));
+//        g.letPlayerChooseItem(items);
+//        g.informPlayerOfItemUse(new ItemData("Item", "Attribute", 5));
 
         // testing the regular story event option
         //g.askQuestion("", a, a);
+
+        g.displayNarration("Beans");
+        g.askQuestion("Hello this is a question", a, a,true);
+        g.displayHealthBar("PLAYER", 100, 100, "ENEMY", 100, 100);
+        g.clearScreen("type");
+
+        g.displayNarration("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna " +
+                "aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure " +
+                "dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, " +
+                "sunt in culpa qui officia deserunt mollit anim id est laborum.");
+        g.askQuestion("Hello this is a question12", a, a,true);
+        g.displayHealthBar("PLAYER", 100, 100, "ENEMY", 100, 100);
+
+        g.clearScreen("type");
+        g.displayNarration("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna " +
+                "aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure " +
+                "dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, " +
+                "sunt in culpa qui officia deserunt mollit anim id est laborum.");
+        g.askQuestion("Hello this is a question13", a, a, true);
+        g.displayHealthBar("PLAYER", 100, 100, "ENEMY", 100, 100);
+
+        g.clearScreen("type");
+        g.displayNarration("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna " +
+                "aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure " +
+                "dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, " +
+                "sunt in culpa qui officia deserunt mollit anim id est laborum.");
+        g.askQuestion("Hello this is a question14", a, a, true);
+        g.displayHealthBar("PLAYER", 40, 100, "ENEMY", 100, 100);
+
         System.out.println("beans");
     }
 

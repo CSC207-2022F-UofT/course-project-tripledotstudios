@@ -2,6 +2,7 @@ package UI;
 
 import controller.LoginController;
 import controller.StorylineController;
+import usecases.SoundInteractor;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -41,13 +42,13 @@ public class EnterAGameScreen {
             public void actionPerformed(ActionEvent e) {
                 storylineController.homeSoundStop();
                 gameScreen.setVisible();
+                SoundInteractor.stopSound();
                 frame.dispose();
                 try {
                     storylineController.setNewGame();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                } catch (ClassNotFoundException ex) {
-                    throw new RuntimeException(ex);
+                } catch (IOException | ClassNotFoundException ex) {
+                    //throw new RuntimeException(ex);
+                    ex.printStackTrace();
                 }
 
 

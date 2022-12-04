@@ -1,9 +1,12 @@
 package usecases;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import presenter.*;
 import entities.*;
+
+import javax.swing.text.View;
 
 
 public class StorylineInteractor {
@@ -38,15 +41,18 @@ public class StorylineInteractor {
         //create a file to save this user
         saveGame();
 
-        /* Old code
-          String username = LOGIN.getCurrentUser();
-          HashMap<String, ArrayList<ItemData>> inventory = new HashMap<>(); //empty Hash Map
+        //Old code
+        String username = LOGIN.getCurrentUser();
+        HashMap<String, ArrayList<ItemData>> inventory = new HashMap<>(); //empty Hash Map
+        player_action = new PlayerInteractor(PlayerFactory.generatePlayer(username,
+                0, 100, new HashMap<String, ArrayList<ItemData>>()));
 
           //dunno very first event ID
-          PlayerData player = new PlayerData(username, 0, 100, inventory);
-        */
+         //PlayerData player = PlayerFactory.generatePlayer(us);
+
 
         //play the first event
+        SOUND.stopSound();
         playEvent();
     }
 
@@ -64,12 +70,12 @@ public class StorylineInteractor {
     /** Loads the current event of the Player
      */
     public void loadGame() throws IOException, ClassNotFoundException {
-        String username = LOGIN.getCurrentUser();
-        String filename = username + ".ser";
+        String username = LOGIN.getCurrentUser() + ".ser";
 
         //load method
-        PlayerData player = LOAD.readFromFile("/savefiles/" + filename); //since it returns a PlayerData
+        PlayerData player = LOAD.readFromFile("data/savefiles/" + username); //since it returns a PlayerData
         player_action = new PlayerInteractor(player);
+
         //start the game on the current event
         this.playEvent();
     }
@@ -77,7 +83,9 @@ public class StorylineInteractor {
     /** Saves PLayer data to the file
      */
     public void saveGame() throws IOException {
-        String filename = "/savefiles/" + player_action.getPlayerUsername() + ".ser";
+        String filename = "data/savefiles/" + LOGIN.getCurrentUser() + ".ser";
+        //File file = new File(filename);
+
         SAVE.saveToFile(filename, player_action.getReference());
     }
 
@@ -112,7 +120,7 @@ public class StorylineInteractor {
             SOUND.switchSoundChoice();
         }
         else {
-            SOUND.stopSound();
+            //SOUND.stopSound();
             SOUND.switchSoundChoice();
         }
     }
@@ -140,7 +148,6 @@ public class StorylineInteractor {
         //finish the game. final event id is 1000
         if (player_action.getPlayerEventID() == 1000) {
             this.saveGame();
-
             this.endGame();
         }
 
@@ -153,23 +160,20 @@ public class StorylineInteractor {
         }
 
         if (event instanceof CombatEvent) {
-
             VIEW.displayNarration(event.getNarration());
 
             if (COMBAT.combat(event.getUUID())) {
                 player_action.updateEvent(event.getChoicesNextUUIDs().get(1));
             }
-            else {
+            //else {
                 ///Player loses
-                this.lose();
-            }
+                //this.lose();
+            //}
         }
         else {
-
+            System.out.println(event.getNarration());
             VIEW.displayNarration(event.getNarration());
-            VIEW.askQuestion("", event.getChoicesNarrations(), null);
-
-
+            VIEW.askQuestion("", event.getChoicesNarrations(), null, false);
         }
     }
 }

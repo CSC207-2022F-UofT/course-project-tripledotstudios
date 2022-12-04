@@ -52,5 +52,5 @@ public interface CombatInterface {
      * .
      * Note that CombatController must use returnAnswer() to return the index of the answer chosen
      */
-    void askQuestion(String question, List<String> answers, List<String> responses);
+    void askQuestion(String question, List<String> answers, List<String> responses, boolean isCombatEvent);
 }
