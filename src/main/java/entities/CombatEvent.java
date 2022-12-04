@@ -38,7 +38,7 @@ public class CombatEvent extends Event {
     
     /**
      * Generates and returns an enemy attack value.
-     * @return a possible attack value of the enemy of this Combatevent
+     * @return a possible attack value of the enemy of this CombatEvent
     */
     public Integer generateEnemyAttackValue(){
         return this.enemy.generateAttackValue();

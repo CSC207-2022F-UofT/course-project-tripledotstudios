@@ -1,4 +1,4 @@
-package entities; /** relevant imports*/
+package entities;  // relevant imports
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,8 +9,8 @@ import java.util.HashMap;
  * The entities.PlayerData class
  */
 public class PlayerData implements Serializable {
-    /** Stores the health of the entities.PlayerData object */
-    public static final int MAXHEALTH = 500;
+    /* Stores the health of the entities.PlayerData object */
+    // public static final int MAX_HEALTH = 500;
 
     /** Stores the attack power of the entities.PlayerData object */
     private int attackPower;
