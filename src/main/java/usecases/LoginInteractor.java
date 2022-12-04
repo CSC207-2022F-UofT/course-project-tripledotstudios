@@ -2,8 +2,6 @@ package usecases;
 
 import presenter.LoginInterface;
 
-import presenter.LoginInterface;
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.Objects;
@@ -12,7 +10,7 @@ public class LoginInteractor {
     private HashMap<String, String> accounts; // a HashMap mapping usernames to passwords for all registered accounts
     private final String filepath; // a String of the csv file containing all registered accounts
     private String currentUser; // a String of which, if any, user is currently logged in
-    private final LoginInterface presenter; // TODO: add description
+    private final LoginInterface presenter;
 
     /**
      * Constructor.
@@ -66,21 +64,24 @@ public class LoginInteractor {
      * Check whether the user can log into an account with <username> and <password>.
      * @param username a String of a username attempt
      * @param password a String of a password attempt
-     * 1 if login is valid, 2 if username does not exist, and 3 if password does not match username on file.
+     * @return true iff the login was successful.
      */
-    public void validateLogin(String username, String password) {
+    public boolean validateLogin(String username, String password) {
         // an account with this username does not exist
         if (!(accounts.containsKey(username))) {
             presenter.updateLogin(2, username);
+            return false;
         }
         // password does not match username
         else if (!(Objects.equals(accounts.get(username), password))) {
             presenter.updateLogin(3, username);
+            return false;
         }
         // login is successful
         else {
             currentUser = username;
             presenter.updateLogin(1, username);
+            return true;
         }
     }
 
@@ -89,10 +90,9 @@ public class LoginInteractor {
      * @param username a String of a proposed username for a new account
      * @param password1 a String of a proposed password for a new account
      * @param password2 a String of a proposed password for a new account
-     * @return 1 if account creation is successful, 2 if username already exists, 3 if passwords do not match, 4
-     * if passwords match but password is too short, 5 otherwise.
+     * @return true iff account creation was successful.
      */
-    public void createAccount(String username, String password1, String password2) {
+    public boolean createAccount(String username, String password1, String password2) {
         // case that username is unique, password is long enough, and passwords match (i.e., valid account creation)
         if (validateNewUsername(username) && validateNewPassword(password1) && (password1.equals(password2))) {
             try {
@@ -103,6 +103,7 @@ public class LoginInteractor {
                 // update <accounts> so that LoginInteractor doesn't have to be reconstructed
                 accounts.put(username, password1);
                 presenter.updateRegister(1, username);
+                return true;
             }
             catch (IOException e) { e.printStackTrace(); }
         }
@@ -114,6 +115,7 @@ public class LoginInteractor {
         else if (!(validateNewPassword(password1))) { presenter.updateRegister(3, username); }
         // some other case is true
         else { presenter.updateRegister(5, username); }
+        return false;
     }
 
     /**
