@@ -12,7 +12,7 @@ public class ItemDataManager {
     public List<ItemData> lst = new ArrayList<>(); // List of entities.ItemData Objects;
 
     public ItemDataManager(String fileName) {
-        String line = "";
+        String line;
         String splitBy = ",";
 
         try {

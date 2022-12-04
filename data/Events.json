@@ -40,7 +40,7 @@
 		"questions": [
 			{
 				"question": "What is my name?",
-				"answers": ["How would I know?", "Uhh... Wolf?", "Althoesjandr!"],
+				"answers": ["How would I know?", "Uhh... Wolf?", "Timmy?"],
 				"responses": ["No answer, no pass. Take this!", "Bruh... How's that a name?", "WOW! It is my name! How did you know?"],
 				"attackValues": [-1, -1, 20]
 			}

@@ -7,8 +7,8 @@ import java.util.Random;
  * The data class that stores a CombatEvent.
  */
 public class CombatEvent extends Event {
-    private EnemyData enemy;  // The enemy encountered
-    private List<QuestionData> questions;  // The questions that are within the CombatEvent
+    protected EnemyData enemy;  // The enemy encountered
+    protected List<QuestionData> questions;  // The questions that are within the CombatEvent
 
     /**
      * Default constructor.
@@ -38,7 +38,7 @@ public class CombatEvent extends Event {
     
     /**
      * Generates and returns an enemy attack value.
-     * @return a possible attack value of the enemy of this Combatevent
+     * @return a possible attack value of the enemy of this CombatEvent
     */
     public Integer generateEnemyAttackValue(){
         return this.enemy.generateAttackValue();
@@ -54,5 +54,5 @@ public class CombatEvent extends Event {
         return questions.get(randomIndex);
     }
 
-    //TODO: More methods related to "questions"
+    //May add more methods related to "questions"
 }
