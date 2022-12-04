@@ -1,6 +1,5 @@
 package usecases;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -18,11 +17,11 @@ class SoundInteractorTest {
         Assertions.assertFalse(si.getIsPlaying());
     }
 
-    // no way to test sound.isActive() accuracy
     @Test
     public void SoundInteractorPlayAndStopSound() {
         Assertions.assertNull(si.getSound());
         si.playSound(sound);
+        Assertions.assertTrue(si.getSound().isActive());
         Assertions.assertNotEquals(si.getSound(), null);
         si.stopSound();
         Assertions.assertNull(si.getSound());
