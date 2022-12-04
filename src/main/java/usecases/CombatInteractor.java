@@ -30,7 +30,7 @@ public class CombatInteractor {
 	* @return whether the player wins or not: true if won, false if lost
 	*/
 	public boolean combat(int UUID){
-        	CombatEvent event = (CombatEvent) events.getAllEvents().get(UUID);
+		CombatEvent event = (CombatEvent) events.getAllEvents().get(UUID);
 
 		int enemyMaxHealth = event.getEnemyMaxHealth();
 		int enemyCurrentHealth = enemyMaxHealth;
@@ -68,7 +68,7 @@ public class CombatInteractor {
 
 			}else{
 				QuestionData q = event.getRandomQuestion();
-				view.askQuestion(q.getQuestion(), q.getAnswers(), q.getResponses());
+				view.askQuestion(q.getQuestion(), q.getAnswers(), q.getResponses(), true);
 				int damage = q.getAttackValues().get(answerIndex);
 				if(damage == -1){
 					playerCurrentHealth -= event.generateEnemyAttackValue();
@@ -81,7 +81,7 @@ public class CombatInteractor {
 		}
 
 		return enemyCurrentHealth <= 0;
-    	}
+	}
 
 	// Functions for CombatController to call
 

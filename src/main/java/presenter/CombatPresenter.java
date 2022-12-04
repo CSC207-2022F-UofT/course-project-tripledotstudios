@@ -45,8 +45,8 @@ public class CombatPresenter implements CombatInterface {
     }
 
     @Override
-    public void askQuestion(String question, List<String> answers, List<String> responses) {
-        gameScreen.askQuestion(question, (ArrayList<String>) answers, (ArrayList<String>) responses);
+    public void askQuestion(String question, List<String> answers, List<String> responses, boolean isCombatEvent) {
+        gameScreen.askQuestion(question, (ArrayList<String>) answers, (ArrayList<String>) responses, isCombatEvent);
     }
 
 }

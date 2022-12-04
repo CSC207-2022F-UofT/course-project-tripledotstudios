@@ -1,9 +1,7 @@
 package presenter;
 
 import UI.*;
-import entities.PlayerData;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +23,8 @@ public class StorylinePresenter implements StorylineInterface {
     }
 
     @Override
-    public void askQuestion(String question, List<String> answers, List<String> responses) { //display choices string narration
-        gameScreen.askQuestion(question, (ArrayList<String>) answers, (ArrayList<String>) responses);
+    public void askQuestion(String question, List<String> answers, List<String> responses, boolean isCombatEvent) { //display choices string narration
+        gameScreen.askQuestion(question, (ArrayList<String>) answers, (ArrayList<String>) responses, isCombatEvent);
     }
 
     @Override
