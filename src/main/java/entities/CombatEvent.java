@@ -54,5 +54,5 @@ public class CombatEvent extends Event {
         return questions.get(randomIndex);
     }
 
-    //TODO: More methods related to "questions"
+    //May add more methods related to "questions"
 }

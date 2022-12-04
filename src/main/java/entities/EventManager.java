@@ -30,6 +30,7 @@ public class EventManager{
 	/**
 	 * Private function that is run once in constructor to read from file.
 	 */
+	@SuppressWarnings("all")
 	private Map<Integer, Event> getAllEventsFromFile() {
 		Map<Integer, Event> eventMap = new HashMap<>();
 
@@ -108,6 +109,7 @@ public class EventManager{
 		return new EnemyData(enemyName, enemyHealth, enemyAttackMean, enemyAttackDeviation);
 	}
 
+	@SuppressWarnings("all")
 	private void generateListOfQuestions(JSONArray questionsArr, List<QuestionData> questions){
 
 		for(int i = 0; i < questionsArr.length(); i++){

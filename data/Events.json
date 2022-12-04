@@ -40,7 +40,7 @@
 		"questions": [
 			{
 				"question": "What is my name?",
-				"answers": ["How would I know?", "Uhh... Wolf?", "Althoesjandr!"],
+				"answers": ["How would I know?", "Uhh... Wolf?", "Timmy?"],
 				"responses": ["No answer, no pass. Take this!", "Bruh... How's that a name?", "WOW! It is my name! How did you know?"],
 				"attackValues": [-1, -1, 20]
 			}
@@ -49,7 +49,7 @@
 	{
 		"UUID": 3,
 		"narration": "Behold! A serpent emerges out from the swamp. As it opened its jaws towards you, you drew your weapon...",
-		"choicesNarrations": ["The snake swallowd you whole. Your adventure ends here.", "The snake is dead. You moved on."],
+		"choicesNarrations": ["The snake swallowed you whole. Your adventure ends here.", "The snake is dead. You moved on."],
 		"choicesNextUUIDs": [-1, 6],
 		"soundFile": "data/sound/hip-hop-rock.wav",
 		"doesAutoSave": false,
