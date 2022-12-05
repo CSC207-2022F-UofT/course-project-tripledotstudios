@@ -9,6 +9,7 @@ import entities.ItemData;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -47,48 +48,32 @@ public class GameScreen {
         frame.getContentPane().setBackground(SC_COLOUR);
         frame.setResizable(false);
 
-        drawGameScreen("all");
-    }
-
-    /**
-     * Depending on the area specified,
-     * the method will draw a new panel in that area.
-     * @param type The area specified as a string
-     */
-    public void drawGameScreen(String type) {
         // creating the top panel
-        if (type.equals("status") || type.equals("all")) {
-            topPanel = new JPanel();
-            topPanel.setLayout(new BorderLayout());
-            topPanel.setBackground(SC_COLOUR);
-            topPanel.setPreferredSize(new Dimension(frame.getWidth(), 110));
-        }
+        topPanel = new JPanel();
+        topPanel.setLayout(new BorderLayout());
+        topPanel.setBackground(SC_COLOUR);
+        topPanel.setPreferredSize(new Dimension(frame.getWidth(), 110));
+
 
         // creating the dialoge panel that covers the center of the screen
-        if (type.equals("event") || type.equals("all")) {
-            // creating the dialogue panel
-            dialoguePanel = new JPanel();
-            dialoguePanel.setPreferredSize(new Dimension(frame.getWidth(), 510));
-            dialoguePanel.setBackground(SC_COLOUR);
-            dialoguePanel.setOpaque(true);
-            dialoguePanel.setLayout(new BorderLayout());
-        }
+        dialoguePanel = new JPanel();
+        dialoguePanel.setPreferredSize(new Dimension(frame.getWidth(), 510));
+        dialoguePanel.setBackground(SC_COLOUR);
+        dialoguePanel.setOpaque(true);
+        dialoguePanel.setLayout(new BorderLayout());
 
         // creating the bottom panel which covers the bottom of the screen
-        if (type.equals("buttons") || type.equals("all")) {
-            // bottom panel
-            bottomPanel = new JPanel();
-            bottomPanel.setLayout(new BorderLayout());
-            bottomPanel.setPreferredSize(new Dimension(frame.getWidth(), 120));
-            bottomPanel.setBackground(SC_COLOUR);
-            bottomPanel.add(drawButtons(), BorderLayout.PAGE_END);
-        }
+        bottomPanel = new JPanel();
+        bottomPanel.setLayout(new BorderLayout());
+        bottomPanel.setPreferredSize(new Dimension(frame.getWidth(), 120));
+        bottomPanel.setBackground(SC_COLOUR);
+        bottomPanel.add(drawButtons(), BorderLayout.PAGE_END);
 
         // adding all the main panels to the frame
         frame.add(topPanel, BorderLayout.PAGE_START);
         frame.add(bottomPanel, BorderLayout.PAGE_END);
         frame.add(dialoguePanel, BorderLayout.CENTER);
-        }
+    }
 
     /**
      * Displays the status of the game at the top left and right corner of the screen.
@@ -100,7 +85,6 @@ public class GameScreen {
      * @param enemyCurrentHealth The current health of the enemy.
      */
     public void displayHealthBar(String playerName, int playerMaxHealth, int playerCurrentHealth, String enemyName, int enemyMaxHealth, int enemyCurrentHealth) {
-
         // creating the panel in the top left corner
         JPanel playerStats = new JPanel(new GridLayout(2,1));
         playerStats.setPreferredSize(new Dimension(200, 60));
@@ -111,6 +95,8 @@ public class GameScreen {
         enemyStats.setPreferredSize(new Dimension(200, 60));
         enemyStats.setBackground(SC_COLOUR);
 
+
+        System.out.println(playerMaxHealth);
         // creating the JTextAreas for each value using the helper method 'statsMaker'
         JTextArea pN = statsMaker(playerName);
         JTextArea pH = statsMaker(playerCurrentHealth + "/" + playerMaxHealth);
@@ -193,11 +179,7 @@ public class GameScreen {
         int answer = JOptionPane.showConfirmDialog(frame, label);
 
         // handling the answer
-        if (answer == JOptionPane.YES_OPTION) {
-            combatController.respondItemUse(true);
-        } else if (answer == JOptionPane.NO_OPTION) {
-            combatController.respondItemUse(false);
-        }
+        combatController.respondItemUse(answer == JOptionPane.YES_OPTION);
     }
 
     /**
@@ -294,9 +276,6 @@ public class GameScreen {
      * @param isCombatEvent whether this is a combat event
      */
     public void askQuestion(String question, ArrayList<String> answers, ArrayList<String> responses, boolean isCombatEvent) { //display choices string narration
-        // clears the bottom of the screen everytime it is called.
-        clearScreen("buttons");
-
         // the text panel containing the question string
         JTextArea questionP = new JTextArea(question);
         questionP.setPreferredSize(new Dimension(frame.getWidth(), 70));
@@ -451,12 +430,39 @@ public class GameScreen {
         }
         // if we are given a string or an invalid number
         catch (NumberFormatException | IndexOutOfBoundsException e) {
+            // formatting JLabels
+            JLabel l = new JLabel();
+            l.setFont(FONT);
+            l.setForeground(Color.green);
+
+            // setting the colour of the popup
+            UIManager.put("OptionPane.background", SC_COLOUR);
+            UIManager.put("Panel.background", SC_COLOUR);
+
+            if (ans == null) {
+                l.setText("Confirm game exit.");
+                int answer = JOptionPane.showConfirmDialog(frame, l);
+
+                // handling the answer
+                if (answer == JOptionPane.YES_OPTION) {
+                    frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+                    return -1;
+                } else {
+                    return getResponse(min, max);
+                }
+            }
             // clear the text field.
             responsePanel.remove(textField);
 
             // if given a valid letter, call upon the button functionalities
             switch (ans) {
                 case "a":
+                    // setting the label for style purposes
+                    l.setText("Saved");
+
+                    // displaying the popup
+                    JOptionPane.showConfirmDialog(null, l,
+                            "", JOptionPane.DEFAULT_OPTION);
                     try {
                         storylineController.saveGame();
                     } catch (IOException ex) {
@@ -465,13 +471,7 @@ public class GameScreen {
                     break;
                 case "b":
                     // setting the label for style purposes
-                    JLabel l = new JLabel(generatePauseReply());
-                    l.setFont(FONT);
-                    l.setForeground(Color.green);
-
-                    // setting the colour of the popup
-                    UIManager.put("OptionPane.background", SC_COLOUR);
-                    UIManager.put("Panel.background", SC_COLOUR);
+                    l.setText(generatePauseReply());
 
                     // displaying the popup
                     JOptionPane.showConfirmDialog(null, l,
@@ -487,7 +487,6 @@ public class GameScreen {
                     frame.setVisible(true);
                     break;
             }
-
             // call the method again until the correct response is given
             return getResponse(min, max);
         }
@@ -561,8 +560,11 @@ public class GameScreen {
         // displaying the message
         JOptionPane.showMessageDialog(null, label);
 
-        // close the window when we are done
-        frame.dispose();
+        // clear the status panels
+        topPanel.removeAll();
+        topPanel.setBackground(SC_COLOUR);
+        topPanel.repaint(0,0,frame.getWidth(), 110);
+        topPanel.revalidate();
     }
 
     /**
@@ -615,15 +617,6 @@ public class GameScreen {
 
         // return the panel
         return pN;
-    }
-
-    /**
-     * Clears the screen as needed for panels specified in type
-     * @param type a string that indicates the panel that needs to be cleared
-     */
-    public void clearScreen(String type) {
-        drawGameScreen(type);
-        frame.setVisible(true); // update the string
     }
 
     /**

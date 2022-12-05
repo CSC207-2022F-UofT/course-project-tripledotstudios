@@ -12,7 +12,7 @@ public class StorylineInteractor {
     private final SoundInteractor SOUND;
     private final SaveInteractor SAVE;
     private final LoadInteractor LOAD;
-    private PlayerInteractor player_action;
+    private final PlayerInteractor player_action;
     private final CombatInteractor COMBAT;
     private final EventManager MANAGER;
     private final LoginInteractor LOGIN;
@@ -69,10 +69,10 @@ public class StorylineInteractor {
         String username = LOGIN.getCurrentUser() + ".ser";
 
         //load method
-        PlayerData player = LOAD.readFromFile("data/savefiles/" + username); //since it returns a PlayerData
-        player_action = new PlayerInteractor(player);
+        player_action.updatePlayer(LOAD.readFromFile("data/savefiles/" + username)); // loading a player
 
         //start the game on the current event
+        System.out.println(player_action.getPlayerEventID());
         this.playEvent();
     }
 
@@ -95,6 +95,7 @@ public class StorylineInteractor {
      * The player
      */
     public void lose() {
+        SOUND.stopSound();
         VIEW.displayLose();
         VIEW.display_exit_options();
     }
@@ -171,7 +172,6 @@ public class StorylineInteractor {
             }
         }
         else {
-            System.out.println(event.getNarration());
             VIEW.displayNarration(event.getNarration());
             VIEW.askQuestion("", event.getChoicesNarrations(), null, false);
         }
