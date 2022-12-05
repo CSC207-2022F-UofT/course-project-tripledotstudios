@@ -67,7 +67,7 @@ public class LoginScreen extends JPanel {
         });
 
         JButton reset = new JButton("Reset");
-        cancel.addActionListener(new ActionListener() {
+        reset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent eve) {
                 username.setText("");
