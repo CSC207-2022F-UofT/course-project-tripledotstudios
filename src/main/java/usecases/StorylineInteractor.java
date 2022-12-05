@@ -53,7 +53,7 @@ public class StorylineInteractor {
 
         //play the first event
         SOUND.stopSound();
-        this.playEvent();
+        playEvent();
     }
 
     /** update the Player's current event based on the choice Player makes that correspond
