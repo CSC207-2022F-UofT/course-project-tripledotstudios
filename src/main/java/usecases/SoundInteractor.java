@@ -25,6 +25,12 @@ public class SoundInteractor {
     }
 
     /**
+     * Getter method for sound.
+     * @return sound.
+     */
+    public Clip getSound() { return sound; }
+
+    /**
      * Getter method for soundChoice.
      * @return soundChoice.
      */
