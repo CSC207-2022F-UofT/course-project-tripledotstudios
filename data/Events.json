@@ -74,5 +74,99 @@
 				"attackValues": [-1, -1, -1, 999]
 			}
 		]
+	},
+    {
+        "UUID": 6,
+        "narration": "You walked into an open field. There seems to be something burning, fuming with smoke not far from you. What do you do?",
+        "choicesNarrations": ["Go and investigate the burning.", "Leave it be."],
+        "choicesNextUUIDs": [8, 11],
+        "soundFile": "data/sound/morning-funny-beat.wav",
+        "doesAutoSave": true
+    },
+	{
+		"UUID": 8,
+		"narration": "You went to investigate the burning. Oh! It turns out to be a campfire. You are really cold. Do you wish to warm yourself by the fire?",
+		"choicesNarrations": ["Yes. I wish to stay.", "No. It's way too sus!"],
+		"choicesNextUUIDs": [9, 11],
+		"soundFile": "data/sound/morning-funny-beat.wav",
+		"doesAutoSave": true
+	},
+	{
+		"UUID": 9,
+		"narration": "Uh Oh! Looks like the owner of the campfire is back! It's a huge ogre! It yelled at you: EYYY! WHO ARE YOU! I WAS HUNTIN FOR BEKFAST! YOU ARE ME BEKFAST! ANSWER ME QUESTIONS AND I MAY SPARE YOU!",
+		"choicesNarrations": ["The oger grabbed you with its hand and stuffed you in its mouth.", "The ogre lies motionless. You moved on."],
+		"choicesNextUUIDs": [-1, 1002],
+		"soundFile": "data/sound/hip-hop-rock.wav",
+		"doesAutoSave": false,
+
+		"enemy": {
+			"name": "The Giant Ogre",
+			"health": 300,
+			"enemyAttackValueMean": 40,
+			"enemyAttackValueDeviation" : 10
+		},
+		"questions": [
+			{
+				"question": "ARE YOU INTERESTED IN AN EXTENDED WARRENTY ON YOUR CAR?",
+				"answers": ["No. Thanks", "Okay? Sure.", "Yes yes yes gimme gimme", "Jokes on you, I'm the car company!"],
+				"responses": ["TAKE IT! TAKE IT!", "AHA! IT'S A SCAM! NOW ALL YOU MONEY IS MINE!", "Bruh. Seriously? You know it's' a scam.", "WHAT? AAAHHHHH!"],
+				"attackValues": [-1, -1, -1, 80]
+			},
+			{
+				"question": "RING RING! RING RING! ARE YOU INTERESTED IN A FREE REFUND FROM AMAZON?",
+				"answers": ["Okay? Sure.", "Nah. (Hangs up phone)", "(Syskey the ogre's computer)"],
+				"responses": ["AHA! NOW YOU'RE MONEY GONE TO ME!", "I'LL BE BACK!", "NO!!! MY FILES! THEY'RE GONE!"],
+				"attackValues": [-1, 10, 100]
+			},
+			{
+				"question": "DO YOU WANT FREE V-BUCKS!",
+				"answers": ["Okay! Gimme gimme!", "Nah. (closes browser)", "(SQL inject the ogre's server to get crypto wallet passcode)"],
+				"responses": ["AHA! IT SCAM! NOW U COMPUTER HAS VIRUS!", "I'LL BE BACK!", "NO!!! MY SCAM MONEY!!! AHHHHH!"],
+				"attackValues": [-1, 10, 120]
+			}
+		]
+	},
+	{
+		"UUID": 11,
+		"narration": "Uh Oh! Looks like a huge ogre is blocking your path! It yelled at you: EYYY! I WAS HUNTIN FOR BEKFAST! YOU ARE NOW ME BEKFAST! ANSWER ME QUESTIONS AND I MAY SPARE YOU!",
+		"choicesNarrations": ["The oger grabbed you with its hand and stuffed you in its mouth.", "The ogre lies motionless. You moved on."],
+		"choicesNextUUIDs": [-1, 1002],
+		"soundFile": "data/sound/hip-hop-rock.wav",
+		"doesAutoSave": false,
+
+		"enemy": {
+			"name": "The Giant Ogre",
+			"health": 300,
+			"enemyAttackValueMean": 40,
+			"enemyAttackValueDeviation" : 10
+		},
+		"questions": [
+			{
+				"question": "ARE YOU INTERESTED IN AN EXTENDED WARRENTY ON YOUR CAR?",
+				"answers": ["No. Thanks", "Okay? Sure.", "Yes yes yes gimme gimme", "Jokes on you, I'm the car company!"],
+				"responses": ["TAKE IT! TAKE IT!", "AHA! IT'S A SCAM! NOW ALL YOU MONEY IS MINE!", "Bruh. Seriously? You know it's' a scam.", "WHAT? AAAHHHHH!"],
+				"attackValues": [-1, -1, -1, 80]
+			},
+			{
+				"question": "RING RING! RING RING! ARE YOU INTERESTED IN A FREE REFUND FROM AMAZON?",
+				"answers": ["Okay? Sure.", "Nah. (Hangs up phone)", "(Syskey the ogre's computer)"],
+				"responses": ["AHA! NOW YOU'RE MONEY GONE TO ME!", "I'LL BE BACK!", "NO!!! MY FILES! THEY'RE GONE!"],
+				"attackValues": [-1, 10, 100]
+			},
+			{
+				"question": "DO YOU WANT FREE V-BUCKS!",
+				"answers": ["Okay! Gimme gimme!", "Nah. (closes browser)", "(SQL inject the ogre's server to get crypto wallet passcode)"],
+				"responses": ["AHA! IT SCAM! NOW U COMPUTER HAS VIRUS!", "I'LL BE BACK!", "NO!!! MY SCAM MONEY!!! AHHHHH!"],
+				"attackValues": [-1, 10, 120]
+			}
+		]
+	},
+	{
+		"UUID": 1002,
+		"narration": "You won. You beat the boss! Have a reward!",
+		"choicesNarrations": ["Yes. Gimme Gimme!", "No. I don't trust you! Teleport me back to the beginning please!"],
+		"choicesNextUUIDs": [-2, 0],
+		"soundFile": "data/sound/morning-funny-beat.wav",
+		"doesAutoSave": true
 	}
 ]
