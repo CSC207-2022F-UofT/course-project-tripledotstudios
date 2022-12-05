@@ -6,16 +6,18 @@ import java.io.IOException;
 
 public class SoundInteractor {
     /** Clip that contains the audio */
-    private static Clip sound;
+    private Clip sound;
 
     /** Stores whether playSound has been called more recently than stopSound if at all */
-    static boolean isPlaying;
+    boolean isPlaying;
 
     /** InputStream through which audio is played */
-    static AudioInputStream inputStream;
+    AudioInputStream inputStream;
 
     /** Stores whether the sound setting is set to on */
-    static boolean soundChoice;
+    boolean soundChoice;
+
+    public Thread playSound;
 
     public SoundInteractor() {
         isPlaying = false;
@@ -23,66 +25,94 @@ public class SoundInteractor {
     }
 
     /**
-     * Getter method for isPlaying.
-     * @return isPlaying.
-     */
-    public static boolean getIsPlaying() {
-        return isPlaying;
-    }
-
-    /**
      * Getter method for soundChoice.
      * @return soundChoice.
      */
-    public static boolean getSoundChoice() { return soundChoice; }
+    public boolean getSoundChoice() { return soundChoice; }
 
     /**
      * Changes soundChoice to store the opposite boolean that it currently stores.
      */
-    public static void switchSoundChoice() {
+    public void switchSoundChoice() {
         soundChoice = !soundChoice;
     }
 
     /**
-     * Plays new audio located at </filepath>.
-     * @param filepath a String of the desired audio's path.
+     * Providing a value to the clip object
+     * @param filepath the file that contains the audio
      */
-    public static void playSound(String filepath) {
-        try {
-            // Stop any sound that may already be playing
-            stopSound();
-            // Create a File from the desired audio's path
+    public void createSound(String filepath) {
+        try{
+            // create a file object that is directed to the path specified
             File audioFile = new File(filepath);
-            // Assign a new AudioInputStream to inputStream using the File that was just created
+
+            // set up the audio input stream
             inputStream = AudioSystem.getAudioInputStream(audioFile);
-            // Create and play new Clip item
+
+            // create new audio format
+            AudioFormat format = inputStream.getFormat();
+            DataLine.Info info = new DataLine.Info(Clip.class, format);
+
+            // load information to the clip object
+            sound = (Clip) AudioSystem.getLine(info);
             sound = AudioSystem.getClip();
             sound.open(inputStream);
-            sound.start();
-            // Update status
-            isPlaying = true;
-            // Print statement is necessary for sound to play
-            System.out.println();
-            // Ensures that sound will not stop prematurely
-            while (sound.isActive()) {}
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
     }
 
     /**
+     * Close the clip object and set it to null.
+     */
+    public void closeSound() {
+        // stop the sound first
+        stopSound();
+
+        // delete the sound
+        sound.close();
+        sound = null;
+    }
+
+    /**
+     * Plays new audio located at </filepath>.
+     */
+    public void playSound() {
+        // first checks if the thread is null to avoid problems
+        if (playSound != null){
+            // if the thread is running, we stop the sound
+            if (playSound.isAlive()) {
+                sound.stop();
+            }
+        }
+
+        // create a new thread to play the sound
+        playSound = new Thread(() -> {
+            // stop any previous sounds
+            stopSound();
+
+            // play/resume the sound
+            sound.start();
+            isPlaying = true;
+        });
+
+        // start the thread
+        playSound.start();
+    }
+
+    /**
      * Stops playing audio if an audio is currently playing.
      */
-    public static void stopSound() {
-        // Checks if sound is playing before executing
-        if (isPlaying) {
+    public void stopSound() {
+        // check if sound is a null object
+        if (isPlaying && (sound != null)) {
+            // stop the sound
             sound.stop();
-            sound.close();
-            sound = null;
-            soundChoice = false;
             isPlaying = false;
             inputStream = null;
         }
-    }
 
+        // stop the thread
+        playSound.interrupt();
+    }
 }

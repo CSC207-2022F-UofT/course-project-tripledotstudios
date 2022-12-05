@@ -2,11 +2,8 @@ package UI;
 
 import controller.LoginController;
 import controller.StorylineController;
-import usecases.SoundInteractor;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 /**
@@ -37,53 +34,35 @@ public class EnterAGameScreen {
         sound.setBounds(200,190,200,50);
         sound.setBounds(450,200,130,40);
 
-        startANewGame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                storylineController.homeSoundStop();
-                gameScreen.setVisible();
-                SoundInteractor.stopSound();
-                frame.dispose();
-                try {
-                    storylineController.setNewGame();
-                } catch (IOException | ClassNotFoundException ex) {
-                    //throw new RuntimeException(ex);
-                    ex.printStackTrace();
-                }
+        startANewGame.addActionListener(e -> {
+            storylineController.homeSoundStop();
+            gameScreen.setVisible();
+            frame.dispose();
+            try {
+                storylineController.setNewGame();
+            } catch (IOException | ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
 
 
+        });
+        resumeASavedGame.addActionListener(e -> {
+            storylineController.homeSoundStop();
+            gameScreen.setVisible();
+            frame.dispose();
+            try {
+                storylineController.loadGame();
+            } catch (IOException | ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
             }
         });
-        resumeASavedGame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                storylineController.homeSoundStop();
-                gameScreen.setVisible();
-                frame.dispose();
-                try {
-                    storylineController.loadGame();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                } catch (ClassNotFoundException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        });
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                loginController.logOut();
-                createAccountOrLogin.setVisible();
-            }
+        logout.addActionListener(e -> {
+            frame.dispose();
+            loginController.logOut();
+            createAccountOrLogin.setVisible();
         });
 
-        sound.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                storylineController.soundSwitch();
-            }
-        });
+        sound.addActionListener(e -> storylineController.soundSwitch());
 
         frame.add(startANewGame);
         frame.add(resumeASavedGame);
