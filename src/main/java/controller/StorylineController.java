@@ -19,6 +19,10 @@ public class StorylineController {
         storylineInteractor.loadGame();
     }
 
+    public void saveGame() throws IOException {
+        storylineInteractor.saveGame();
+    }
+
     public void soundSwitch() {
         storylineInteractor.soundSwitch();
     }
