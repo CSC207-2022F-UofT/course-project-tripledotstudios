@@ -66,7 +66,7 @@ public class LoginScreen extends JPanel {
             }
         });
 
-        JButton cancel = new JButton("Cancel");
+        JButton reset = new JButton("Reset");
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent eve) {
@@ -77,7 +77,7 @@ public class LoginScreen extends JPanel {
 
         JPanel buttons = new JPanel();
         buttons.add(signIn);
-        buttons.add(cancel);
+        buttons.add(reset);
 
         JButton sound = new JButton("Sound On/Off");
         sound.setBounds(450,200,130,40);
