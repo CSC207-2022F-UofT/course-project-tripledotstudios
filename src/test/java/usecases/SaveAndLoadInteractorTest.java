@@ -22,7 +22,7 @@ public class SaveAndLoadInteractorTest {
         PlayerData player = new PlayerData(username, 0, 15, inventory);
 
         // save
-        String filename = username + ".ser";
+        String filename = "data/savefiles/" + username;
         si.saveToFile(filename, player);
 
         // load
