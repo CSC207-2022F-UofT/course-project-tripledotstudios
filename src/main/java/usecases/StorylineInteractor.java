@@ -1,12 +1,9 @@
 package usecases;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import presenter.*;
 import entities.*;
-
-import javax.swing.text.View;
 
 
 public class StorylineInteractor {
@@ -15,7 +12,7 @@ public class StorylineInteractor {
     private final SoundInteractor SOUND;
     private final SaveInteractor SAVE;
     private final LoadInteractor LOAD;
-    private PlayerInteractor player_action;
+    private final PlayerInteractor player_action;
     private final CombatInteractor COMBAT;
     private final EventManager MANAGER;
     private final LoginInteractor LOGIN;
@@ -37,22 +34,21 @@ public class StorylineInteractor {
     /** Set Player on their first Event. The method
      * takes in the username set by LoginInteractor.
      */
-    public void startGame() throws IOException, ClassNotFoundException {
+    public void startGame() throws IOException {
         //create a file to save this user
         saveGame();
 
-        //Old code
+        //Setting up a player
         String username = LOGIN.getCurrentUser();
         HashMap<String, ArrayList<ItemData>> inventory = new HashMap<>(); //empty Hash Map
-        player_action = new PlayerInteractor(PlayerFactory.generatePlayer(username,
-                0, 100, new HashMap<String, ArrayList<ItemData>>()));
+        player_action.updatePlayer((PlayerFactory.generatePlayer(username,
+                0, 100, inventory)));
 
-          //dunno very first event ID
-         //PlayerData player = PlayerFactory.generatePlayer(us);
-
+        // stop sounds before the first event begins
+        SOUND.stopSound();
+        SOUND.switchSoundChoice();
 
         //play the first event
-        SOUND.stopSound();
         playEvent();
     }
 
@@ -73,10 +69,10 @@ public class StorylineInteractor {
         String username = LOGIN.getCurrentUser() + ".ser";
 
         //load method
-        PlayerData player = LOAD.readFromFile("data/savefiles/" + username); //since it returns a PlayerData
-        player_action = new PlayerInteractor(player);
+        player_action.updatePlayer(LOAD.readFromFile("data/savefiles/" + username)); // loading a player
 
         //start the game on the current event
+        System.out.println(player_action.getPlayerEventID());
         this.playEvent();
     }
 
@@ -84,9 +80,9 @@ public class StorylineInteractor {
      */
     public void saveGame() throws IOException {
         String filename = "data/savefiles/" + LOGIN.getCurrentUser() + ".ser";
-        //File file = new File(filename);
 
         SAVE.saveToFile(filename, player_action.getReference());
+        System.out.println("saved!");
     }
 
     /** Returns the Player back to the homescreen
@@ -98,7 +94,8 @@ public class StorylineInteractor {
     /** If the Player loses the game, bring the Player back to the last save
      * The player
      */
-    public void lose() throws IOException, ClassNotFoundException {
+    public void lose() {
+        SOUND.stopSound();
         VIEW.displayLose();
         VIEW.display_exit_options();
     }
@@ -106,29 +103,27 @@ public class StorylineInteractor {
     /** Exit the game
      * @param player The Player
      */
-    public void exitGame(PlayerData player) throws IOException, ClassNotFoundException {
+    public void exitGame(PlayerData player) {
         VIEW.display_exit_options();
     }
 
     /**Turn sound on or off
      */
     public void soundSwitch() {
-        Map<Integer, Event> event_map = MANAGER.getAllEvents();
-        Event event = event_map.get(player_action.getPlayerEventID());
-        if (!SOUND.getSoundChoice()) {
-            SOUND.playSound(event.getSoundFile());
-            SOUND.switchSoundChoice();
+        SOUND.switchSoundChoice();
+        if (SOUND.getSoundChoice()) {
+            SOUND.playSound();
         }
         else {
-            //SOUND.stopSound();
-            SOUND.switchSoundChoice();
+            SOUND.stopSound();
         }
     }
 
     /**Play Homescreen sound*/
     public void homeSoundPlay() {
         String HOME_SOUND_FILE = "data/sound/morning-funny-beat.wav";
-        SOUND.playSound(HOME_SOUND_FILE);
+        SOUND.createSound(HOME_SOUND_FILE);
+        SOUND.playSound();
     }
 
     /**Stop Homescreen sound*/
@@ -141,7 +136,7 @@ public class StorylineInteractor {
      * choicesNarration. If Event is a CombatEvent, make the Player fight the Enemy after
      * the narration. The method should also Save the game if the Event has an Auto Save
      */
-    public void playEvent() throws IOException, ClassNotFoundException {
+    public void playEvent() throws IOException {
         Map<Integer, Event> event_map = MANAGER.getAllEvents();
         Event event = event_map.get(player_action.getPlayerEventID());
 
@@ -151,8 +146,14 @@ public class StorylineInteractor {
             this.endGame();
         }
 
+        //load the sound file
+        SOUND.closeSound();
+        SOUND.createSound(event.getSoundFile());
+
+        // playing or not playing sound
         if (SOUND.getSoundChoice()) {
-            SOUND.playSound(event.getSoundFile());
+            SOUND.stopSound();
+            SOUND.playSound();
         }
 
         if (event.getDoesAutoSave()) {
@@ -165,13 +166,12 @@ public class StorylineInteractor {
             if (COMBAT.combat(event.getUUID())) {
                 player_action.updateEvent(event.getChoicesNextUUIDs().get(1));
             }
-            //else {
-                ///Player loses
-                //this.lose();
-            //}
+            else {
+                //Player loses
+                this.lose();
+            }
         }
         else {
-            System.out.println(event.getNarration());
             VIEW.displayNarration(event.getNarration());
             VIEW.askQuestion("", event.getChoicesNarrations(), null, false);
         }

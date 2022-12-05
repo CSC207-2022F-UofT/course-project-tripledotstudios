@@ -73,8 +73,8 @@ public class RegisterScreen extends JPanel {
             }
         });
 
-        JButton cancel = new JButton("Cancel");
-        cancel.addActionListener(new ActionListener() {
+        JButton reset = new JButton("Reset");
+        reset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent eve) {
                 username.setText("");
@@ -85,7 +85,7 @@ public class RegisterScreen extends JPanel {
 
         JPanel buttons = new JPanel();
         buttons.add(signUp);
-        buttons.add(cancel);
+        buttons.add(reset);
 
         JButton sound = new JButton("Sound On/Off");
         sound.setBounds(450,200,130,40);
