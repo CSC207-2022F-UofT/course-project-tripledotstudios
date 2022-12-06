@@ -39,6 +39,7 @@ public class StorylinePresenter implements StorylineInterface {
 
     @Override
     public void returnHomeScreen() { //return to the HomeScreen
+        gameScreen.displayWin();
         enterAGameScreen.setVisible();
     }
 }
