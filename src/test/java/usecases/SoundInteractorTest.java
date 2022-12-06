@@ -14,7 +14,8 @@ class SoundInteractorTest {
     public void SoundInteractorPlaySound() {
         si.createSound(sound);
         si.playSound();
-        Assertions.assertTrue(si.getSound().isActive());
+        Assertions.assertTrue(si.playSound.isAlive());
+        si.stopSound();
     }
 
     // tests for stopSound
