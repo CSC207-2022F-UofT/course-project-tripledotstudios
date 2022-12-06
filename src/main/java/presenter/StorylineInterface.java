@@ -11,4 +11,5 @@ public interface StorylineInterface {
     void displayLose(); //display losing screen
     void display_exit_options(); //display exit option screen
     void returnHomeScreen(); //return to the HomeScreen
+    void printWin();
 }
