@@ -178,6 +178,7 @@ public class StorylineInteractor {
 
             if (COMBAT.combat(event.getUUID())) {
                 player_action.updateEvent(event.getChoicesNextUUIDs().get(1));
+                VIEW.printWin();
                 playEvent();
             }
             else {

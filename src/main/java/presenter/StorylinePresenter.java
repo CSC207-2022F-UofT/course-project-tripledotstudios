@@ -28,6 +28,11 @@ public class StorylinePresenter implements StorylineInterface {
     }
 
     @Override
+    public void printWin() {
+        gameScreen.printWin();
+    }
+
+    @Override
     public void displayLose() { //display losing screen
         gameScreen.displayLose();
     }
