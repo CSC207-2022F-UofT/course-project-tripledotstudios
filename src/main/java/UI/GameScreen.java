@@ -541,6 +541,20 @@ public class GameScreen {
         return response;
     }
 
+    public void printWin() {
+        // setting the label for style purposes
+        JLabel label = new JLabel("You have won. YAY.");
+        label.setFont(FONT);
+        label.setForeground(Color.green);
+
+        // setting the colour of the popup
+        UIManager.put("OptionPane.background", SC_COLOUR);
+        UIManager.put("Panel.background", SC_COLOUR);
+
+        // displaying the message
+        JOptionPane.showMessageDialog(null, label);
+    }
+
     /**
      * Helper method that returns a random pause message
      * @return returns a string that will be displayed in a popup
