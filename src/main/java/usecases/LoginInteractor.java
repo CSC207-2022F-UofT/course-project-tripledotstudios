@@ -121,10 +121,10 @@ public class LoginInteractor {
     /**
      * Check that an account with <username> does not already exist.
      * @param username a String of a proposed username for a new account
-     * @return true iff the proposed <username> is unique.
+     * @return true iff the proposed <username> is unique and is longer than 3 characters.
      */
     private boolean validateNewUsername(String username) {
-        return !accounts.containsKey(username);
+        return (!accounts.containsKey(username)) && (username.length() > 3);
     }
 
     /**

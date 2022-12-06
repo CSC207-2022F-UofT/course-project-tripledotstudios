@@ -11,7 +11,7 @@ class LoginInteractorTest {
 
     UIFacade uiFacade = new UIFacade();
     LoginPresenter p = new LoginPresenter(uiFacade);
-    LoginInteractor li = new LoginInteractor("data/test_usernames.csv", p);
+    LoginInteractor li = new LoginInteractor("src/test/data/test_usernames.csv", p); // string must be repository root
 
     // tests for CreateAccount
 
@@ -110,7 +110,7 @@ class LoginInteractorTest {
 
     // tests for changes in accounts
 
-    LoginInteractor blankLi = new LoginInteractor("data/blank_usernames.csv", p);
+    LoginInteractor blankLi = new LoginInteractor("src/test/data/blank_usernames.csv", p); // string must be repository root
 
     @Test
     public void LoginInteractorAccountsBlankFileDefault() {
@@ -135,4 +135,6 @@ class LoginInteractorTest {
         li.createAccount("JavaFanatic", "ilovejava", "ilovejava");
         Assertions.assertEquals(actual.get("JavaFanatic"), "ilovejava");
     }
+
+// delete lines 4 and on in test_usernames.csv after every time this class is run
 }
