@@ -81,6 +81,7 @@ public class LoginScreen extends JPanel {
 
         JButton sound = new JButton("Sound On/Off");
         sound.setBounds(450,200,130,40);
+        buttons.add(sound);
         sound.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) { storylineController.soundSwitch();
@@ -93,8 +94,8 @@ public class LoginScreen extends JPanel {
         this.add(usernameInfo);
         this.add(passwordInfo);
         this.add(buttons);
+
         frame.add(this);
-        frame.add(sound);
 
     }
 

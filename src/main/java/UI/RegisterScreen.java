@@ -88,7 +88,8 @@ public class RegisterScreen extends JPanel {
         buttons.add(reset);
 
         JButton sound = new JButton("Sound On/Off");
-        sound.setBounds(450,200,130,40);
+        sound.setBounds(450,500,130,40);
+        buttons.add(sound);
         sound.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -103,8 +104,8 @@ public class RegisterScreen extends JPanel {
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
         this.add(buttons);
+
         frame.add(this);
-        frame.add(sound);
 
     }
 
