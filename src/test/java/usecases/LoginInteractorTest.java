@@ -23,7 +23,7 @@ class LoginInteractorTest {
 
     @Test
     public void LoginInteractorCreateAccountInvalidUsername() {
-        boolean actual = li.createAccount("generic_username", "password", "password");
+        boolean actual = li.createAccount("silly-Username", "password", "password");
         Assertions.assertFalse(actual);
     }
 
