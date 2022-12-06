@@ -258,13 +258,13 @@ public class GameScreen {
      * @param item The item whose information will be displayed
      */
     public void informPlayerOfItemUse(ItemData item) {
-        String message = ("You have used" + item.getName() + " and ");
+        String message = ("You have used " + item.getName());
         if (item.getValue() > 0) {
             if (item.getAttribute().equals("health")) {
                 message += " and gained " + item.getValue() + " health ";
             }
             else {
-                message += " and dealth " + item.getValue() + " damage ";
+                message += " and dealt " + item.getValue() + " damage ";
             }
         }
         else {
@@ -374,11 +374,23 @@ public class GameScreen {
         if (isCombatEvent) {
             // text field that will contain the response of the combat event
             JTextArea responseField = getEmptyResponseField();
-            responseField.setText(responses.get(response));
 
             // adding to the display at the bottom of the screen
             responsePanel.removeAll();
             responsePanel.add(responseField);
+
+            // setting the label for style purposes
+            JLabel label = new JLabel(responses.get(response));
+            label.setFont(FONT);
+            label.setForeground(Color.green);
+
+            // setting the colour of the popup
+            UIManager.put("OptionPane.background", SC_COLOUR);
+            UIManager.put("Panel.background", SC_COLOUR);
+
+            // displaying the popup
+            JOptionPane.showConfirmDialog(null, label,
+                    "", JOptionPane.DEFAULT_OPTION);
 
             // passing the response to CombatController
             combatController.returnAnswer(response);
