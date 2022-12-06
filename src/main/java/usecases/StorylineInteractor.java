@@ -17,6 +17,8 @@ public class StorylineInteractor {
     private final EventManager MANAGER;
     private final LoginInteractor LOGIN;
 
+    private final ItemDataManager ITEMDATA;
+
     public StorylineInteractor(StorylineInterface story, SoundInteractor soundInteractor,
                                SaveInteractor saveInteractor, LoadInteractor loadInteractor,
                                PlayerInteractor playerInteractor, CombatInteractor combatInteractor,
@@ -29,6 +31,7 @@ public class StorylineInteractor {
         COMBAT = combatInteractor;
         MANAGER = eventManager;
         LOGIN = loginInteractor;
+        ITEMDATA = new ItemDataManager();
     }
 
     /** Set Player on their first Event. The method
@@ -43,6 +46,10 @@ public class StorylineInteractor {
         HashMap<String, ArrayList<ItemData>> inventory = new HashMap<>(); //empty Hash Map
         player_action.updatePlayer((PlayerFactory.generatePlayer(username,
                 0, 100, inventory)));
+        player_action.addToInventory(ITEMDATA.getItemData().get(0));
+        player_action.addToInventory(ITEMDATA.getItemData().get(1));
+        player_action.addToInventory(ITEMDATA.getItemData().get(2));
+        player_action.addToInventory(ITEMDATA.getItemData().get(3));
 
         // stop sounds before the first event begins
         SOUND.stopSound();
@@ -58,9 +65,14 @@ public class StorylineInteractor {
     */
     public void updateEventID(int choice) {
         Map<Integer, Event> event_map = MANAGER.getAllEvents();
+        // System.out.println(player_action);
         Event event = event_map.get(player_action.getPlayerEventID());
+        if (event.getChoicesNextUUIDs().get(choice) >= 0) {
+            player_action.updateEvent(event.getChoicesNextUUIDs().get(choice));
+        }else{
+            endGame();
+        }
 
-        player_action.updateEvent(event.getChoicesNextUUIDs().get(choice));
     }
 
     /** Loads the current event of the Player
@@ -103,6 +115,7 @@ public class StorylineInteractor {
     /** Exit the game
      * @param player The Player
      */
+    @SuppressWarnings("all")  // function is reserved for debugging
     public void exitGame(PlayerData player) {
         VIEW.display_exit_options();
     }
@@ -165,11 +178,14 @@ public class StorylineInteractor {
 
             if (COMBAT.combat(event.getUUID())) {
                 player_action.updateEvent(event.getChoicesNextUUIDs().get(1));
+                VIEW.printWin();
+                playEvent();
             }
             else {
                 //Player loses
                 this.lose();
             }
+
         }
         else {
             VIEW.displayNarration(event.getNarration());

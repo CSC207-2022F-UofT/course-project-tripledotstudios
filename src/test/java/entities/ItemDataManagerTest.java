@@ -20,7 +20,7 @@ public class ItemDataManagerTest {
      */
     @Test
     public void ItemDataManagerReadFile(){
-        ItemDataManager itemManager = new ItemDataManager("data/ItemObjects.csv");
+        ItemDataManager itemManager = new ItemDataManager();
         List<ItemData> items = itemManager.getItemData();
 
         for(ItemData item : items){
