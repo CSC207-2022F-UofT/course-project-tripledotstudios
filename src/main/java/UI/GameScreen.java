@@ -4,6 +4,7 @@ package UI;
 import controller.CombatController;
 import controller.StorylineController;
 import entities.ItemData;
+import entities.ItemDataManager;
 
 /* relevant imports */
 import javax.swing.*;
@@ -53,7 +54,6 @@ public class GameScreen {
         topPanel.setLayout(new BorderLayout());
         topPanel.setBackground(SC_COLOUR);
         topPanel.setPreferredSize(new Dimension(frame.getWidth(), 110));
-
 
         // creating the dialoge panel that covers the center of the screen
         dialoguePanel = new JPanel();
@@ -188,22 +188,13 @@ public class GameScreen {
      * @param playerItems The items to be displayed to the screen.
      */
     public void letPlayerChooseItem(ArrayList<ItemData> playerItems) {
-        // waiting until the value of this is true to close the window
-        final boolean[] userClicked = {false};
-
-        // creating the new window
-        JFrame itemFrame = new JFrame("Select an item");
-        itemFrame.setUndecorated(true); // removing the option of maximizing/minimizing
-        itemFrame.setAlwaysOnTop(true); // force the window to appear above the game
-        itemFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); // force the window to be maximized so the user cannot click out
-        itemFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); // unable to close the window
-
-        // visuals for the window
-        itemFrame.setLayout(new GridLayout(6,10));
-        itemFrame.getContentPane().setBackground(SC_COLOUR);
+        JDialog dialog = new JDialog(frame, "INVENTORY", true);
 
         // setting variables for button settings
         Font itemFont = new Font("Consolas", Font.PLAIN, 14);
+
+        JPanel panel = new JPanel();
+        JPanel buttons = new JPanel();
 
         // looping through the player items.
         int c = 0;
@@ -220,7 +211,7 @@ public class GameScreen {
             i.setBorder(BORDER);
 
             // add the button to the frame
-            itemFrame.add(i);
+            buttons.add(i);
 
             // incrementing the display count
             c++;
@@ -232,21 +223,34 @@ public class GameScreen {
                 combatController.playerChooseItem(finalC - 1);
 
                 // closing the frame
-                userClicked[0] = true;
-                itemFrame.dispose();
+                dialog.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
             });
         }
+        panel.add(buttons);
+        dialog.setContentPane(panel);
+        dialog.add(buttons);
+        dialog.pack();
+        dialog.setVisible(true);
+    }
 
-        // waiting until the user clicks an option
-        itemFrame.setVisible(true);
-        while(!userClicked[0]){
-            try {
-                //noinspection BusyWait
-                Thread.sleep(200);
-            } catch(InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+    /**
+     * Informs the player that they've used an item.
+     * @param item The item that is being used.
+     */
+    @SuppressWarnings("all")
+    public void gainedItem(ItemData item) {
+        // setting the label for style purposes
+        JLabel label = new JLabel("Yikes you're terrible, here's an item.");
+        label.setFont(FONT);
+        label.setForeground(Color.green);
+
+        // setting the colour of the popup
+        UIManager.put("OptionPane.background", SC_COLOUR);
+        UIManager.put("Panel.background", SC_COLOUR);
+
+        // displaying the popup
+        JOptionPane.showConfirmDialog(null, label,
+                item.getName(), JOptionPane.DEFAULT_OPTION);
     }
 
     /**
@@ -254,8 +258,21 @@ public class GameScreen {
      * @param item The item whose information will be displayed
      */
     public void informPlayerOfItemUse(ItemData item) {
+        String message = ("You have used" + item.getName() + " and ");
+        if (item.getValue() > 0) {
+            if (item.getAttribute().equals("health")) {
+                message += " and gained " + item.getValue() + " health ";
+            }
+            else {
+                message += " and dealth " + item.getValue() + " damage ";
+            }
+        }
+        else {
+            message += " and lost " + item.getValue() + " health ";
+        }
+
         // setting the label for style purposes
-        JLabel label = new JLabel("You have used [" + item.getName() + " -> " + item.getAttribute() + ": " + item.getValue() + "]");
+        JLabel label = new JLabel(message);
         label.setFont(FONT);
         label.setForeground(Color.green);
 
@@ -276,6 +293,21 @@ public class GameScreen {
      * @param isCombatEvent whether this is a combat event
      */
     public void askQuestion(String question, ArrayList<String> answers, ArrayList<String> responses, boolean isCombatEvent) { //display choices string narration
+        if (!isCombatEvent) {
+            // clear the status panels
+            topPanel.removeAll();
+            topPanel.setBackground(SC_COLOUR);
+            topPanel.repaint(0,0,frame.getWidth(), 110);
+            topPanel.revalidate();
+
+            // clear the panel
+            responsePanel.setLayout(new BorderLayout());
+            responsePanel.setPreferredSize(new Dimension(800,150));
+            responsePanel.setBackground(SC_COLOUR);
+            responsePanel.repaint(0,frame.getHeight(), frame.getWidth(), 150);
+            responsePanel.revalidate();
+        }
+
         // the text panel containing the question string
         JTextArea questionP = new JTextArea(question);
         questionP.setPreferredSize(new Dimension(frame.getWidth(), 70));
@@ -320,6 +352,8 @@ public class GameScreen {
         responsePanel.setLayout(new BorderLayout());
         responsePanel.setPreferredSize(new Dimension(800,150));
         responsePanel.setBackground(SC_COLOUR);
+        responsePanel.repaint(0,frame.getHeight(), frame.getWidth(), 150);
+        responsePanel.revalidate();
 
         // adding the sub-panels to the main panels
         bottomPanel.add(responsePanel, BorderLayout.LINE_START);
@@ -567,6 +601,22 @@ public class GameScreen {
         topPanel.revalidate();
     }
 
+    public void displayWin() {
+        // setting the label for style purposes
+        JLabel label = new JLabel("HA U FELL FOR IT THERE'S NO REWARD BYE");
+        label.setFont(FONT);
+        label.setForeground(Color.green);
+
+        // setting the colour of the popup
+        UIManager.put("OptionPane.background", SC_COLOUR);
+        UIManager.put("Panel.background", SC_COLOUR);
+
+        // displaying the message
+        JOptionPane.showMessageDialog(null, label);
+
+        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+    }
+
     /**
      * Helper function to create a JPanel of buttons in order
      * to de-clutter the constructor
@@ -635,4 +685,39 @@ public class GameScreen {
         frame.setVisible(true);
     }
 
+    public static void main(String[] args) {
+        UIFacade u = new UIFacade();
+        GameScreen g = u.getGameScreen();
+        ItemDataManager i = new ItemDataManager();
+
+        g.letPlayerChooseItem((ArrayList<ItemData>) i.getItemData());
+
+//        JFrame frame = new JFrame();
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setSize(400, 400);
+//
+//        JDialog dialog = new JDialog(frame, "Dialog", true);
+//
+//        JPanel mainGui = new JPanel(new BorderLayout());
+//        mainGui.setBorder(new EmptyBorder(20, 20, 20, 20));
+//        mainGui.add(new JLabel("Contents go here"), BorderLayout.CENTER);
+//
+//        JPanel buttonPanel = new JPanel(new FlowLayout());
+//        mainGui.add(buttonPanel, BorderLayout.SOUTH);
+//
+//        JButton close = new JButton("Close");
+//        JButton potato = new JButton("Potato");
+//        close.addActionListener(e->dialog.setVisible(false));
+//
+//        buttonPanel.add(potato);
+//        buttonPanel.add(close);
+//
+//        frame.setVisible(true);
+//
+//        dialog.setContentPane(mainGui);
+//        dialog.pack();
+//        dialog.setVisible(true);
+    }
 }
+
+

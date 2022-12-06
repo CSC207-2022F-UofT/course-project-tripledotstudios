@@ -11,9 +11,10 @@ import java.util.List;
 public class ItemDataManager {
     public List<ItemData> lst = new ArrayList<>(); // List of entities.ItemData Objects;
 
-    public ItemDataManager(String fileName) {
+    public ItemDataManager() {
         String line;
         String splitBy = ",";
+        String fileName = "data/ItemObjects.csv";
 
         try {
             //parsing a CSV file into BufferedReader class constructor
