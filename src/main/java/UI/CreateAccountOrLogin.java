@@ -1,11 +1,8 @@
 package UI;
 
-import controller.LoginController;
 import controller.StorylineController;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  *Create an account or login option screen
@@ -32,27 +29,16 @@ public class CreateAccountOrLogin {
         login.setBounds(200,130,200,50);
         sound.setBounds(450,200,130,40);
 
-        createAccount.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                registerScreen.setVisible();; //jump to RegisterScreen
-            }
+        createAccount.addActionListener(e -> {
+            frame.dispose();
+            registerScreen.setVisible(); //jump to RegisterScreen
         });
-        login.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                loginScreen.setVisible(); //jump to LoginScreen
-            }
+        login.addActionListener(e -> {
+            frame.dispose();
+            loginScreen.setVisible(); //jump to LoginScreen
         });
 
-        sound.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                storylineController.soundSwitch();
-            }
-        });
+        sound.addActionListener(e -> storylineController.soundSwitch());
 
         frame.add(createAccount);
         frame.add(login);
@@ -64,6 +50,7 @@ public class CreateAccountOrLogin {
     }
 
     public void setVisible() {
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         storylineController.homeSoundPlay();
     }
