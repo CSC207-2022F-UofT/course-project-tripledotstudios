@@ -1,12 +1,10 @@
 package UI;
 
-import controller.LoginController;
-import controller.StorylineController;
+import adapters.login.LoginController;
+import adapters.story.StorylineController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Create an account
@@ -61,26 +59,20 @@ public class RegisterScreen extends JPanel {
         repeatPasswordInfo.add(repeatPassword);
 
         JButton signUp = new JButton("Sign up");
-        signUp.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent eve) {
-                try {
-                    loginController.createAccount(username.getText(), String.valueOf(password.getPassword()),
-                            String.valueOf(repeatPassword.getPassword()));
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
-                }
+        signUp.addActionListener(eve -> {
+            try {
+                loginController.createAccount(username.getText(), String.valueOf(password.getPassword()),
+                        String.valueOf(repeatPassword.getPassword()));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         });
 
         JButton reset = new JButton("Reset");
-        reset.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent eve) {
-                username.setText("");
-                password.setText("");
-                repeatPassword.setText("");
-            }
+        reset.addActionListener(eve -> {
+            username.setText("");
+            password.setText("");
+            repeatPassword.setText("");
         });
 
         JPanel buttons = new JPanel();
@@ -88,13 +80,9 @@ public class RegisterScreen extends JPanel {
         buttons.add(reset);
 
         JButton sound = new JButton("Sound On/Off");
-        sound.setBounds(450,200,130,40);
-        sound.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                storylineController.soundSwitch();
-            }
-        });
+        sound.setBounds(450,500,130,40);
+        buttons.add(sound);
+        sound.addActionListener(e -> storylineController.soundSwitch());
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -103,8 +91,8 @@ public class RegisterScreen extends JPanel {
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
         this.add(buttons);
+
         frame.add(this);
-        frame.add(sound);
 
     }
 
@@ -114,6 +102,7 @@ public class RegisterScreen extends JPanel {
     }
 
     public void setVisible() {
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 

@@ -1,10 +1,8 @@
 package UI;
 
-import controller.StorylineController;
+import adapters.story.StorylineController;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 /**
@@ -31,30 +29,19 @@ public class ExitOptionsScreen {
         continueGame.setBounds(200,130,200,50);
         sound.setBounds(450,200,130,40);
 
-        exitGame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                enterAGameScreen.setVisible();
-            }
+        exitGame.addActionListener(e -> {
+            frame.dispose();
+            enterAGameScreen.setVisible();
         });
-        continueGame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    storylineController.loadGame();
-                } catch (IOException | ClassNotFoundException ex) {
-                    throw new RuntimeException(ex);
-                }
+        continueGame.addActionListener(e -> {
+            try {
+                storylineController.loadGame();
+            } catch (IOException | ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
             }
         });
 
-        sound.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                storylineController.soundSwitch();
-            }
-        });
+        sound.addActionListener(e -> storylineController.soundSwitch());
 
         frame.add(exitGame);
         frame.add(continueGame);
@@ -66,6 +53,7 @@ public class ExitOptionsScreen {
     }
 
     public void setVisible() {
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }

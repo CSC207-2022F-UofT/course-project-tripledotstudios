@@ -5,6 +5,7 @@ our UI and have a working version of the game. After receiving the Milestone 4 f
 for better and cleaner organization. In addition, we fixed some issues that did not adhere to Clean Architecture 
 and SOLID principles, and we added tests to our test folder, showing an increase in test coverage. 
 
+
 ## Progress Report
 - [X] Sound feature during the game
 - [X] Log in feature
