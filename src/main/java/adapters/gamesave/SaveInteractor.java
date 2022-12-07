@@ -7,9 +7,8 @@ import java.io.*;
 
 public class SaveInteractor implements Saver {
 
-    public SaveInteractor() {
+    public SaveInteractor() {}
 
-    }
     /**
      * Writes the player data to file at filepath.
      *

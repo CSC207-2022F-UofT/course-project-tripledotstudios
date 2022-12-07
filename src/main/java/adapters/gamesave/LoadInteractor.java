@@ -7,9 +7,8 @@ import java.io.*;
 
 public class LoadInteractor implements Loader {
 
-    public LoadInteractor() {
+    public LoadInteractor() {}
 
-    }
     /**
      * Loads the player data from the file path
      *

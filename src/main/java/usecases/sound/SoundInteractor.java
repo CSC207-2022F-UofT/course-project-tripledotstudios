@@ -15,7 +15,7 @@ public class SoundInteractor {
     AudioInputStream inputStream;
 
     /** Stores whether the sound setting is set to on */
-    boolean soundChoice;
+    private boolean soundChoice;
 
     public Thread playSound;
 
@@ -23,6 +23,12 @@ public class SoundInteractor {
         isPlaying = false;
         soundChoice = true;
     }
+
+    /**
+     * Getter method for sound.
+     * @return sound.
+     */
+    public Clip getSound() { return sound; }
 
     /**
      * Getter method for soundChoice.
