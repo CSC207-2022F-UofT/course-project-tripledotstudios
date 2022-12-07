@@ -4,7 +4,6 @@ package UI;
 import controller.CombatController;
 import controller.StorylineController;
 import entities.ItemData;
-import entities.ItemDataManager;
 
 /* relevant imports */
 import javax.swing.*;
@@ -27,9 +26,7 @@ public class GameScreen {
     JPanel dialoguePanel;
     JPanel topPanel;
     JPanel bottomPanel;
-
     JPanel eventNarration;
-    JPanel responsePanel = new JPanel();
 
     /** final values in this class*/
     private final Color SC_COLOUR = new Color(29, 26, 38);
@@ -65,7 +62,7 @@ public class GameScreen {
         // creating the bottom panel which covers the bottom of the screen
         bottomPanel = new JPanel();
         bottomPanel.setLayout(new BorderLayout());
-        bottomPanel.setPreferredSize(new Dimension(frame.getWidth(), 120));
+        bottomPanel.setPreferredSize(new Dimension(frame.getWidth(), 60));
         bottomPanel.setBackground(SC_COLOUR);
         bottomPanel.add(drawButtons(), BorderLayout.PAGE_END);
 
@@ -95,8 +92,6 @@ public class GameScreen {
         enemyStats.setPreferredSize(new Dimension(200, 60));
         enemyStats.setBackground(SC_COLOUR);
 
-
-        System.out.println(playerMaxHealth);
         // creating the JTextAreas for each value using the helper method 'statsMaker'
         JTextArea pN = statsMaker(playerName);
         JTextArea pH = statsMaker(playerCurrentHealth + "/" + playerMaxHealth);
@@ -150,7 +145,7 @@ public class GameScreen {
 
         // creating the panel that will act as the container for the event narration
         eventNarration = new JPanel();
-        eventNarration.setPreferredSize(new Dimension(frame.getWidth(), 310));
+        eventNarration.setPreferredSize(new Dimension(frame.getWidth(), 360));
         eventNarration.setBackground(SC_COLOUR);
         eventNarration.setLayout(new BorderLayout());
         eventNarration.add(textArea, BorderLayout.CENTER);
@@ -188,7 +183,7 @@ public class GameScreen {
      * @param playerItems The items to be displayed to the screen.
      */
     public void letPlayerChooseItem(ArrayList<ItemData> playerItems) {
-        JDialog dialog = new JDialog(frame, "INVENTORY", true);
+        JDialog dialog = new JDialog(frame,"INVENTORY", true);
 
         // setting variables for button settings
         Font itemFont = new Font("Consolas", Font.PLAIN, 14);
@@ -219,6 +214,7 @@ public class GameScreen {
             // add the action listener to perform a function
             int finalC = c;
             i.addActionListener(e -> {
+                System.out.println(finalC);
                 // updating the choice
                 combatController.playerChooseItem(finalC - 1);
 
@@ -227,9 +223,11 @@ public class GameScreen {
             });
         }
         panel.add(buttons);
+        dialog.setUndecorated(true);
         dialog.setContentPane(panel);
         dialog.add(buttons);
         dialog.pack();
+        dialog.setLocationRelativeTo(frame);
         dialog.setVisible(true);
     }
 
@@ -299,13 +297,6 @@ public class GameScreen {
             topPanel.setBackground(SC_COLOUR);
             topPanel.repaint(0,0,frame.getWidth(), 110);
             topPanel.revalidate();
-
-            // clear the panel
-            responsePanel.setLayout(new BorderLayout());
-            responsePanel.setPreferredSize(new Dimension(800,150));
-            responsePanel.setBackground(SC_COLOUR);
-            responsePanel.repaint(0,frame.getHeight(), frame.getWidth(), 150);
-            responsePanel.revalidate();
         }
 
         // the text panel containing the question string
@@ -319,7 +310,7 @@ public class GameScreen {
 
         // the panel that will act as a container for the options
         JPanel eventOptions = new JPanel();
-        eventOptions.setPreferredSize(new Dimension(frame.getWidth(), 250));
+        eventOptions.setPreferredSize(new Dimension(frame.getWidth(), 200));
         eventOptions.setBackground(SC_COLOUR);
         eventOptions.setLayout(new GridLayout(answers.size(),1));
 
@@ -331,7 +322,7 @@ public class GameScreen {
             textArea.setBackground(SC_COLOUR);
             textArea.setForeground(Color.green);
             textArea.setFont(FONT);
-            textArea.setPreferredSize(new Dimension(600, 50));
+            textArea.setPreferredSize(new Dimension(600, 30));
             textArea.setLineWrap(true);
             textArea.setEditable(false);
             textArea.setHighlighter(null);
@@ -348,15 +339,7 @@ public class GameScreen {
         questionEventPanel.add(questionP, BorderLayout.PAGE_START);
         questionEventPanel.add(eventOptions);
 
-        // re-drawing the response panel
-        responsePanel.setLayout(new BorderLayout());
-        responsePanel.setPreferredSize(new Dimension(800,150));
-        responsePanel.setBackground(SC_COLOUR);
-        responsePanel.repaint(0,frame.getHeight(), frame.getWidth(), 150);
-        responsePanel.revalidate();
-
         // adding the sub-panels to the main panels
-        bottomPanel.add(responsePanel, BorderLayout.LINE_START);
         dialoguePanel.add(questionEventPanel, BorderLayout.CENTER);
 
         // displaying the visuals
@@ -372,13 +355,6 @@ public class GameScreen {
 
         // if this is a combat event we will display the response and pass to CombatController
         if (isCombatEvent) {
-            // text field that will contain the response of the combat event
-            JTextArea responseField = getEmptyResponseField();
-
-            // adding to the display at the bottom of the screen
-            responsePanel.removeAll();
-            responsePanel.add(responseField);
-
             // setting the label for style purposes
             JLabel label = new JLabel(responses.get(response));
             label.setFont(FONT);
@@ -407,28 +383,6 @@ public class GameScreen {
     }
 
     /**
-     * A helper method to reduce redundancy in drawing a text panel
-     * @return the text panel displayed as a response.
-     */
-    public JTextArea getEmptyResponseField () {
-        // creating the panel
-        JTextArea responseField = new JTextArea();
-
-        // setting visuals
-        responseField.setFont(FONT);
-        responseField.setForeground(Color.green);
-        responseField.setBackground(SC_COLOUR);
-        responseField.setBorder(null);
-        responseField.setCaretColor(Color.green);
-        responseField.setHighlighter(null);
-        responseField.setEditable(false);
-        responseField.setPreferredSize(new Dimension(frame.getWidth(), 15));
-
-        // return the field
-        return responseField;
-    }
-
-    /**
      * Helper method for askQuestion that returns the response of the user.
      * Ensures that no incorrect input is passed into the program.
      * @param min The minumum answer that can be given
@@ -449,9 +403,6 @@ public class GameScreen {
         int response;
         String ans = "";
 
-        // the text field that will contain a message depending on the validity of the response
-        JTextArea textField = getEmptyResponseField();
-
         // attempt to parse the response of the player
         try {
             // collect the string response
@@ -465,11 +416,6 @@ public class GameScreen {
                 // throw an exception otherwise
                 throw new IndexOutOfBoundsException();
             }
-
-            // if the input is valid, we do not display a response
-            textField.setText("");
-            responsePanel.removeAll();
-            responsePanel.add(textField);
 
             // update the frame
             frame.setVisible(true);
@@ -497,8 +443,6 @@ public class GameScreen {
                     return getResponse(min, max);
                 }
             }
-            // clear the text field.
-            responsePanel.remove(textField);
 
             // if given a valid letter, call upon the button functionalities
             switch (ans) {
@@ -528,9 +472,9 @@ public class GameScreen {
                     break;
                 // otherwise it is simply an invalid input
                 default:
-                    textField.setText("Dont Mess around");
-                    responsePanel.add(textField);
-                    frame.setVisible(true);
+                    l.setText("Don't mess around.");
+                    JOptionPane.showConfirmDialog(null, l,
+                            "Tomfoolery has occurred", JOptionPane.DEFAULT_OPTION);
                     break;
             }
             // call the method again until the correct response is given
@@ -708,41 +652,8 @@ public class GameScreen {
      * Sets the frame to be visible.
      */
     public void setVisible() {
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        UIFacade u = new UIFacade();
-        GameScreen g = u.getGameScreen();
-        ItemDataManager i = new ItemDataManager();
-
-        g.letPlayerChooseItem((ArrayList<ItemData>) i.getItemData());
-
-//        JFrame frame = new JFrame();
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setSize(400, 400);
-//
-//        JDialog dialog = new JDialog(frame, "Dialog", true);
-//
-//        JPanel mainGui = new JPanel(new BorderLayout());
-//        mainGui.setBorder(new EmptyBorder(20, 20, 20, 20));
-//        mainGui.add(new JLabel("Contents go here"), BorderLayout.CENTER);
-//
-//        JPanel buttonPanel = new JPanel(new FlowLayout());
-//        mainGui.add(buttonPanel, BorderLayout.SOUTH);
-//
-//        JButton close = new JButton("Close");
-//        JButton potato = new JButton("Potato");
-//        close.addActionListener(e->dialog.setVisible(false));
-//
-//        buttonPanel.add(potato);
-//        buttonPanel.add(close);
-//
-//        frame.setVisible(true);
-//
-//        dialog.setContentPane(mainGui);
-//        dialog.pack();
-//        dialog.setVisible(true);
     }
 }
 
