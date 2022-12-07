@@ -15,20 +15,21 @@ public class SaveAndLoadInteractorTest {
     LoadInteractor li = new LoadInteractor();
 
     @Test
-    public void SaveInteractor() throws IOException, ClassNotFoundException {
-        // create a player
+    public void SaveAndLoadInteractor() throws IOException, ClassNotFoundException {
+        // create a player (expected data)
         String username = "username";
         HashMap<String, ArrayList<ItemData>> inventory = new HashMap<>();
         PlayerData player = new PlayerData(username, 0, 15, inventory);
 
-        // save
         String filename = "src/test/data/savefiles/" + username;
+
+        // save
         si.saveToFile(filename, player);
 
         // load
         PlayerData loadedPlayer = li.readFromFile(filename);
 
-        // assert statement
+        // assert statements
         Assertions.assertEquals(player.getUsername(), loadedPlayer.getUsername());
         Assertions.assertEquals(player.getEventID(), loadedPlayer.getEventID());
         Assertions.assertEquals(player.getAttackPower(), loadedPlayer.getAttackPower());
