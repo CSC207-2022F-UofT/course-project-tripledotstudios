@@ -60,7 +60,7 @@ public class DummySoundInteractor {
             // load information to the clip object
             sound = (Clip) AudioSystem.getLine(info);
             sound = AudioSystem.getClip();
-            sound.open(inputStream);
+            System.out.println("sound.open(inputStream) is executed here.");
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
