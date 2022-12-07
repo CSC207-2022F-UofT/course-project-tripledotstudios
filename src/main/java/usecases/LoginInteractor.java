@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class LoginInteractor {
     /** A HashMap mapping usernames to passwords for all registered accounts. */
-    private HashMap<String, String> accounts;
+    private final HashMap<String, String> accounts;
 
     /** A String of the csv file containing record of all registered accounts. */
     private final String filepath;
