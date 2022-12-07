@@ -25,23 +25,20 @@ class SoundInteractorTest {
         Assertions.assertEquals(expected, actual);
     }
 
-    // tests for playSound
+    // tests for createSound
 
     @Test
-    public void SoundInteractorPlaySound() {
+    public void SoundInteractorCreateSound() {
         si.createSound("src/test/data/epic-inspirational.wav");
-        si.playSound();
-        Assertions.assertTrue(si.playSound.isAlive());
-        si.closeSound();
+        Assertions.assertNotNull(si.getSound());
     }
 
-    // tests for stopSound
+    // tests for closeSound
 
     @Test
-    public void SoundInteractorStopSound() {
+    public void SoundInteractorCloseSound() {
         si.createSound("src/test/data/epic-inspirational.wav");
-        si.playSound();
-        si.stopSound();
-        Assertions.assertFalse(si.getSound().isActive());
+        si.closeSound();
+        Assertions.assertNull(si.getSound());
     }
 }

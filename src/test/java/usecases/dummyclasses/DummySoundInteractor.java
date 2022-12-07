@@ -17,8 +17,6 @@ public class DummySoundInteractor {
     /** Stores whether the sound setting is set to on */
     public boolean soundChoice;
 
-    public Thread playSound;
-
     public DummySoundInteractor() {
         isPlaying = false;
         soundChoice = true;
@@ -73,52 +71,10 @@ public class DummySoundInteractor {
      */
     public void closeSound() {
         // stop the sound first
-        stopSound();
+        System.out.println("stopSound() is executed here.");
 
         // delete the sound
         sound.close();
         sound = null;
-    }
-
-    /**
-     * Plays new audio located at filepath.
-     */
-    public void playSound() {
-        // first checks if the thread is null to avoid problems
-        if (playSound != null){
-            // if the thread is running, we stop the sound
-            if (playSound.isAlive()) {
-                System.out.println("sound.stop() is executed here.");
-            }
-        }
-
-        // create a new thread to play the sound
-        playSound = new Thread(() -> {
-            // stop any previous sounds
-            stopSound();
-
-            // play/resume the sound
-            System.out.println("sound.start() is executed here.");
-            isPlaying = true;
-        });
-
-        // start the thread
-        playSound.start();
-    }
-
-    /**
-     * Stops playing audio if an audio is currently playing.
-     */
-    public void stopSound() {
-        // check if sound is a null object
-        if (isPlaying && (sound != null)) {
-            // stop the sound
-            System.out.println("sound.stop() is called here.");
-            isPlaying = false;
-            inputStream = null;
-        }
-
-        // stop the thread
-        playSound.interrupt();
     }
 }
