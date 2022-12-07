@@ -1,15 +1,15 @@
-package entities;
+package entities.items;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * entities.ItemDataManager class that reads through the entities.ItemData csv and stores objects of type entities.ItemData
+ * ItemDataManager class that reads through the entities.items.ItemData csv and stores objects of type ItemData
  * in a list.
  */
 public class ItemDataManager {
-    public List<ItemData> lst = new ArrayList<>(); // List of entities.ItemData Objects;
+    public List<ItemData> lst = new ArrayList<>(); // List of ItemData Objects;
 
     public ItemDataManager() {
         String line;
@@ -32,7 +32,7 @@ public class ItemDataManager {
     }
 
     /**
-     * method that returns the list of entities.ItemData objects made from ItemManager
+     * method that returns the list of ItemData objects made from ItemManager
      * @return list
      */
     public List<ItemData> getItemData(){

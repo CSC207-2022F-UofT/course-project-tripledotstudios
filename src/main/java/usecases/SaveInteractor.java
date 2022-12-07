@@ -1,5 +1,5 @@
 package usecases;
-import entities.PlayerData;
+import entities.player.PlayerData;
 
 
 import java.io.*;

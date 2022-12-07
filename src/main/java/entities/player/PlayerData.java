@@ -1,4 +1,6 @@
-package entities;  // relevant imports
+package entities.player;  // relevant imports
+
+import entities.items.ItemData;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -6,13 +8,13 @@ import java.util.HashMap;
 
 
 /**
- * The entities.PlayerData class
+ * The PlayerData class
  */
 public class PlayerData implements Serializable {
-    /* Stores the health of the entities.PlayerData object */
+    /* Stores the health of the entities.player.PlayerData object */
     // public static final int MAX_HEALTH = 500;
 
-    // Stores the attack power of the entities.PlayerData object
+    // Stores the attack power of the entities.player.PlayerData object
     private int attackPower;
 
     // The current event
@@ -21,8 +23,8 @@ public class PlayerData implements Serializable {
     // The username of the player
     private final String username;
 
-    // The inventory of the entities.PlayerData stores the
-    // name of the item mapped to the entities.ItemData object
+    // The inventory of the entities.player.PlayerData stores the
+    // name of the item mapped to the entities.items.ItemData object
     @SuppressWarnings("all")
     private HashMap<String, ArrayList<ItemData>> inventory;
 
@@ -39,7 +41,7 @@ public class PlayerData implements Serializable {
     }
 
     /**
-     * Returns the value of the entities.PlayerData object's Attack Power
+     * Returns the value of the entities.player.PlayerData object's Attack Power
      * @return attackPower
      */
     public int getAttackPower() {
@@ -47,7 +49,7 @@ public class PlayerData implements Serializable {
     }
 
     /**
-     * Updates the entities.PlayerData's attack power
+     * Updates the entities.player.PlayerData's attack power
      * @param attackPower the new value for attackPower
      */
     public void setAttackPower(int attackPower) {
@@ -55,7 +57,7 @@ public class PlayerData implements Serializable {
     }
 
     /**
-     * Returns the eventID of the entities.PlayerData object
+     * Returns the eventID of the entities.player.PlayerData object
      * @return eventID
      */
     public int getEventID() {
@@ -71,7 +73,7 @@ public class PlayerData implements Serializable {
     }
 
     /**
-     * Returns the username of the entities.PlayerData object
+     * Returns the username of the entities.player.PlayerData object
      * @return username
      */
     public String getUsername() {
@@ -79,9 +81,9 @@ public class PlayerData implements Serializable {
     }
 
     /**
-     * Adds an entities.ItemData object to the entities.PlayerData object's inventory.
-     * Creates a new list of entities.ItemData if there is not already one.
-     * @param item The entities.ItemData object that is added to the entities.PlayerData's inventory.
+     * Adds an entities.items.ItemData object to the entities.player.PlayerData object's inventory.
+     * Creates a new list of entities.items.ItemData if there is not already one.
+     * @param item The entities.items.ItemData object that is added to the entities.player.PlayerData's inventory.
      */
     @SuppressWarnings("all")
     public void addToInventory(ItemData item) {
@@ -95,9 +97,9 @@ public class PlayerData implements Serializable {
     }
 
     /**
-     * Removes an entities.ItemData object from the entities.PlayerData object's inventory.
-     * @param item The entities.ItemData object that is removed from the inventory.
-     * @return removed Whether the entities.ItemData object was removed.
+     * Removes an entities.items.ItemData object from the entities.player.PlayerData object's inventory.
+     * @param item The entities.items.ItemData object that is removed from the inventory.
+     * @return removed Whether the entities.items.ItemData object was removed.
      */
     public boolean removeFromInventory(ItemData item) {
         // boolean to determine if the value was returned successfully.
@@ -120,7 +122,7 @@ public class PlayerData implements Serializable {
 
     /**
      * Returns the number of items of a type in a list.
-     * @param item The entities.ItemData object that we count in the inventory.
+     * @param item The entities.items.ItemData object that we count in the inventory.
      * @return the number of instances of the item type in the inventory.
      */
     public int itemCount(ItemData item) {

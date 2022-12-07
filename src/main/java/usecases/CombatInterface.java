@@ -1,6 +1,6 @@
 package usecases;
 
-import entities.ItemData;
+import entities.items.ItemData;
 
 import java.util.*;
 

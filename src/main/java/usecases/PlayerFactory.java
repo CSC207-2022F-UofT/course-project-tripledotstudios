@@ -1,7 +1,7 @@
 package usecases;
 
-import entities.ItemData;
-import entities.PlayerData;
+import entities.items.ItemData;
+import entities.player.PlayerData;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -2,7 +2,11 @@ package usecases;
 
 import java.util.*;
 
-import entities.*;
+import entities.events.CombatEvent;
+import entities.events.EventManager;
+import entities.events.QuestionData;
+import entities.items.ItemData;
+import entities.player.PlayerInteractor;
 
 public class CombatInteractor {
 	

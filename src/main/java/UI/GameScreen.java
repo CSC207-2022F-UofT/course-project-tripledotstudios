@@ -3,7 +3,7 @@ package UI;
 /* importing from other packages in the project **/
 import controller.CombatController;
 import controller.StorylineController;
-import entities.ItemData;
+import entities.items.ItemData;
 
 /* relevant imports */
 import javax.swing.*;

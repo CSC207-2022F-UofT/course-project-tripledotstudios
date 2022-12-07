@@ -1,9 +1,9 @@
-package entities;
+package entities.items;
 
 import java.io.Serializable;
 
 /**
- * entities.ItemData class that has information of what one Item object has as attributes and methods.
+ * entities.items.ItemData class that has information of what one Item object has as attributes and methods.
  */
 public class ItemData implements Serializable{
 

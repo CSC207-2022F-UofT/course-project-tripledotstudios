@@ -2,8 +2,15 @@ package usecases;
 
 import java.io.IOException;
 import java.util.*;
+
+import entities.events.CombatEvent;
+import entities.events.Event;
+import entities.events.EventManager;
+import entities.items.ItemData;
+import entities.items.ItemDataManager;
+import entities.player.PlayerData;
+import entities.player.PlayerInteractor;
 import presenter.*;
-import entities.*;
 
 
 public class StorylineInteractor {

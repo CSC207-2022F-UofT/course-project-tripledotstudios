@@ -1,4 +1,4 @@
-package entities;
+package entities.events;
 
 import java.util.*;
 import java.io.IOException;

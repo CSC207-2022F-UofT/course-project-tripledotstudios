@@ -3,13 +3,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import entities.PlayerData;
-import entities.ItemData;
-
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import entities.player.PlayerData;
+import entities.items.ItemData;
 
 // Testing out the SaveInteractor and LoadInteractor to see if saving and loading works
 public class SaveLoadTest {

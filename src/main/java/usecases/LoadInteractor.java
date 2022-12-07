@@ -1,5 +1,5 @@
 package usecases;
-import entities.PlayerData;
+import entities.player.PlayerData;
 
 import java.io.*;
 
@@ -13,7 +13,7 @@ public class LoadInteractor implements Loader {
      * Loads the player data from the file path
      *
      * @param filePath file where the player data is stored
-     * @return entities.PlayerData, the player's data
+     * @return entities.player.PlayerData, the player's data
      *
      */
     @Override

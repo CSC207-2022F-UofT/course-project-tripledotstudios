@@ -2,7 +2,7 @@ package presenter;
 
 import UI.GameScreen;
 import UI.UIFacade;
-import entities.ItemData;
+import entities.items.ItemData;
 import usecases.CombatInterface;
 
 import java.util.ArrayList;
