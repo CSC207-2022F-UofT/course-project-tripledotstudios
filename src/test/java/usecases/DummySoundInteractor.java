@@ -1,10 +1,10 @@
 package usecases;
 
-import java.io.File;
 import javax.sound.sampled.*;
+import java.io.File;
 import java.io.IOException;
 
-public class SoundInteractor {
+public class DummySoundInteractor {
     /** Clip that contains the audio */
     private Clip sound;
 
@@ -15,11 +15,11 @@ public class SoundInteractor {
     AudioInputStream inputStream;
 
     /** Stores whether the sound setting is set to on */
-    private boolean soundChoice;
+    boolean soundChoice;
 
     public Thread playSound;
 
-    public SoundInteractor() {
+    public DummySoundInteractor() {
         isPlaying = false;
         soundChoice = true;
     }
@@ -88,7 +88,7 @@ public class SoundInteractor {
         if (playSound != null){
             // if the thread is running, we stop the sound
             if (playSound.isAlive()) {
-                sound.stop();
+                System.out.println("sound.stop() is executed here.");
             }
         }
 
@@ -98,7 +98,7 @@ public class SoundInteractor {
             stopSound();
 
             // play/resume the sound
-            sound.start();
+            System.out.println("sound.start() is executed here.");
             isPlaying = true;
         });
 
@@ -113,7 +113,7 @@ public class SoundInteractor {
         // check if sound is a null object
         if (isPlaying && (sound != null)) {
             // stop the sound
-            sound.stop();
+            System.out.println("sound.stop() is called here.");
             isPlaying = false;
             inputStream = null;
         }
