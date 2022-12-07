@@ -1,9 +1,9 @@
 package UI;
 
 /* importing from other packages in the project **/
-import controller.CombatController;
-import controller.StorylineController;
-import entities.ItemData;
+import adapters.combat.CombatController;
+import adapters.story.StorylineController;
+import entities.items.ItemData;
 
 /* relevant imports */
 import javax.swing.*;

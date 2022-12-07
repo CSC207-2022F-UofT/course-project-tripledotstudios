@@ -1,6 +1,6 @@
 package UI;
 
-import controller.StorylineController;
+import adapters.story.StorylineController;
 
 import javax.swing.*;
 
