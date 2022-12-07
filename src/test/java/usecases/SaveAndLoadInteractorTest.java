@@ -1,9 +1,11 @@
 package usecases;
 
-import entities.ItemData;
-import entities.PlayerData;
+import entities.items.ItemData;
+import entities.player.PlayerData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import usecases.dummyclasses.DummyLoadInteractor;
+import usecases.dummyclasses.DummySaveInteractor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,8 +13,8 @@ import java.util.HashMap;
 
 public class SaveAndLoadInteractorTest {
 
-    SaveInteractor si = new SaveInteractor();
-    LoadInteractor li = new LoadInteractor();
+    DummySaveInteractor si = new DummySaveInteractor();
+    DummyLoadInteractor li = new DummyLoadInteractor();
 
     @Test
     public void SaveAndLoadInteractor() throws IOException, ClassNotFoundException {

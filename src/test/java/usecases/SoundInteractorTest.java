@@ -2,6 +2,7 @@ package usecases;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import usecases.dummyclasses.DummySoundInteractor;
 
 class SoundInteractorTest {
 

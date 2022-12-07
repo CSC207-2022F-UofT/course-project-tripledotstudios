@@ -1,4 +1,4 @@
-package usecases;
+package usecases.dummyclasses;
 
 import java.io.*;
 import java.util.HashMap;

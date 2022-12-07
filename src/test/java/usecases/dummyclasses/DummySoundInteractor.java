@@ -1,4 +1,4 @@
-package usecases;
+package usecases.dummyclasses;
 
 import javax.sound.sampled.*;
 import java.io.File;
@@ -15,7 +15,7 @@ public class DummySoundInteractor {
     AudioInputStream inputStream;
 
     /** Stores whether the sound setting is set to on */
-    boolean soundChoice;
+    public boolean soundChoice;
 
     public Thread playSound;
 
@@ -81,7 +81,7 @@ public class DummySoundInteractor {
     }
 
     /**
-     * Plays new audio located at </filepath>.
+     * Plays new audio located at filepath.
      */
     public void playSound() {
         // first checks if the thread is null to avoid problems

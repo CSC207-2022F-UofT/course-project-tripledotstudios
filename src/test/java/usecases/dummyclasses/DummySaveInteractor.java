@@ -1,5 +1,6 @@
-package usecases;
-import entities.PlayerData;
+package usecases.dummyclasses;
+import entities.player.PlayerData;
+import usecases.gamesave.Saver;
 
 
 import java.io.*;
@@ -10,7 +11,6 @@ public class DummySaveInteractor implements Saver {
 
     /**
      * Writes the player data to file at filepath.
-     *
      * @param filePath the file to write the records to
      * @param playerData the player data that needs to be serialized
      */
@@ -25,5 +25,4 @@ public class DummySaveInteractor implements Saver {
         output.writeObject(playerData);
         output.close();
     }
-
 }
