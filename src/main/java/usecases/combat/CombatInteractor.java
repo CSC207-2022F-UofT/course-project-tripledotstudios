@@ -1,4 +1,4 @@
-package usecases;
+package usecases.combat;
 
 import java.util.*;
 
@@ -26,7 +26,7 @@ public class CombatInteractor {
 	}
 
 	/**
-	* Gets called upon by usecases.StorylineInteractor whenever a combat event is encountered.
+	* Gets called upon by usecases.story.StorylineInteractor whenever a combat event is encountered.
 	* @param UUID the unique id of the CombatEvent. (MUST be a CombatEvent)
 	* @return whether the player wins or not: true if won, false if lost
 	*/

@@ -1,4 +1,4 @@
-package usecases;
+package usecases.login;
 
 import presenter.LoginInterface;
 

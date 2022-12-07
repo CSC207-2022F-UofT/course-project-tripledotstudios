@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import entities.player.PlayerData;
 import entities.items.ItemData;
+import usecases.gamesave.LoadInteractor;
+import usecases.gamesave.SaveInteractor;
 
 // Testing out the SaveInteractor and LoadInteractor to see if saving and loading works
 public class SaveLoadTest {
@@ -21,7 +23,7 @@ public class SaveLoadTest {
 
 
         // Testing out the save feature
-        usecases.SaveInteractor saver = new usecases.SaveInteractor();
+        SaveInteractor saver = new SaveInteractor();
         try{
             saver.saveToFile(filename, player);
         } catch (IOException e) {
@@ -31,7 +33,7 @@ public class SaveLoadTest {
 
 
         // Testing out the loading feature
-        usecases.LoadInteractor loader = new usecases.LoadInteractor();
+        LoadInteractor loader = new LoadInteractor();
         player = loader.readFromFile(filename);
 
         System.out.println(player.getUsername());

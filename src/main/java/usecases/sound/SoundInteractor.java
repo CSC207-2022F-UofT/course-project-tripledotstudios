@@ -1,4 +1,4 @@
-package usecases;
+package usecases.sound;
 
 import java.io.File;
 import javax.sound.sampled.*;

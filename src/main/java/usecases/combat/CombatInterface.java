@@ -1,4 +1,4 @@
-package usecases;
+package usecases.combat;
 
 import entities.items.ItemData;
 

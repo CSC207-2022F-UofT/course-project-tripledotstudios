@@ -1,4 +1,4 @@
-package usecases;
+package usecases.gamesave;
 
 import entities.player.PlayerData;
 

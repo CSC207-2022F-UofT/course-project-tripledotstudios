@@ -10,7 +10,12 @@ import entities.player.PlayerInteractor;
 import presenter.CombatPresenter;
 import presenter.LoginPresenter;
 import presenter.StorylinePresenter;
-import usecases.*;
+import usecases.combat.CombatInteractor;
+import usecases.gamesave.LoadInteractor;
+import usecases.gamesave.SaveInteractor;
+import usecases.login.LoginInteractor;
+import usecases.sound.SoundInteractor;
+import usecases.story.StorylineInteractor;
 
 import java.util.ArrayList;
 import java.util.HashMap;

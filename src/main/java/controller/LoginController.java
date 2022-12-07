@@ -1,6 +1,6 @@
 package controller;
 
-import usecases.LoginInteractor;
+import usecases.login.LoginInteractor;
 
 import java.io.IOException;
 

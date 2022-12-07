@@ -1,4 +1,4 @@
-package usecases;
+package usecases.story;
 
 import java.io.IOException;
 import java.util.*;
@@ -9,8 +9,14 @@ import entities.events.EventManager;
 import entities.items.ItemData;
 import entities.items.ItemDataManager;
 import entities.player.PlayerData;
+import entities.player.PlayerFactory;
 import entities.player.PlayerInteractor;
 import presenter.*;
+import usecases.combat.CombatInteractor;
+import usecases.gamesave.LoadInteractor;
+import usecases.gamesave.SaveInteractor;
+import usecases.login.LoginInteractor;
+import usecases.sound.SoundInteractor;
 
 
 public class StorylineInteractor {

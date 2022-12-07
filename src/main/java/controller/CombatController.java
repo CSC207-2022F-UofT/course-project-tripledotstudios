@@ -1,6 +1,6 @@
 package controller;
 
-import usecases.CombatInteractor;
+import usecases.combat.CombatInteractor;
 
 public class CombatController {
     private final CombatInteractor combatInteractor;

@@ -1,6 +1,6 @@
 package controller;
 
-import usecases.StorylineInteractor;
+import usecases.story.StorylineInteractor;
 
 import java.io.IOException;
 
