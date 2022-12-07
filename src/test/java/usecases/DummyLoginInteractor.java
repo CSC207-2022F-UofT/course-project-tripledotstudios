@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class DummyLoginInteractor {
-    private HashMap<String, String> accounts; // a HashMap mapping usernames to passwords for all registered accounts
+    private final HashMap<String, String> accounts; // a HashMap mapping usernames to passwords for all registered accounts
     private final String filepath; // a String of the csv file containing all registered accounts
     private String currentUser; // a String of which, if any, user is currently logged in
 
