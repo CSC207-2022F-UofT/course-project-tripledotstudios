@@ -2,6 +2,8 @@ package controller;
 
 import usecases.LoginInteractor;
 
+import java.io.IOException;
+
 public class LoginController {
     private final LoginInteractor loginInteractor;
 
@@ -9,7 +11,7 @@ public class LoginController {
         loginInteractor = loginInter;
     }
 
-    public void createAccount(String username, String password, String repeatPassword) {
+    public void createAccount(String username, String password, String repeatPassword) throws IOException {
         // ask LoginInteractor to create an account, if not successful, give a warning
         loginInteractor.createAccount(username, password, repeatPassword);
     }
