@@ -50,7 +50,7 @@ public class StorylineInteractor implements StorylineInputBoundary {
 
         //Setting up a player
         String username = LOGIN.getCurrentUser();
-        ArrayList<ItemData> inventory = new ArrayList<>(); //empty Hash Map
+        HashMap<String, ArrayList<ItemData>> inventory = new HashMap<>(); //empty Hash Map
         player_action.updatePlayer((PlayerFactory.generatePlayer(username,
                 0, 100, inventory)));
         ArrayList<ItemData> items = (ArrayList<ItemData>) ITEMDATA.getItemData();

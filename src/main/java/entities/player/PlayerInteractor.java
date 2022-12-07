@@ -94,8 +94,8 @@ public class PlayerInteractor {
      * @param item The entities.items.ItemData object that we count in the inventory.
      * @return the number of instances of the item type in the inventory.
      */
-    public int itemCount() {
-        return player.itemCount();
+    public int itemCount(ItemData item) {
+        return player.itemCount(item);
     }
 
     /**
