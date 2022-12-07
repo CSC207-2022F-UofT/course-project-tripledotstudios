@@ -5,8 +5,25 @@ import org.junit.jupiter.api.Test;
 
 class SoundInteractorTest {
 
-    SoundInteractor si = new SoundInteractor();
+    DummySoundInteractor si = new DummySoundInteractor();
     String sound = "src/test/data/epic-inspirational.wav"; // must be repository root
+    
+    // tests for getSoundChoice
+    
+    @Test
+    public void SoundInteractorGetSoundChoice() {
+        Assertions.assertEquals(si.soundChoice, si.getSoundChoice());
+    }
+    
+    // tests for switchSoundChoice
+    
+    @Test
+    public void SoundInteractorSwitchSoundChoice() {
+        boolean expected = !(si.getSoundChoice());
+        si.switchSoundChoice();
+        boolean actual = si.getSoundChoice();
+        Assertions.assertEquals(expected, actual);
+    }
 
     // tests for playSound
 
@@ -15,7 +32,7 @@ class SoundInteractorTest {
         si.createSound(sound);
         si.playSound();
         Assertions.assertTrue(si.playSound.isAlive());
-        si.stopSound();
+        si.closeSound();
     }
 
     // tests for stopSound
