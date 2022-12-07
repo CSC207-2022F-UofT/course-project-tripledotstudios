@@ -13,7 +13,6 @@ import usecases.sound.*;
 import usecases.story.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class UIFacade { // facade method that contains all UIs
 
@@ -69,7 +68,7 @@ public class UIFacade { // facade method that contains all UIs
     SaveInteractor saveInteractor = new SaveInteractor();
     LoadInteractor loadInteractor = new LoadInteractor();
     String username = loginInteractor.getCurrentUser();
-    HashMap<String, ArrayList<ItemData>> inventory = new HashMap<>(); //empty Hash Map
+    ArrayList<ItemData> inventory = new ArrayList<>(); //empty Hash Map
     PlayerData player = new PlayerData(username, 1, 100, inventory);
     PlayerInteractor playerInteractor = new PlayerInteractor(player);
     EventManager eventManager = new EventManager();
