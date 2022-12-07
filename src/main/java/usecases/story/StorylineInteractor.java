@@ -3,21 +3,16 @@ package usecases.story;
 import java.io.IOException;
 import java.util.*;
 
-import entities.events.CombatEvent;
-import entities.events.Event;
-import entities.events.EventManager;
-import entities.items.ItemData;
-import entities.items.ItemDataManager;
-import entities.player.PlayerData;
-import entities.player.PlayerFactory;
-import entities.player.PlayerInteractor;
-import usecases.combat.CombatInteractor;
-import usecases.login.LoginInputBoundary;
+import entities.events.*;
+import entities.items.*;
+import entities.player.*;
+import usecases.combat.*;
 import usecases.sound.*;
 import usecases.gamesave.*;
+import usecases.login.LoginInputBoundary;
 
 
-public class StorylineInteractor {
+public class StorylineInteractor implements StorylineInputBoundary {
 
     private final StorylineInterface VIEW;
     private final SoundInteractor SOUND;
@@ -48,6 +43,7 @@ public class StorylineInteractor {
     /** Set Player on their first Event. The method
      * takes in the username set by LoginInteractor.
      */
+    @Override
     public void startGame() throws IOException {
         //create a file to save this user
         saveGame();
@@ -74,6 +70,7 @@ public class StorylineInteractor {
      * to the UUID from ChoicesNextUUIDs in Event
     * @param choice the integer choice the Player makes
     */
+    @Override
     public void updateEventID(int choice) {
         Map<Integer, Event> event_map = MANAGER.getAllEvents();
         // System.out.println(player_action);
@@ -88,6 +85,7 @@ public class StorylineInteractor {
 
     /** Loads the current event of the Player
      */
+    @Override
     public void loadGame() throws IOException, ClassNotFoundException {
         String username = LOGIN.getCurrentUser() + ".ser";
 
@@ -101,6 +99,7 @@ public class StorylineInteractor {
 
     /** Saves PLayer data to the file
      */
+    @Override
     public void saveGame() throws IOException {
         String filename = "data/savefiles/" + LOGIN.getCurrentUser() + ".ser";
 
@@ -110,6 +109,7 @@ public class StorylineInteractor {
 
     /** Returns the Player back to the homescreen
      */
+    @Override
     public void endGame() {
         VIEW.returnHomeScreen();
     }
@@ -117,6 +117,7 @@ public class StorylineInteractor {
     /** If the Player loses the game, bring the Player back to the last save
      * The player
      */
+    @Override
     public void lose() {
         SOUND.stopSound();
         VIEW.displayLose();
@@ -126,6 +127,7 @@ public class StorylineInteractor {
     /** Exit the game
      * @param player The Player
      */
+    @Override
     @SuppressWarnings("all")  // function is reserved for debugging
     public void exitGame(PlayerData player) {
         VIEW.display_exit_options();
@@ -133,6 +135,7 @@ public class StorylineInteractor {
 
     /**Turn sound on or off
      */
+    @Override
     public void soundSwitch() {
         SOUND.switchSoundChoice();
         if (SOUND.getSoundChoice()) {
@@ -144,6 +147,7 @@ public class StorylineInteractor {
     }
 
     /**Play Homescreen sound*/
+    @Override
     public void homeSoundPlay() {
         String HOME_SOUND_FILE = "data/sound/morning-funny-beat.wav";
         SOUND.createSound(HOME_SOUND_FILE);
@@ -151,6 +155,7 @@ public class StorylineInteractor {
     }
 
     /**Stop Homescreen sound*/
+    @Override
     public void homeSoundStop() {
         SOUND.stopSound();
     }
@@ -160,6 +165,7 @@ public class StorylineInteractor {
      * choicesNarration. If Event is a CombatEvent, make the Player fight the Enemy after
      * the narration. The method should also Save the game if the Event has an Auto Save
      */
+    @Override
     public void playEvent() throws IOException {
         Map<Integer, Event> event_map = MANAGER.getAllEvents();
         Event event = event_map.get(player_action.getPlayerEventID());

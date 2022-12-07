@@ -16,6 +16,7 @@ import adapters.gamesave.SaveInteractor;
 import usecases.login.LoginInputBoundary;
 import usecases.login.LoginInteractor;
 import usecases.sound.SoundInteractor;
+import usecases.story.StorylineInputBoundary;
 import usecases.story.StorylineInteractor;
 
 import java.util.ArrayList;
@@ -80,7 +81,7 @@ public class UIFacade { //facade method that contains all UIs
     PlayerInteractor playerInteractor = new PlayerInteractor(player);
     EventManager eventManager = new EventManager();
     CombatInteractor combatInteractor = new CombatInteractor(combatPresenter, eventManager, playerInteractor);
-    StorylineInteractor storylineInteractor = new StorylineInteractor(storylinePresenter, soundInteractor,
+    StorylineInputBoundary storylineInteractor = new StorylineInteractor(storylinePresenter, soundInteractor,
             saveInteractor, loadInteractor, playerInteractor, combatInteractor, eventManager, loginInteractor);
 
 

@@ -1,45 +1,45 @@
 package adapters.story;
 
-import usecases.story.StorylineInteractor;
+import usecases.story.StorylineInputBoundary;
 
 import java.io.IOException;
 
 public class StorylineController {
-    private final StorylineInteractor storylineInteractor;
+    private final StorylineInputBoundary storyline;
 
-    public StorylineController(StorylineInteractor storylineInter) {
-        storylineInteractor = storylineInter;
+    public StorylineController(StorylineInputBoundary storylineInter) {
+        storyline = storylineInter;
     }
 
     public void setNewGame() throws IOException, ClassNotFoundException { //set a new game
-        storylineInteractor.startGame();
+        storyline.startGame();
     }
 
     public void loadGame() throws IOException, ClassNotFoundException { //load the saved game
-        storylineInteractor.loadGame();
+        storyline.loadGame();
     }
 
     public void saveGame() throws IOException {
-        storylineInteractor.saveGame();
+        storyline.saveGame();
     }
 
     public void soundSwitch() {
-        storylineInteractor.soundSwitch();
+        storyline.soundSwitch();
     }
 
     public void updateEventID(int choice) throws IOException, ClassNotFoundException {
-        storylineInteractor.updateEventID(choice);
-        storylineInteractor.playEvent();
+        storyline.updateEventID(choice);
+        storyline.playEvent();
     }
 
     /**Play HomeScreen sound*/
     public void homeSoundPlay() {
-        storylineInteractor.homeSoundPlay();
+        storyline.homeSoundPlay();
     }
 
     /**Stop HomeScreen sound*/
     public void homeSoundStop() {
-        storylineInteractor.homeSoundStop();
+        storyline.homeSoundStop();
     }
 
 }
