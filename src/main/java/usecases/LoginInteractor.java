@@ -2,8 +2,6 @@ package usecases;
 
 import presenter.LoginInterface;
 
-import presenter.LoginInterface;
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.Objects;
@@ -11,8 +9,8 @@ import java.util.Objects;
 public class LoginInteractor {
     private HashMap<String, String> accounts; // a HashMap mapping usernames to passwords for all registered accounts
     private final String filepath; // a String of the csv file containing all registered accounts
-    private String currentUser; // a String of which, if any, user is currently logged in
-    private final LoginInterface presenter; // TODO: add description
+    public String currentUser; // a String of which, if any, user is currently logged in
+    private final LoginInterface presenter; // interface which this use case interacts with
 
     /**
      * Constructor.
@@ -24,7 +22,7 @@ public class LoginInteractor {
         // save the LoginInterface that LoginInteractor will use
         this.presenter = presenter;
         // read csv file and create hashmap mapping usernames to passwords
-        String line = "";
+        String line;
         // assign new HashMap to accounts attribute
         accounts = new HashMap<>();
         // read csv file and map usernames to passwords in <accounts>
@@ -36,22 +34,6 @@ public class LoginInteractor {
                 accounts.put(accountInfo[0], accountInfo[1]);
             }
         } catch (IOException e) { e.printStackTrace(); }
-    }
-
-    /**
-     * Getter method for accounts, the HashMap mapping usernames to passwords.
-     * @return <accounts>.
-     */
-    public HashMap<String, String> getAccounts() {
-        return accounts;
-    }
-
-    /**
-     * Getter method for filepath, the String containing the path to the csv with account data.
-     * @return <filepath>.
-     */
-    public String getFilepath() {
-        return filepath;
     }
 
     /**
@@ -89,22 +71,17 @@ public class LoginInteractor {
      * @param username a String of a proposed username for a new account
      * @param password1 a String of a proposed password for a new account
      * @param password2 a String of a proposed password for a new account
-     * @return 1 if account creation is successful, 2 if username already exists, 3 if passwords do not match, 4
-     * if passwords match but password is too short, 5 otherwise.
      */
-    public void createAccount(String username, String password1, String password2) {
+    public void createAccount(String username, String password1, String password2) throws IOException {
         // case that username is unique, password is long enough, and passwords match (i.e., valid account creation)
         if (validateNewUsername(username) && validateNewPassword(password1) && (password1.equals(password2))) {
-            try {
-                // create new FileWriter
-                FileWriter fw = new FileWriter(filepath, true);
-                fw.write("\n" + username + ", " + password1);
-                fw.close();
-                // update <accounts> so that LoginInteractor doesn't have to be reconstructed
-                accounts.put(username, password1);
-                presenter.updateRegister(1, username);
-            }
-            catch (IOException e) { e.printStackTrace(); }
+            // create new FileWriter
+            FileWriter fw = new FileWriter(filepath, true);
+            fw.write("\n" + username + ", " + password1);
+            fw.close();
+            // update <accounts> so that LoginInteractor doesn't have to be reconstructed
+            accounts.put(username, password1);
+            presenter.updateRegister(1, username);
         }
         // case that username already exists
         else if (!(validateNewUsername(username))) { presenter.updateRegister(2, username); }
@@ -139,13 +116,5 @@ public class LoginInteractor {
      */
     public void logOut() {
         currentUser = null;
-    }
-
-    /**
-     * Checks whether a user is currently logged in.
-     * @return true iff a user is currently logged in.
-     */
-    public boolean isLoggedIn() {
-        return currentUser != null;
     }
 }
