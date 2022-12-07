@@ -1,17 +1,14 @@
 package usecases;
 
-import UI.UIFacade;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import presenter.LoginPresenter;
+
 
 import java.util.HashMap;
 
 class LoginInteractorTest {
 
-    UIFacade uiFacade = new UIFacade();
-    LoginPresenter p = new LoginPresenter(uiFacade);
-    LoginInteractor li = new LoginInteractor("src/test/data/test_usernames.csv", p); // string must be repository root
+    DummyLoginInteractor li = new DummyLoginInteractor("src/test/data/test_usernames.csv"); // string must be repository root
 
     // tests for CreateAccount
 
@@ -110,7 +107,7 @@ class LoginInteractorTest {
 
     // tests for changes in accounts
 
-    LoginInteractor blankLi = new LoginInteractor("src/test/data/blank_usernames.csv", p); // string must be repository root
+    DummyLoginInteractor blankLi = new DummyLoginInteractor("src/test/data/blank_usernames.csv"); // string must be repository root
 
     @Test
     public void LoginInteractorAccountsBlankFileDefault() {
