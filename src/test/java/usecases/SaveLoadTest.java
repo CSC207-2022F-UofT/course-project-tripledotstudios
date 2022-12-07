@@ -1,7 +1,6 @@
 package usecases;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import entities.player.PlayerData;
 import entities.items.ItemData;
@@ -12,7 +11,7 @@ import adapters.gamesave.SaveInteractor;
 public class SaveLoadTest {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         // Creating the PlayerData object to test
-        HashMap<String, ArrayList<ItemData>> inv = new HashMap<>();
+        ArrayList<ItemData> inv = new ArrayList<>();
         PlayerData player = new PlayerData("hualaina", 1, 50, inv);
         ItemData item = new ItemData("Health Potion", "health", 100 );
         player.addToInventory(item);
