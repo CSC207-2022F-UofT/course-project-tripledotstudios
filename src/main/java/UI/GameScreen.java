@@ -1,9 +1,9 @@
 package UI;
 
 /* importing from other packages in the project **/
-import controller.CombatController;
-import controller.StorylineController;
-import entities.ItemData;
+import adapters.combat.CombatController;
+import adapters.story.StorylineController;
+import entities.items.ItemData;
 
 /* relevant imports */
 import javax.swing.*;
@@ -222,6 +222,8 @@ public class GameScreen {
                 dialog.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
             });
         }
+
+        // formatting the panels
         panel.add(buttons);
         dialog.setUndecorated(true);
         dialog.setContentPane(panel);
@@ -485,6 +487,9 @@ public class GameScreen {
         return response;
     }
 
+    /**
+     * Informs the user through a popup that they have won the game.
+     */
     public void printWin() {
         // setting the label for style purposes
         JLabel label = new JLabel("You have won. YAY.");
@@ -511,7 +516,7 @@ public class GameScreen {
                 "AHAHAHA PAUSE!?!?!? Good one.",
                 "I am dissapointed but not surprised.",
                 "Only mortals would want to pause time.",
-                "Ur mom.", "<html>Fine.<br> paUsED.</html>", "Why would you pause, what are you pausing?",
+                "But... the game is already paused...", "<html>Fine.<br> paUsED.</html>", "Why would you pause, what are you pausing?",
                 "<html><p>We're no strangers to love <br>" +
                         "You know the rules and so do I (do I) <br>" +
                         "A full commitment's what I'm thinking of <br>" +

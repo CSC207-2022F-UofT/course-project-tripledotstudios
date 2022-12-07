@@ -1,23 +1,21 @@
 package UI;
 
-import controller.CombatController;
-import controller.LoginController;
-import controller.StorylineController;
-import entities.Event;
-import entities.EventManager;
-import entities.ItemData;
-import entities.PlayerData;
-import presenter.CombatPresenter;
-import presenter.LoginPresenter;
-import presenter.StorylineInterface;
-import presenter.StorylinePresenter;
-import usecases.*;
+import adapters.combat.*;
+import adapters.login.*;
+import adapters.story.*;
+import entities.events.EventManager;
+import entities.items.ItemData;
+import entities.player.*;
+import usecases.combat.*;
+import adapters.gamesave.*;
+import usecases.login.*;
+import usecases.sound.*;
+import usecases.story.*;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class UIFacade { //facade method that contains all UIs
+public class UIFacade { // facade method that contains all UIs
 
     // set up all UIs
     private final GameScreen GAME_SCREEN = new GameScreen();
@@ -64,7 +62,7 @@ public class UIFacade { //facade method that contains all UIs
     //set up use cases
 
     //// set up LoginInteractor
-    LoginInteractor loginInteractor = new LoginInteractor("data/sample_usernames.csv", loginPresenter);
+    LoginInputBoundary loginInteractor = new LoginInteractor("data/sample_usernames.csv", loginPresenter);
 
     //// set up StorylineInteractor and CombatInteractor
     SoundInteractor soundInteractor = new SoundInteractor();
@@ -76,7 +74,7 @@ public class UIFacade { //facade method that contains all UIs
     PlayerInteractor playerInteractor = new PlayerInteractor(player);
     EventManager eventManager = new EventManager();
     CombatInteractor combatInteractor = new CombatInteractor(combatPresenter, eventManager, playerInteractor);
-    StorylineInteractor storylineInteractor = new StorylineInteractor(storylinePresenter, soundInteractor,
+    StorylineInputBoundary storylineInteractor = new StorylineInteractor(storylinePresenter, soundInteractor,
             saveInteractor, loadInteractor, playerInteractor, combatInteractor, eventManager, loginInteractor);
 
 
