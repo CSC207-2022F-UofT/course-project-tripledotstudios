@@ -1,4 +1,4 @@
-package controller;
+package adapters.login;
 
 import usecases.login.LoginInteractor;
 

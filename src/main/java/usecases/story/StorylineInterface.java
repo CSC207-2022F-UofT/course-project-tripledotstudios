@@ -1,4 +1,4 @@
-package presenter;
+package usecases.story;
 
 import entities.*;
 import java.util.List;

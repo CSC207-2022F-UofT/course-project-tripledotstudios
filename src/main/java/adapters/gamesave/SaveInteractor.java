@@ -1,5 +1,6 @@
-package usecases.gamesave;
+package adapters.gamesave;
 import entities.player.PlayerData;
+import usecases.gamesave.Saver;
 
 
 import java.io.*;

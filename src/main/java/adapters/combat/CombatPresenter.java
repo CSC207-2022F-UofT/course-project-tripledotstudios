@@ -1,4 +1,4 @@
-package presenter;
+package adapters.combat;
 
 import UI.GameScreen;
 import UI.UIFacade;

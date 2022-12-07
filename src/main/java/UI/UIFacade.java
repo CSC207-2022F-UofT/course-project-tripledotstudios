@@ -1,18 +1,18 @@
 package UI;
 
-import controller.CombatController;
-import controller.LoginController;
-import controller.StorylineController;
+import adapters.combat.CombatController;
+import adapters.login.LoginController;
+import adapters.story.StorylineController;
 import entities.events.EventManager;
 import entities.items.ItemData;
 import entities.player.PlayerData;
 import entities.player.PlayerInteractor;
-import presenter.CombatPresenter;
-import presenter.LoginPresenter;
-import presenter.StorylinePresenter;
+import adapters.combat.CombatPresenter;
+import adapters.login.LoginPresenter;
+import adapters.story.StorylinePresenter;
 import usecases.combat.CombatInteractor;
-import usecases.gamesave.LoadInteractor;
-import usecases.gamesave.SaveInteractor;
+import adapters.gamesave.LoadInteractor;
+import adapters.gamesave.SaveInteractor;
 import usecases.login.LoginInteractor;
 import usecases.sound.SoundInteractor;
 import usecases.story.StorylineInteractor;

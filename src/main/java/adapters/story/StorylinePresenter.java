@@ -1,6 +1,7 @@
-package presenter;
+package adapters.story;
 
 import UI.*;
+import usecases.story.StorylineInterface;
 
 import java.util.ArrayList;
 import java.util.List;

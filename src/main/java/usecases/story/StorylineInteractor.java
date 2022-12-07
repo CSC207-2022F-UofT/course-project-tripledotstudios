@@ -11,10 +11,9 @@ import entities.items.ItemDataManager;
 import entities.player.PlayerData;
 import entities.player.PlayerFactory;
 import entities.player.PlayerInteractor;
-import presenter.*;
 import usecases.combat.CombatInteractor;
-import usecases.gamesave.LoadInteractor;
-import usecases.gamesave.SaveInteractor;
+import adapters.gamesave.LoadInteractor;
+import adapters.gamesave.SaveInteractor;
 import usecases.login.LoginInteractor;
 import usecases.sound.SoundInteractor;
 

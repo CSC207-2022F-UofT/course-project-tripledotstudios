@@ -1,8 +1,8 @@
 package UI;
 
 /* importing from other packages in the project **/
-import controller.CombatController;
-import controller.StorylineController;
+import adapters.combat.CombatController;
+import adapters.story.StorylineController;
 import entities.items.ItemData;
 
 /* relevant imports */

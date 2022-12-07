@@ -5,8 +5,8 @@ import java.util.HashMap;
 
 import entities.player.PlayerData;
 import entities.items.ItemData;
-import usecases.gamesave.LoadInteractor;
-import usecases.gamesave.SaveInteractor;
+import adapters.gamesave.LoadInteractor;
+import adapters.gamesave.SaveInteractor;
 
 // Testing out the SaveInteractor and LoadInteractor to see if saving and loading works
 public class SaveLoadTest {

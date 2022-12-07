@@ -1,4 +1,4 @@
-package controller;
+package adapters.combat;
 
 import usecases.combat.CombatInteractor;
 

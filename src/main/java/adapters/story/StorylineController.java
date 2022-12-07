@@ -1,4 +1,4 @@
-package controller;
+package adapters.story;
 
 import usecases.story.StorylineInteractor;
 

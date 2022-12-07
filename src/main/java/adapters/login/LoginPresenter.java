@@ -1,6 +1,7 @@
-package presenter;
+package adapters.login;
 
 import UI.*;
+import usecases.login.LoginInterface;
 
 import javax.swing.*;
 

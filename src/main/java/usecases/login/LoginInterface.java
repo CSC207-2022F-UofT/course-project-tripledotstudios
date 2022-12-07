@@ -1,4 +1,4 @@
-package presenter;
+package usecases.login;
 
 public interface LoginInterface {
     public void updateLogin(int view, String username); //when click sign in button, present the result
