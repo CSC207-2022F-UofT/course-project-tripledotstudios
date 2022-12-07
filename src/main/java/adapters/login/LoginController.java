@@ -1,28 +1,28 @@
 package adapters.login;
 
-import usecases.login.LoginInteractor;
+import usecases.login.LoginInputBoundary;
 
 import java.io.IOException;
 
 public class LoginController {
-    private final LoginInteractor loginInteractor;
+    private final LoginInputBoundary login;
 
-    public LoginController(LoginInteractor loginInter) {
-        loginInteractor = loginInter;
+    public LoginController(LoginInputBoundary loginInter) {
+        login = loginInter;
     }
 
     public void createAccount(String username, String password, String repeatPassword) throws IOException {
         // ask LoginInteractor to create an account, if not successful, give a warning
-        loginInteractor.createAccount(username, password, repeatPassword);
+        login.createAccount(username, password, repeatPassword);
     }
 
     public void login(String username, String password) {
         //ask LoginInteractor to login, if not successful, give a warning
-        loginInteractor.validateLogin(username, password);
+        login.validateLogin(username, password);
     }
 
     public void logOut() {
-        loginInteractor.logOut();
+        login.logOut();
     }
 
 }

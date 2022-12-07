@@ -12,29 +12,28 @@ import entities.player.PlayerData;
 import entities.player.PlayerFactory;
 import entities.player.PlayerInteractor;
 import usecases.combat.CombatInteractor;
-import adapters.gamesave.LoadInteractor;
-import adapters.gamesave.SaveInteractor;
-import usecases.login.LoginInteractor;
-import usecases.sound.SoundInteractor;
+import usecases.login.LoginInputBoundary;
+import usecases.sound.*;
+import usecases.gamesave.*;
 
 
 public class StorylineInteractor {
 
     private final StorylineInterface VIEW;
     private final SoundInteractor SOUND;
-    private final SaveInteractor SAVE;
-    private final LoadInteractor LOAD;
+    private final Saver SAVE;
+    private final Loader LOAD;
     private final PlayerInteractor player_action;
     private final CombatInteractor COMBAT;
     private final EventManager MANAGER;
-    private final LoginInteractor LOGIN;
+    private final LoginInputBoundary LOGIN;
 
     private final ItemDataManager ITEMDATA;
 
     public StorylineInteractor(StorylineInterface story, SoundInteractor soundInteractor,
-                               SaveInteractor saveInteractor, LoadInteractor loadInteractor,
+                               Saver saveInteractor, Loader loadInteractor,
                                PlayerInteractor playerInteractor, CombatInteractor combatInteractor,
-                               EventManager eventManager, LoginInteractor loginInteractor) {
+                               EventManager eventManager, LoginInputBoundary loginInteractor) {
         VIEW = story;
         SOUND = soundInteractor;
         LOAD = loadInteractor;

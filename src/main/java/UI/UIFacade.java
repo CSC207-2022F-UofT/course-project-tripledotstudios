@@ -13,6 +13,7 @@ import adapters.story.StorylinePresenter;
 import usecases.combat.CombatInteractor;
 import adapters.gamesave.LoadInteractor;
 import adapters.gamesave.SaveInteractor;
+import usecases.login.LoginInputBoundary;
 import usecases.login.LoginInteractor;
 import usecases.sound.SoundInteractor;
 import usecases.story.StorylineInteractor;
@@ -67,7 +68,7 @@ public class UIFacade { //facade method that contains all UIs
     //set up use cases
 
     //// set up LoginInteractor
-    LoginInteractor loginInteractor = new LoginInteractor("data/sample_usernames.csv", loginPresenter);
+    LoginInputBoundary loginInteractor = new LoginInteractor("data/sample_usernames.csv", loginPresenter);
 
     //// set up StorylineInteractor and CombatInteractor
     SoundInteractor soundInteractor = new SoundInteractor();

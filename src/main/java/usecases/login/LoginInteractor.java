@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class LoginInteractor {
+public class LoginInteractor implements LoginInputBoundary {
     /** A HashMap mapping usernames to passwords for all registered accounts. */
     private final HashMap<String, String> accounts;
 
@@ -44,6 +44,7 @@ public class LoginInteractor {
      * Getter method for currentUser.
      * @return currentUser.
      */
+    @Override
     public String getCurrentUser() {
         return currentUser;
     }
@@ -54,6 +55,7 @@ public class LoginInteractor {
      * @param username a String of a username attempt.
      * @param password a String of a password attempt.
      */
+    @Override
     public void validateLogin(String username, String password) {
         // an account with this username does not exist
         if (!(accounts.containsKey(username))) {
@@ -79,6 +81,7 @@ public class LoginInteractor {
      * @param password1 a String of a proposed password for a new account.
      * @param password2 a String of a proposed password for a new account.
      */
+    @Override
     public void createAccount(String username, String password1, String password2) throws IOException {
         // valid account creation: username is unique, password is long enough, and passwords match
         if (validateNewUsername(username) && validateNewPassword(password1) && (password1.equals(password2))) {
@@ -131,6 +134,7 @@ public class LoginInteractor {
     /**
      * Record that no user is currently logged in.
      */
+    @Override
     public void logOut() {
         currentUser = null;
     }
