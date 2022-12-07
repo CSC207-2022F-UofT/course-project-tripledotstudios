@@ -18,7 +18,7 @@ public class DummyLoginInteractor {
         this.filepath = filepath;
         // save the LoginInterface that LoginInteractor will use
         // read csv file and create hashmap mapping usernames to passwords
-        String line = "";
+        String line;
         // assign new HashMap to accounts attribute
         accounts = new HashMap<>();
         // read csv file and map usernames to passwords in <accounts>
@@ -38,14 +38,6 @@ public class DummyLoginInteractor {
      */
     public HashMap<String, String> getAccounts() {
         return accounts;
-    }
-
-    /**
-     * Getter method for filepath, the String containing the path to the csv with account data.
-     * @return <filepath>.
-     */
-    public String getFilepath() {
-        return filepath;
     }
 
     /**
@@ -125,13 +117,5 @@ public class DummyLoginInteractor {
      */
     public void logOut() {
         currentUser = null;
-    }
-
-    /**
-     * Checks whether a user is currently logged in.
-     * @return true iff a user is currently logged in.
-     */
-    public boolean isLoggedIn() {
-        return currentUser != null;
     }
 }
