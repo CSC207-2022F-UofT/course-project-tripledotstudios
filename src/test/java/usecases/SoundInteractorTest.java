@@ -7,7 +7,7 @@ import usecases.dummyclasses.DummySoundInteractor;
 class SoundInteractorTest {
 
     DummySoundInteractor si = new DummySoundInteractor();
-    String sound = "src/test/data/epic-inspirational.wav"; // must be repository root
+    String filepath = "src/test/data/epic-inspirational.wav"; // must be repository root
     
     // tests for getSoundChoice
     
@@ -30,7 +30,7 @@ class SoundInteractorTest {
 
     @Test
     public void SoundInteractorPlaySound() {
-        si.createSound(sound);
+        si.createSound(filepath);
         si.playSound();
         Assertions.assertTrue(si.playSound.isAlive());
         si.closeSound();
@@ -40,7 +40,7 @@ class SoundInteractorTest {
 
     @Test
     public void SoundInteractorStopSound() {
-        si.createSound(sound);
+        si.createSound(filepath);
         si.playSound();
         si.stopSound();
         Assertions.assertFalse(si.getSound().isActive());
