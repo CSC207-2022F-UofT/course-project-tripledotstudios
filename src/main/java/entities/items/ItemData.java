@@ -19,14 +19,27 @@ public class ItemData implements Serializable{
         this.value = value;
     }
 
+    /**
+     * Returns the name of the item (as a String).
+     * @return the name of the item
+     */
     public String getName(){
         return this.name;
     }
 
+    /**
+     * Returns the attribute of the item. So far, this is either "health" or "attack".
+     * @return the attribute of the item, either "health" or "attack"
+     */
     public String getAttribute(){
         return this.attribute;
     }
 
+    /**
+     * Returns the effective numerical value of the item, i.e. how many points of
+     * health or attack can this item induce.
+     * @return the effective numerical value of the item
+     */
     public int getValue(){
         return this.value;
     }

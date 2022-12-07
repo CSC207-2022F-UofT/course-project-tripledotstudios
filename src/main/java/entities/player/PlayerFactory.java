@@ -1,7 +1,6 @@
 package entities.player;
 
 import entities.items.ItemData;
-import entities.player.PlayerData;
 
 import java.util.ArrayList;
 import java.util.HashMap;

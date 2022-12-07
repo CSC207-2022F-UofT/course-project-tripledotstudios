@@ -4,7 +4,6 @@ import java.util.Random;
 
 /**
  * The data class that stores data of an enemy encountered in a CombatEvent.
- *
  */
 public class EnemyData {
     private final String name;  // Name of the enemy encountered.

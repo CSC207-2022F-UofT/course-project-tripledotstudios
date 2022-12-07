@@ -39,7 +39,7 @@ public class CombatEvent extends Event {
     /**
      * Generates and returns an enemy attack value.
      * @return a possible attack value of the enemy of this CombatEvent
-    */
+     */
     public Integer generateEnemyAttackValue(){
         return this.enemy.generateAttackValue();
     }
@@ -53,6 +53,4 @@ public class CombatEvent extends Event {
         int randomIndex = rand.nextInt(questions.size());  // Random index within "questions"
         return questions.get(randomIndex);
     }
-
-    //May add more methods related to "questions"
 }

@@ -40,8 +40,8 @@ public class StorylineInteractor implements StorylineInputBoundary {
         ITEMDATA = new ItemDataManager();
     }
 
-    /** Set Player on their first Event. The method
-     * takes in the username set by LoginInteractor.
+    /**
+     * Sets Player on their first Event. The method takes in the username set by LoginInteractor.
      */
     @Override
     public void startGame() throws IOException {
@@ -66,10 +66,11 @@ public class StorylineInteractor implements StorylineInputBoundary {
         playEvent();
     }
 
-    /** update the Player's current event based on the choice Player makes that correspond
+    /**
+     * Updates the Player's current event based on the choice Player makes that correspond
      * to the UUID from ChoicesNextUUIDs in Event
-    * @param choice the integer choice the Player makes
-    */
+     * @param choice the integer choice the Player makes
+     */
     @Override
     public void updateEventID(int choice) {
         Map<Integer, Event> event_map = MANAGER.getAllEvents();
@@ -83,7 +84,8 @@ public class StorylineInteractor implements StorylineInputBoundary {
 
     }
 
-    /** Loads the current event of the Player
+    /**
+     * Loads the current event of the Player
      */
     @Override
     public void loadGame() throws IOException, ClassNotFoundException {
@@ -97,7 +99,8 @@ public class StorylineInteractor implements StorylineInputBoundary {
         this.playEvent();
     }
 
-    /** Saves PLayer data to the file
+    /**
+     * Saves PLayer data to the file
      */
     @Override
     public void saveGame() throws IOException {
@@ -107,15 +110,17 @@ public class StorylineInteractor implements StorylineInputBoundary {
         System.out.println("saved!");
     }
 
-    /** Returns the Player back to the homescreen
+    /**
+     * Returns the Player back to the home screen
      */
     @Override
     public void endGame() {
         VIEW.returnHomeScreen();
     }
 
-    /** If the Player loses the game, bring the Player back to the last save
-     * The player
+    /**
+     * Player loses the game.
+     * Brings the Player back to the last save.
      */
     @Override
     public void lose() {
@@ -133,7 +138,8 @@ public class StorylineInteractor implements StorylineInputBoundary {
         VIEW.display_exit_options();
     }
 
-    /**Turn sound on or off
+    /**
+     * Toggles sound on or off
      */
     @Override
     public void soundSwitch() {
@@ -146,7 +152,7 @@ public class StorylineInteractor implements StorylineInputBoundary {
         }
     }
 
-    /**Play Homescreen sound*/
+    /** Plays Home screen sound */
     @Override
     public void homeSoundPlay() {
         String HOME_SOUND_FILE = "data/sound/morning-funny-beat.wav";
@@ -154,7 +160,7 @@ public class StorylineInteractor implements StorylineInputBoundary {
         SOUND.playSound();
     }
 
-    /**Stop Homescreen sound*/
+    /** Stops Home screen sound */
     @Override
     public void homeSoundStop() {
         SOUND.stopSound();

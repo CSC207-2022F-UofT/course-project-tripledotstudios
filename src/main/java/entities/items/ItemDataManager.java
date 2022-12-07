@@ -9,9 +9,9 @@ import java.util.List;
  * in a list.
  */
 public class ItemDataManager {
-    public List<ItemData> lst = new ArrayList<>(); // List of ItemData Objects;
+    private final List<ItemData> lst = new ArrayList<>(); // List of ItemData Objects;
 
-    public ItemDataManager() {
+    public ItemDataManager() {  // Loads data of all possible items from file.
         String line;
         String splitBy = ",";
         String fileName = "data/ItemObjects.csv";

@@ -1,6 +1,17 @@
 package usecases.login;
 
 public interface LoginInterface {
-    public void updateLogin(int view, String username); //when click sign in button, present the result
-    public void updateRegister(int view, String username); //when click sign up button, present the result
+    /**
+     * Present the window when the user clicks sign in button.
+     * @param view the ID of the view displayed
+     * @param username the username
+     */
+    void updateLogin(int view, String username);
+
+    /**
+     * Present the window when the user clicks sign up button.
+     * @param view the ID of the view displayed
+     * @param username the username
+     */
+    void updateRegister(int view, String username);
 }

@@ -1,12 +1,9 @@
 package usecases.combat;
 
 import java.util.*;
-
-import entities.events.CombatEvent;
-import entities.events.EventManager;
-import entities.events.QuestionData;
-import entities.items.ItemData;
-import entities.player.PlayerInteractor;
+import entities.events.*;
+import entities.items.*;
+import entities.player.*;
 
 public class CombatInteractor implements CombatInputBoundary {
 	
@@ -18,6 +15,7 @@ public class CombatInteractor implements CombatInputBoundary {
 	 * Constructor of CombatInteractor.
 	 * @param view reference to the CombatPresenter
 	 * @param events reference to the EventManager class
+	 * @param player the player in question
 	 */
 	public CombatInteractor(CombatInterface view, EventManager events, PlayerInteractor player){
 		this.view = view;
