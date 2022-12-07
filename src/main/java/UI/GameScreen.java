@@ -188,7 +188,7 @@ public class GameScreen {
      * @param playerItems The items to be displayed to the screen.
      */
     public void letPlayerChooseItem(ArrayList<ItemData> playerItems) {
-        JDialog dialog = new JDialog(frame, "INVENTORY", true);
+        JDialog dialog = new JDialog(frame,"INVENTORY", true);
 
         // setting variables for button settings
         Font itemFont = new Font("Consolas", Font.PLAIN, 14);
@@ -219,6 +219,7 @@ public class GameScreen {
             // add the action listener to perform a function
             int finalC = c;
             i.addActionListener(e -> {
+                System.out.println(finalC);
                 // updating the choice
                 combatController.playerChooseItem(finalC - 1);
 
@@ -227,9 +228,11 @@ public class GameScreen {
             });
         }
         panel.add(buttons);
+        dialog.setUndecorated(true);
         dialog.setContentPane(panel);
         dialog.add(buttons);
         dialog.pack();
+        dialog.setLocationRelativeTo(frame);
         dialog.setVisible(true);
     }
 
@@ -708,6 +711,7 @@ public class GameScreen {
      * Sets the frame to be visible.
      */
     public void setVisible() {
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 

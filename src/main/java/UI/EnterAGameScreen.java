@@ -76,6 +76,7 @@ public class EnterAGameScreen {
     }
 
     public void setVisible() {
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }

@@ -46,10 +46,10 @@ public class StorylineInteractor {
         HashMap<String, ArrayList<ItemData>> inventory = new HashMap<>(); //empty Hash Map
         player_action.updatePlayer((PlayerFactory.generatePlayer(username,
                 0, 100, inventory)));
-        player_action.addToInventory(ITEMDATA.getItemData().get(0));
-        player_action.addToInventory(ITEMDATA.getItemData().get(1));
-        player_action.addToInventory(ITEMDATA.getItemData().get(2));
-        player_action.addToInventory(ITEMDATA.getItemData().get(3));
+        ArrayList<ItemData> items = (ArrayList<ItemData>) ITEMDATA.getItemData();
+        for (ItemData item : items) {
+            player_action.addToInventory(item);
+        }
 
         // stop sounds before the first event begins
         SOUND.stopSound();
