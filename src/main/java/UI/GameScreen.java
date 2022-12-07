@@ -194,9 +194,16 @@ public class GameScreen {
         // looping through the player items.
         int c = 0;
         for (ItemData item : playerItems) {
+            String n;
+            if (item.getName().contains("Mystery")){
+                n = "???";
+            }
+            else {
+                n = "" + item.getValue();
+            }
             // creating a button based on an ItemData item.
             JButton i = new JButton("<html> <center> ["+(c + 1) + "] <br>" + item.getName()+ "<br>" +
-                    item.getAttribute() + "<br>" + item.getValue() + "</center> </html>");
+                    item.getAttribute() + "<br>" + n + "</center> </html>");
 
             // setting visuals for the buttons
             i.setFont(itemFont);
