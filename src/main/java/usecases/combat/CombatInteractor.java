@@ -8,7 +8,7 @@ import entities.events.QuestionData;
 import entities.items.ItemData;
 import entities.player.PlayerInteractor;
 
-public class CombatInteractor {
+public class CombatInteractor implements CombatInputBoundary {
 	
 	EventManager events;
 	CombatInterface view;
@@ -84,19 +84,22 @@ public class CombatInteractor {
 		return enemyCurrentHealth <= 0;
 	}
 
-	// Functions for CombatController to call
+	// Functions for CombatController to call (CombatInputBoundary)
 
 	private boolean playerWantsItemUse;
+	@Override
 	public void respondItemUse(boolean playerWantsItemUse){
 		this.playerWantsItemUse = playerWantsItemUse;
 	}
 
 	private int itemChoice;
+	@Override
 	public void playerChoosesItem(int itemChoice){
 		this.itemChoice = itemChoice;
 	}
 
 	private int answerIndex;
+	@Override
 	public void returnAnswer(int answerIndex){
 		this.answerIndex = answerIndex;
 	}

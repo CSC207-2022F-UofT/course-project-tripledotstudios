@@ -1,23 +1,23 @@
 package adapters.combat;
 
-import usecases.combat.CombatInteractor;
+import usecases.combat.CombatInputBoundary;
 
 public class CombatController {
-    private final CombatInteractor combatInteractor;
+    private final CombatInputBoundary combatInputBoundary;
 
-    public CombatController(CombatInteractor combatInter) {
-        combatInteractor = combatInter;
+    public CombatController(CombatInputBoundary combatInter) {
+        combatInputBoundary = combatInter;
     }
 
     public void respondItemUse(boolean playerWantsItemUse) {
-        combatInteractor.respondItemUse(playerWantsItemUse);
+        combatInputBoundary.respondItemUse(playerWantsItemUse);
     }
 
     public void playerChooseItem(int itemChoice) {
-        combatInteractor.playerChoosesItem(itemChoice);
+        combatInputBoundary.playerChoosesItem(itemChoice);
     }
 
     public void returnAnswer(int answerIndex) {
-        combatInteractor.returnAnswer(answerIndex);
+        combatInputBoundary.returnAnswer(answerIndex);
     }
 }
