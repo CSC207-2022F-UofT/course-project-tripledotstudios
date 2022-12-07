@@ -1,6 +1,5 @@
 package usecases.story;
 
-import entities.*;
 import java.util.List;
 
 public interface StorylineInterface {
