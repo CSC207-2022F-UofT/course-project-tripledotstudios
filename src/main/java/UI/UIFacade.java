@@ -1,28 +1,21 @@
 package UI;
 
-import adapters.combat.CombatController;
-import adapters.login.LoginController;
-import adapters.story.StorylineController;
+import adapters.combat.*;
+import adapters.login.*;
+import adapters.story.*;
 import entities.events.EventManager;
 import entities.items.ItemData;
-import entities.player.PlayerData;
-import entities.player.PlayerInteractor;
-import adapters.combat.CombatPresenter;
-import adapters.login.LoginPresenter;
-import adapters.story.StorylinePresenter;
-import usecases.combat.CombatInteractor;
-import adapters.gamesave.LoadInteractor;
-import adapters.gamesave.SaveInteractor;
-import usecases.login.LoginInputBoundary;
-import usecases.login.LoginInteractor;
-import usecases.sound.SoundInteractor;
-import usecases.story.StorylineInputBoundary;
-import usecases.story.StorylineInteractor;
+import entities.player.*;
+import usecases.combat.*;
+import adapters.gamesave.*;
+import usecases.login.*;
+import usecases.sound.*;
+import usecases.story.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class UIFacade { //facade method that contains all UIs
+public class UIFacade { // facade method that contains all UIs
 
     // set up all UIs
     private final GameScreen GAME_SCREEN = new GameScreen();
