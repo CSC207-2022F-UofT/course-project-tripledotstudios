@@ -1,6 +1,4 @@
-package usecases;  // relevant imports
-import entities.ItemData;
-import entities.PlayerData;
+package entities;  // relevant imports
 
 import java.util.ArrayList;
 
