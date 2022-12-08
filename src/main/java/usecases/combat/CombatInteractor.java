@@ -5,7 +5,7 @@ import entities.events.*;
 import entities.items.*;
 import entities.player.*;
 
-public class CombatInteractor implements CombatInputBoundary {
+public class CombatInteractor implements CombatInputBoundary, CombatUseBoundary {
 	
 	EventManager events;
 	CombatInterface view;
@@ -28,6 +28,7 @@ public class CombatInteractor implements CombatInputBoundary {
 	* @param UUID the unique id of the CombatEvent. (MUST be a CombatEvent)
 	* @return whether the player wins or not: true if won, false if lost
 	*/
+	@Override
 	public boolean combat(int UUID){
 		CombatEvent event = (CombatEvent) events.getAllEvents().get(UUID);
 

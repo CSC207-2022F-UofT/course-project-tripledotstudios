@@ -19,7 +19,7 @@ public class StorylineInteractor implements StorylineInputBoundary {
     private final Saver SAVE;
     private final Loader LOAD;
     private final PlayerInteractor player_action;
-    private final CombatInteractor COMBAT;
+    private final CombatUseBoundary COMBAT;
     private final EventManager MANAGER;
     private final LoginInputBoundary LOGIN;
 
@@ -27,7 +27,7 @@ public class StorylineInteractor implements StorylineInputBoundary {
 
     public StorylineInteractor(StorylineInterface story, SoundInteractor soundInteractor,
                                Saver saveInteractor, Loader loadInteractor,
-                               PlayerInteractor playerInteractor, CombatInteractor combatInteractor,
+                               PlayerInteractor playerInteractor, CombatUseBoundary combatInteractor,
                                EventManager eventManager, LoginInputBoundary loginInteractor) {
         VIEW = story;
         SOUND = soundInteractor;
