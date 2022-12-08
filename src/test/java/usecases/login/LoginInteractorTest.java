@@ -1,4 +1,4 @@
-package usecases;
+package usecases.login;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

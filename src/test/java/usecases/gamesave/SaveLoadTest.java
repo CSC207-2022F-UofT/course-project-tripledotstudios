@@ -1,4 +1,4 @@
-package usecases;
+package usecases.gamesave;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,6 +7,7 @@ import entities.player.PlayerData;
 import entities.items.ItemData;
 import adapters.gamesave.LoadInteractor;
 import adapters.gamesave.SaveInteractor;
+
 
 // Testing out the SaveInteractor and LoadInteractor to see if saving and loading works
 public class SaveLoadTest {
@@ -23,7 +24,10 @@ public class SaveLoadTest {
 
 
         // Testing out the save feature
+
+
         SaveInteractor saver = new SaveInteractor();
+
         try{
             saver.saveToFile(filename, player);
         } catch (IOException e) {
@@ -63,3 +67,4 @@ public class SaveLoadTest {
     }
 
 }
+
