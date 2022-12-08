@@ -3,20 +3,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-<<<<<<< HEAD
-import entities.PlayerData;
-import entities.ItemData;
-
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-=======
 import entities.player.PlayerData;
 import entities.items.ItemData;
 import adapters.gamesave.LoadInteractor;
 import adapters.gamesave.SaveInteractor;
->>>>>>> main
+
 
 // Testing out the SaveInteractor and LoadInteractor to see if saving and loading works
 public class SaveLoadTest {
@@ -33,11 +24,10 @@ public class SaveLoadTest {
 
 
         // Testing out the save feature
-<<<<<<< HEAD
-        usecases.SaveInteractor saver = new usecases.SaveInteractor();
-=======
+
+
         SaveInteractor saver = new SaveInteractor();
->>>>>>> main
+
         try{
             saver.saveToFile(filename, player);
         } catch (IOException e) {
@@ -47,11 +37,7 @@ public class SaveLoadTest {
 
 
         // Testing out the loading feature
-<<<<<<< HEAD
-        usecases.LoadInteractor loader = new usecases.LoadInteractor();
-=======
         LoadInteractor loader = new LoadInteractor();
->>>>>>> main
         player = loader.readFromFile(filename);
 
         System.out.println(player.getUsername());
@@ -80,8 +66,5 @@ public class SaveLoadTest {
 
     }
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> main
+
