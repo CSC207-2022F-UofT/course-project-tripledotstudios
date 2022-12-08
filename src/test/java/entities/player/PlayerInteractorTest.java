@@ -1,4 +1,4 @@
-package usecases;
+package entities.player;
 
 import entities.items.ItemData;
 import entities.player.PlayerData;
