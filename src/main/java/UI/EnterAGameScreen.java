@@ -1,7 +1,7 @@
 package UI;
 
-import controller.LoginController;
-import controller.StorylineController;
+import adapters.login.LoginController;
+import adapters.story.StorylineController;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -76,6 +76,7 @@ public class EnterAGameScreen {
     }
 
     public void setVisible() {
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }

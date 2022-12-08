@@ -1,13 +1,10 @@
 package UI;
 
-import controller.LoginController;
-import controller.StorylineController;
-import usecases.LoginInteractor;
+import adapters.login.LoginController;
+import adapters.story.StorylineController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Login
@@ -55,24 +52,18 @@ public class LoginScreen extends JPanel {
         passwordInfo.add(password);
 
         JButton signIn = new JButton("Sign in");
-        signIn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent eve) {
-                try {
-                    loginController.login(username.getText(), String.valueOf(password.getPassword()));
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
-                }
+        signIn.addActionListener(eve -> {
+            try {
+                loginController.login(username.getText(), String.valueOf(password.getPassword()));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         });
 
         JButton reset = new JButton("Reset");
-        reset.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent eve) {
-                username.setText("");
-                password.setText("");
-            }
+        reset.addActionListener(eve -> {
+            username.setText("");
+            password.setText("");
         });
 
         JPanel buttons = new JPanel();
@@ -81,11 +72,8 @@ public class LoginScreen extends JPanel {
 
         JButton sound = new JButton("Sound On/Off");
         sound.setBounds(450,200,130,40);
-        sound.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { storylineController.soundSwitch();
-            }
-        });
+        buttons.add(sound);
+        sound.addActionListener(e -> storylineController.soundSwitch());
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -93,8 +81,8 @@ public class LoginScreen extends JPanel {
         this.add(usernameInfo);
         this.add(passwordInfo);
         this.add(buttons);
+
         frame.add(this);
-        frame.add(sound);
 
     }
 
@@ -104,6 +92,7 @@ public class LoginScreen extends JPanel {
     }
 
     public void setVisible() {
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
