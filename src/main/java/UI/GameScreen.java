@@ -221,7 +221,6 @@ public class GameScreen {
             // add the action listener to perform a function
             int finalC = c;
             i.addActionListener(e -> {
-                System.out.println(finalC);
                 // updating the choice
                 combatController.playerChooseItem(finalC - 1);
 

@@ -95,7 +95,6 @@ public class StorylineInteractor implements StorylineInputBoundary {
         player_action.updatePlayer(LOAD.readFromFile("data/savefiles/" + username)); // loading a player
 
         //start the game on the current event
-        System.out.println(player_action.getPlayerEventID());
         this.playEvent();
     }
 
@@ -107,7 +106,6 @@ public class StorylineInteractor implements StorylineInputBoundary {
         String filename = "data/savefiles/" + LOGIN.getCurrentUser() + ".ser";
 
         SAVE.saveToFile(filename, player_action.getReference());
-        System.out.println("saved!");
     }
 
     /**
