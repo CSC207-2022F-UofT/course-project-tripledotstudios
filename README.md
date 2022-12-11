@@ -1,4 +1,4 @@
-# CSC207 Project: Lost-the Game
+# CSC207 Project: Useless Facts: Life or Death Trivia
 
 As of December 7, we have finished all of the features of the game. Since the Milestone 4 deadline, we have finished 
 our UI and have a working version of the game. After receiving the Milestone 4 feedback, we refactored our code 
